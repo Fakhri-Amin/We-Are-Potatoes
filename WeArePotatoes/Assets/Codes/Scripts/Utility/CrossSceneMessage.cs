@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Tazkan.Utility;
+using Farou.Utility;
 using UnityEngine;
 
 public class CrossSceneMessage : Singleton<CrossSceneMessage>

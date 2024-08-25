@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tazkan.Utility
+namespace Farou.Utility
 {
     public class Singleton<T> : MonoBehaviour where T : Component
     {

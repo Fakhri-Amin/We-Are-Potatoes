@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tazkan.Utility;
+using Farou.Utility;
 using DG.Tweening;
 
 public class DimedBackgroundManager : Singleton<DimedBackgroundManager>

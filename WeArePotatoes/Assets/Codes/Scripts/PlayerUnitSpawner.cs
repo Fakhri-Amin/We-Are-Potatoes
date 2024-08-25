@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Farou.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUnitSpawner : MonoBehaviour
+public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 {
-    [SerializeField] private GameObject playerUnitPrefab;
+    [SerializeField] private List<PlayerUnit> playerUnits = new List<PlayerUnit>();
+    [SerializeField] private PlayerUnit playerUnitPrefab;
     [SerializeField] private Transform playerUnitSpawnPoint;
     [SerializeField] private Button spawnButton;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         spawnButton.onClick.AddListener(OnSpawn);
     }
 
     private void OnSpawn()
     {
-        Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position, Quaternion.identity);
+        PlayerUnit unit = Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position, Quaternion.identity);
+        playerUnits.Add(unit);
     }
 }

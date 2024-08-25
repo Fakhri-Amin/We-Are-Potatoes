@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
-using Tazkan.Utility;
+using Farou.Utility;
 
 public class FeedbackManager : Singleton<FeedbackManager>
 {

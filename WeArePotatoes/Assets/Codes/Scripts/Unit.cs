@@ -7,7 +7,12 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 moveDirection;
 
-    private void Update()
+    protected void Update()
+    {
+        Move(moveDirection, moveSpeed);
+    }
+
+    private void Move(Vector3 moveDirection, float moveSpeed)
     {
         transform.position += moveSpeed * Time.deltaTime * moveDirection;
     }

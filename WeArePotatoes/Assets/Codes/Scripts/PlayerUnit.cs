@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PlayerUnit : Unit
 {
+    private new void Update()
+    {
+        base.Update();
+
+        HandleUnitDetection();
+    }
+
+    private void HandleUnitDetection()
+    {
+
+    }
+
     public override void Attack()
     {
 
