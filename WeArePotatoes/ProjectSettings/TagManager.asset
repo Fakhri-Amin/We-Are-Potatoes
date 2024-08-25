@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerUnit
+  - EnemyUnit
   layers:
   - Default
   - TransparentFX
@@ -38,6 +40,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2784592287
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3442180991
+    locked: 0
+  - name: UnitBase
+    uniqueID: 2240835389
+    locked: 0
+  - name: Unit
+    uniqueID: 1145305165
+    locked: 0
+  - name: UnitBaseWall
+    uniqueID: 2572288415
     locked: 0
