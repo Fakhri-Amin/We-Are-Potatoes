@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 {
-    [SerializeField] private List<PlayerUnit> playerUnits = new List<PlayerUnit>();
     [SerializeField] private PlayerUnit playerUnitPrefab;
     [SerializeField] private Transform playerUnitSpawnPoint;
     [SerializeField] private Button spawnButton;
@@ -17,11 +16,19 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         spawnButton.onClick.AddListener(OnSpawn);
     }
 
+    private void OnEnable()
+    {
+        Unit.OnAnyUnitDead += PlayerUnit_OnAnyPlayerUnitDead;
+    }
+
+    private void PlayerUnit_OnAnyPlayerUnitDead(Unit unit)
+    {
+        if (unit && unit.UnitType == UnitType.Player) Destroy(unit.gameObject);
+    }
+
     private void OnSpawn()
     {
         PlayerUnit unit = Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position, Quaternion.identity);
-        playerUnits.Add(unit);
     }
 
-    public List<PlayerUnit> GetPlayerUnits() => playerUnits;
 }

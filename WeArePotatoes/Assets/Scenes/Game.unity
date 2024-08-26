@@ -1615,7 +1615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ff5a5894e30d74db4818cbca914ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUnits: []
   playerUnitPrefab: {fileID: 3989395770664636578, guid: da1c27dc42ab57f41b1a77db62449eb4, type: 3}
   playerUnitSpawnPoint: {fileID: 1406730509}
   spawnButton: {fileID: 302402674}
@@ -1896,7 +1895,7 @@ Transform:
   m_GameObject: {fileID: 740916144}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.69, y: 0.08, z: -0.053980887}
+  m_LocalPosition: {x: 7.42, y: 0.08, z: -0.053980887}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2320,8 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6912455d731b9a24898f7899de8373cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnits: []
-  enemyUnitPrefab: {fileID: 8956054631887331086, guid: 347cc5985350a4249b095f5676d82007, type: 3}
+  enemyUnitPrefab: {fileID: -3394910292757189984, guid: 654bbc8f843329042a86b4c5fdcbacdd, type: 3}
   enemyUnitSpawnPoint: {fileID: 740916145}
 --- !u!1 &1135873413
 GameObject:

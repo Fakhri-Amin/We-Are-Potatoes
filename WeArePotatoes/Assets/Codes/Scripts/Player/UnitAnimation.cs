@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class UnitAnimation : MonoBehaviour
 {
     private const string ATTACK_PARAMETER = "Attack";
 
