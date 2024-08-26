@@ -22,4 +22,6 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         PlayerUnit unit = Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position, Quaternion.identity);
         playerUnits.Add(unit);
     }
+
+    public List<PlayerUnit> GetPlayerUnits() => playerUnits;
 }

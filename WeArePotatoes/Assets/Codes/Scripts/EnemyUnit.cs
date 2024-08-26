@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUnit : Unit
+public class EnemyUnit : Unit
 {
-    public static Action OnAnyPlayerUnitDead;
+    public static Action OnAnyEnemyUnitDead;
 
     [SerializeField] private float attackRange;
 
@@ -30,7 +30,7 @@ public class PlayerUnit : Unit
 
     private void HealthSystem_OnDead()
     {
-        OnAnyPlayerUnitDead?.Invoke();
+        OnAnyEnemyUnitDead?.Invoke();
 
         Destroy(gameObject);
     }
@@ -42,9 +42,9 @@ public class PlayerUnit : Unit
 
     private void HandleUnitDetection()
     {
-        var enemyUnits = EnemyUnitSpawner.Instance.GetEnemyUnits();
+        var playerUnits = PlayerUnitSpawner.Instance.GetPlayerUnits();
 
-        foreach (var item in enemyUnits)
+        foreach (var item in playerUnits)
         {
             if (Vector2.Distance(transform.position, item.transform.position) < attackRange)
             {
@@ -60,6 +60,6 @@ public class PlayerUnit : Unit
 
     public override void Attack()
     {
-        Debug.Log("Attack!");
+
     }
 }
