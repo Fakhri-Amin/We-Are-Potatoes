@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyUnit : Unit
 {
-    public static Action OnAnyEnemyUnitDead;
+    public static Action<EnemyUnit> OnAnyEnemyUnitDead;
 
     [SerializeField] private float attackRange;
 
@@ -30,9 +30,7 @@ public class EnemyUnit : Unit
 
     private void HealthSystem_OnDead()
     {
-        OnAnyEnemyUnitDead?.Invoke();
-
-        Destroy(gameObject);
+        OnAnyEnemyUnitDead?.Invoke(this);
     }
 
     public void Damage(int damageAmount)
@@ -49,7 +47,7 @@ public class EnemyUnit : Unit
             if (Vector2.Distance(transform.position, item.transform.position) < attackRange)
             {
                 canMove = false;
-                Attack();
+                HandleAttack();
             }
             else
             {
@@ -58,7 +56,7 @@ public class EnemyUnit : Unit
         }
     }
 
-    public override void Attack()
+    public override void HandleAttack()
     {
 
     }

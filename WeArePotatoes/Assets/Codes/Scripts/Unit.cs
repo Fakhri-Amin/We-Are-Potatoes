@@ -23,7 +23,7 @@ public abstract class Unit : MonoBehaviour, IAttackable
         transform.position += moveSpeed * Time.deltaTime * moveDirection;
     }
 
-    public abstract void Attack();
+    public abstract void HandleAttack();
 
     public void Damage()
     {

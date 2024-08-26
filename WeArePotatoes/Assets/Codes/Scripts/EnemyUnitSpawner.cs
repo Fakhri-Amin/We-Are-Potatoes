@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
@@ -9,12 +10,23 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     [SerializeField] private EnemyUnit enemyUnitPrefab;
     [SerializeField] private Transform enemyUnitSpawnPoint;
 
+    private new void Awake()
+    {
+        EnemyUnit.OnAnyEnemyUnitDead += EnemyUnit_OnAnyEnemyUnitDead;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             OnSpawn();
         }
+    }
+
+    private void EnemyUnit_OnAnyEnemyUnitDead(EnemyUnit unit)
+    {
+        enemyUnits.Remove(unit);
+        Destroy(unit.gameObject);
     }
 
     private void OnSpawn()
