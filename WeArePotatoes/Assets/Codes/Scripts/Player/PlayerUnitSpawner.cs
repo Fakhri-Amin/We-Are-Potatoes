@@ -28,7 +28,8 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 
     private void OnSpawn()
     {
-        PlayerUnit unit = Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position, Quaternion.identity);
+        Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
+        PlayerUnit unit = Instantiate(playerUnitPrefab, playerUnitSpawnPoint.position + offset, Quaternion.identity);
     }
 
 }

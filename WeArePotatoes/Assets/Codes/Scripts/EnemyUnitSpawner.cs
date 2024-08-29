@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
@@ -29,7 +28,8 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 
     private void OnSpawn()
     {
-        EnemyUnit unit = Instantiate(enemyUnitPrefab, enemyUnitSpawnPoint.position, Quaternion.identity);
+        Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
+        EnemyUnit unit = Instantiate(enemyUnitPrefab, enemyUnitSpawnPoint.position + offset, Quaternion.identity);
     }
 
 }

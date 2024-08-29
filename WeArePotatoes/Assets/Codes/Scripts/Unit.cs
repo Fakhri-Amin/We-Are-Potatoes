@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour, IAttackable
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 moveDirection;
+    [SerializeField] private float attackRadius = 1f;
+    [SerializeField] private LayerMask enemyMask;
 
     protected bool canMove = true;
 
@@ -39,34 +41,64 @@ public class Unit : MonoBehaviour, IAttackable
         {
             Move(moveDirection, moveSpeed);
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius, enemyMask);
+        foreach (var enemy in enemiesInRange)
         {
-            canMove = false;
-            attackableTarget = attackable;
-            unitAnimation.PlayAttackAnimation();
+            if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
+            {
+                Unit unit = attackable as Unit;
+
+                if (unit.UnitType == UnitType) return;
+
+                canMove = false;
+                attackableTarget = attackable;
+                unitAnimation.PlayAttackAnimation();
+            }
+        }
+
+        if (enemiesInRange.Length <= 0)
+        {
+            canMove = true;
+            attackableTarget = null;
+            unitAnimation.PlayIdleAnimation();
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
-        {
-            canMove = false;
-            attackableTarget = attackable;
-            unitAnimation.PlayAttackAnimation();
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
+    //     {
+    //         Unit unit = attackable as Unit;
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        canMove = true;
-        attackableTarget = null;
-        unitAnimation.PlayIdleAnimation();
-    }
+    //         if (unit.UnitType == UnitType) return;
+
+    //         canMove = false;
+    //         attackableTarget = attackable;
+    //         unitAnimation.PlayAttackAnimation();
+    //     }
+    // }
+
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
+    //     {
+    //         Unit unit = attackable as Unit;
+
+    //         if (unit.UnitType == UnitType) return;
+
+    //         canMove = false;
+    //         attackableTarget = attackable;
+    //         unitAnimation.PlayAttackAnimation();
+    //     }
+    // }
+
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     canMove = true;
+    //     attackableTarget = null;
+    //     unitAnimation.PlayIdleAnimation();
+    // }
 
     private void Move(Vector3 moveDirection, float moveSpeed)
     {

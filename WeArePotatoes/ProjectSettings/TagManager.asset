@@ -57,3 +57,6 @@ TagManager:
   - name: UnitBaseWall
     uniqueID: 2572288415
     locked: 0
+  - name: UI
+    uniqueID: 503992663
+    locked: 0
