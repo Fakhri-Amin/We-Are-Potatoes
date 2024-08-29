@@ -1,23 +1,28 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, IAttackable
 {
-    public static Action<Unit> OnAnyUnitDead;
-    public UnitType UnitType;
+    public static event Action<Unit> OnAnyUnitDead;
 
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private Vector3 moveDirection;
-    [SerializeField] private float attackRadius = 1f;
-    [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private UnitStatSO unitStatSO;
+    [SerializeField] private UnitType unitType;
+    [SerializeField] private UnitHero unitHero;
+    [SerializeField] private LayerMask targetMask;
+    [SerializeField] private Transform visual;
 
-    protected bool canMove = true;
+    protected float moveSpeed;
+    protected float detectRadius = 3f;
+    protected float attackRadius = 1f;
+    private bool canMove = true;
+    private bool isEnemyInRange = false;
+    private HealthSystem healthSystem;
+    private IAttackable attackableTarget;
+    private UnitAnimation unitAnimation;
+    private Vector3 moveDirection;
 
-    protected HealthSystem healthSystem;
-    protected IAttackable attackableTarget;
-    protected UnitAnimation unitAnimation;
+    public UnitType UnitType => unitType;
 
     public virtual void Awake()
     {
@@ -25,84 +30,115 @@ public class Unit : MonoBehaviour, IAttackable
         unitAnimation = GetComponent<UnitAnimation>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        healthSystem.OnDead += HealthSystem_OnDead;
+        InitializeUnit();
     }
 
-    private void HealthSystem_OnDead()
+    private void OnEnable()
+    {
+        healthSystem.OnDead += HandleOnDead;
+    }
+
+    private void OnDisable()
+    {
+        healthSystem.OnDead -= HandleOnDead;
+    }
+
+    private void HandleOnDead()
     {
         OnAnyUnitDead?.Invoke(this);
     }
 
-    protected void Update()
+    private void Update()
     {
-        if (canMove)
+        if (canMove && !isEnemyInRange)
         {
-            Move(moveDirection, moveSpeed);
+            Move();
         }
 
-        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius, enemyMask);
-        foreach (var enemy in enemiesInRange)
+        DetectEnemiesAndHandleMoveToward();
+        DetectEnemiesAndHandleAttack();
+    }
+
+    private void InitializeUnit()
+    {
+        // Set the stat
+        foreach (var item in unitStatSO.UnitStatDataList)
         {
-            if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
+            moveSpeed = item.MoveSpeed;
+            detectRadius = item.DetectRadius;
+            attackRadius = item.AttackRadius;
+        }
+
+        // Set the move direction
+        moveDirection = unitType == UnitType.Player ? Vector3.right : Vector3.left;
+
+        // Set the scale
+        visual.localScale = unitType == UnitType.Player
+            ? new Vector3(Mathf.Abs(visual.localScale.x), visual.localScale.y, visual.localScale.z)
+            : new Vector3(-Mathf.Abs(visual.localScale.x), visual.localScale.y, visual.localScale.z);
+    }
+
+    private void Move()
+    {
+        transform.position += moveSpeed * Time.deltaTime * moveDirection;
+    }
+
+    private void MoveToward(Vector3 targetPosition)
+    {
+        // Calculate the direction towards the target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
+        // Move the unit towards the target
+        transform.position += moveSpeed * Time.deltaTime * direction;
+    }
+
+    private void DetectEnemiesAndHandleMoveToward()
+    {
+        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, detectRadius, targetMask);
+        if (targetInRange.Length > 0)
+        {
+            foreach (var enemy in targetInRange)
             {
-                Unit unit = attackable as Unit;
+                if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable) && canMove)
+                {
+                    isEnemyInRange = true;
+                    MoveToward(enemy.transform.position);
+                    return;
+                }
+            }
+        }
+        isEnemyInRange = false;
+    }
 
-                if (unit.UnitType == UnitType) return;
+    private void DetectEnemiesAndHandleAttack()
+    {
+        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius, targetMask);
 
-                canMove = false;
-                attackableTarget = attackable;
-                unitAnimation.PlayAttackAnimation();
+        if (targetInRange.Length > 0)
+        {
+            foreach (var enemy in targetInRange)
+            {
+                if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
+                {
+                    Unit unit = attackable as Unit;
+
+                    if (unit != null && unit.UnitType != UnitType)
+                    {
+                        canMove = false;
+                        attackableTarget = attackable;
+                        unitAnimation.PlayAttackAnimation();
+                        return;
+                    }
+                }
             }
         }
 
-        if (enemiesInRange.Length <= 0)
-        {
-            canMove = true;
-            attackableTarget = null;
-            unitAnimation.PlayIdleAnimation();
-        }
-    }
-
-    // private void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
-    //     {
-    //         Unit unit = attackable as Unit;
-
-    //         if (unit.UnitType == UnitType) return;
-
-    //         canMove = false;
-    //         attackableTarget = attackable;
-    //         unitAnimation.PlayAttackAnimation();
-    //     }
-    // }
-
-    // private void OnTriggerStay2D(Collider2D other)
-    // {
-    //     if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
-    //     {
-    //         Unit unit = attackable as Unit;
-
-    //         if (unit.UnitType == UnitType) return;
-
-    //         canMove = false;
-    //         attackableTarget = attackable;
-    //         unitAnimation.PlayAttackAnimation();
-    //     }
-    // }
-
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     canMove = true;
-    //     attackableTarget = null;
-    //     unitAnimation.PlayIdleAnimation();
-    // }
-
-    private void Move(Vector3 moveDirection, float moveSpeed)
-    {
-        transform.position += moveSpeed * Time.deltaTime * moveDirection;
+        // Reset state if no valid targets are found
+        canMove = true;
+        attackableTarget = null;
+        unitAnimation.PlayIdleAnimation();
     }
 
     public virtual void HandleAttack()
@@ -110,7 +146,7 @@ public class Unit : MonoBehaviour, IAttackable
         if (attackableTarget != null)
         {
             attackableTarget.Damage(10);
-            Debug.Log("Player Attack");
+            Debug.Log($"{UnitType} attacked {attackableTarget}");
         }
     }
 
