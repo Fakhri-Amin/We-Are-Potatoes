@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, IAttackable
@@ -11,6 +12,8 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private UnitHero unitHero;
     [SerializeField] private LayerMask targetMask;
     [SerializeField] private Transform visual;
+    [SerializeField] private MMFeedbacks deadFeedbacks;
+    [SerializeField] private ParticleSystem deadVFX;
 
     protected float moveSpeed;
     protected float detectRadius = 3f;
@@ -47,6 +50,9 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void HandleOnDead()
     {
+        // deadFeedbacks?.PlayFeedbacks();
+        var vfx = Instantiate(deadVFX, transform.position, Quaternion.identity);
+        vfx.gameObject.SetActive(true);
         OnAnyUnitDead?.Invoke(this);
     }
 

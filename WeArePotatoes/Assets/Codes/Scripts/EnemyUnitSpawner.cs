@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
     [SerializeField] private EnemyUnit enemyUnitPrefab;
     [SerializeField] private Transform enemyUnitSpawnPoint;
+    [SerializeField] private MMFeedbacks unitDeadFeedbacks;
 
     private new void Awake()
     {
@@ -23,7 +25,10 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 
     private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
     {
-        if (unit && unit.UnitType == UnitType.Enemy) Destroy(unit.gameObject);
+        if (unit && unit.UnitType == UnitType.Enemy)
+        {
+            Destroy(unit.gameObject);
+        }
     }
 
     private void OnSpawn()
