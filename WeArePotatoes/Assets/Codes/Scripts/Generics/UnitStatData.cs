@@ -6,6 +6,7 @@ using UnityEngine;
 public class UnitStatData
 {
     public UnitHero UnitHero;
+    public float Health;
     public float MoveSpeed;
     public float DetectRadius;
     public float AttackRadius;

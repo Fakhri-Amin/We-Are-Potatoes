@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0b72286c4f6ba44b453ef2b119c046, type: 3}
   m_Name: UnitStatSO
   m_EditorClassIdentifier: 
-  UnitStatData:
-    UnitHero: 0
-    MoveSpeed: 0
-    DetectRadius: 0
-    AttackRadius: 0
+  UnitStatDataList:
+  - UnitHero: 1
+    MoveSpeed: 1.2
+    DetectRadius: 4
+    AttackRadius: 1.4
