@@ -3945,6 +3945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ff5a5894e30d74db4818cbca914ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseTransform: {fileID: 17084595}
   unitSword: {fileID: 2147124410541410135, guid: da1c27dc42ab57f41b1a77db62449eb4, type: 3}
   unitBow: {fileID: 530729902207760050, guid: 1506b19e66a19de49928310b6b5c31d2, type: 3}
   playerUnitSpawnPoint: {fileID: 1406730509}
@@ -9300,6 +9301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6912455d731b9a24898f7899de8373cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseTransform: {fileID: 1238727159}
   unitSword: {fileID: 2147124410541410135, guid: da1c27dc42ab57f41b1a77db62449eb4, type: 3}
   unitBow: {fileID: 530729902207760050, guid: 1506b19e66a19de49928310b6b5c31d2, type: 3}
   enemyUnitSpawnPoint: {fileID: 740916145}
