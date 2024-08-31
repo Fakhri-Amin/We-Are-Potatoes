@@ -20,11 +20,11 @@ public class UnitBowAttackSystem : MonoBehaviour
     {
         objectPool = new ObjectPool<Projectile>(() =>
         {
-            return Instantiate(projectile, transform);
+            return Instantiate(projectile);
         }, obj =>
         {
             obj.gameObject.SetActive(true);
-            obj.transform.localPosition = shootingTransform.localPosition;
+            obj.transform.position = shootingTransform.position;
         }, obj =>
         {
             obj.gameObject.SetActive(false);
@@ -52,7 +52,7 @@ public class UnitBowAttackSystem : MonoBehaviour
 
             Unit target = unit.AttackableTarget as Unit;
 
-            newProjectile.Initialize(this, unit.UnitType, target.transform, 10, 7);
+            newProjectile.Initialize(this, unit.UnitType, target.transform, 20, 15);
         }
     }
 }

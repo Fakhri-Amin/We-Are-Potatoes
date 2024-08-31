@@ -7,6 +7,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour, IAttackable
 {
     public static event Action<Unit> OnAnyUnitDead;
+    public event Action OnDead;
 
     [SerializeField] private UnitStatSO unitStatSO;
     [SerializeField] private UnitType unitType;
@@ -19,7 +20,7 @@ public class Unit : MonoBehaviour, IAttackable
     protected float moveSpeed;
     protected float detectRadius = 3f;
     protected float attackRadius = 1f;
-    protected float attackCooldown = 0;
+    protected float attackSpeed = 0;
     private bool canMove = true;
     private HealthSystem healthSystem;
     private IAttackable attackableTarget;
@@ -49,6 +50,7 @@ public class Unit : MonoBehaviour, IAttackable
     private void HandleOnDead()
     {
         deadFeedbacks?.PlayFeedbacks();
+        OnDead?.Invoke();
         // var vfx = Instantiate(deadVFX, transform.position, Quaternion.identity);
         // vfx.gameObject.SetActive(true);
         OnAnyUnitDead?.Invoke(this);
@@ -82,7 +84,7 @@ public class Unit : MonoBehaviour, IAttackable
                 moveSpeed = item.MoveSpeed;
                 detectRadius = item.DetectRadius;
                 attackRadius = item.AttackRadius;
-                attackCooldown = item.attackCooldown;
+                attackSpeed = item.AttackSpeed;
             }
         }
 
@@ -145,10 +147,12 @@ public class Unit : MonoBehaviour, IAttackable
 
                     if (unit != null && unit.UnitType != UnitType)
                     {
+                        if (attackRoutine != null) return;
+
                         canMove = false;
                         attackableTarget = attackable;
 
-                        if (attackRoutine != null) return;
+                        unit.OnDead += ResetTargetEnemy;
                         attackRoutine = StartCoroutine(AttackRoutine());
                         return;
                     }
@@ -158,17 +162,23 @@ public class Unit : MonoBehaviour, IAttackable
 
         // Reset state if no valid targets are found
         canMove = true;
+        ResetTargetEnemy();
+    }
+
+    private void ResetTargetEnemy()
+    {
         attackableTarget = null;
         attackRoutine = null;
     }
 
     private IEnumerator AttackRoutine()
     {
-        unitAnimation.PlayAttackAnimation();
+        while (!canMove)
+        {
+            unitAnimation.PlayAttackAnimation();
 
-        yield return new WaitForSeconds(attackCooldown);
-
-        attackRoutine = null;
+            yield return new WaitForSeconds(attackSpeed);
+        }
     }
 
     public void Damage(int damageAmount)

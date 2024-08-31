@@ -18,10 +18,10 @@ MonoBehaviour:
     MoveSpeed: 1.2
     DetectRadius: 4
     AttackRadius: 1.4
-    attackCooldown: 0.5
+    AttackSpeed: 2
   - UnitHero: 2
-    Health: 100
+    Health: 50
     MoveSpeed: 1.2
     DetectRadius: 9
-    AttackRadius: 6
-    attackCooldown: 0.5
+    AttackRadius: 5
+    AttackSpeed: 2

@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
-    [SerializeField] private Unit enemyUnitPrefab;
+    [SerializeField] private Unit unitSword;
+    [SerializeField] private Unit unitBow;
     [SerializeField] private Transform enemyUnitSpawnPoint;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
 
@@ -22,9 +23,13 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            OnSpawn();
+            OnUnitSwordSpawn();
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            OnUnitBowSpawn();
         }
     }
 
@@ -36,11 +41,21 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         }
     }
 
-    private void OnSpawn()
+    private void OnUnitBowSpawn()
+    {
+        OnUnitSpawn(unitBow);
+    }
+
+    private void OnUnitSwordSpawn()
+    {
+        OnUnitSpawn(unitSword);
+    }
+
+    private void OnUnitSpawn(Unit unit)
     {
         Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
-        Unit unit = Instantiate(enemyUnitPrefab, enemyUnitSpawnPoint.position + offset, Quaternion.identity);
-        unit.InitializeUnit(UnitType.Enemy);
+        Unit spawnedUnit = Instantiate(unit, enemyUnitSpawnPoint.position + offset, Quaternion.identity);
+        spawnedUnit.InitializeUnit(UnitType.Enemy);
     }
 
 }

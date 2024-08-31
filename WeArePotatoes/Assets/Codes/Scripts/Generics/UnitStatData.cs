@@ -10,5 +10,5 @@ public class UnitStatData
     public float MoveSpeed;
     public float DetectRadius;
     public float AttackRadius;
-    public float attackCooldown;
+    public float AttackSpeed;
 }
