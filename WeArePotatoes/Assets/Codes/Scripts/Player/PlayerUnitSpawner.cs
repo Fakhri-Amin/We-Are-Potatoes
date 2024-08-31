@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 {
+    [SerializeField] private Transform baseTransform;
     [SerializeField] private Unit unitSword;
     [SerializeField] private Unit unitBow;
     [SerializeField] private Transform playerUnitSpawnPoint;
@@ -43,6 +44,6 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     {
         Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = Instantiate(unit, playerUnitSpawnPoint.position + offset, Quaternion.identity);
-        spawnedUnit.InitializeUnit(UnitType.Player);
+        spawnedUnit.InitializeUnit(UnitType.Player, baseTransform.position);
     }
 }

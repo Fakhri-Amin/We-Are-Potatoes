@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
+    [SerializeField] private Transform baseTransform;
     [SerializeField] private Unit unitSword;
     [SerializeField] private Unit unitBow;
     [SerializeField] private Transform enemyUnitSpawnPoint;
@@ -55,7 +56,7 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     {
         Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = Instantiate(unit, enemyUnitSpawnPoint.position + offset, Quaternion.identity);
-        spawnedUnit.InitializeUnit(UnitType.Enemy);
+        spawnedUnit.InitializeUnit(UnitType.Enemy, baseTransform.position);
     }
 
 }

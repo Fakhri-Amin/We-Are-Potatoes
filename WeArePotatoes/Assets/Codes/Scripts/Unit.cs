@@ -27,6 +27,7 @@ public class Unit : MonoBehaviour, IAttackable
     private UnitAnimation unitAnimation;
     private Vector3 moveDirection;
     private Coroutine attackRoutine;
+    private Vector3 basePosition;
 
     public UnitType UnitType => unitType;
     public IAttackable AttackableTarget => attackableTarget;
@@ -66,10 +67,13 @@ public class Unit : MonoBehaviour, IAttackable
         DetectEnemiesAndHandleAttack();
     }
 
-    public void InitializeUnit(UnitType unitType)
+    public void InitializeUnit(UnitType unitType, Vector3 basePosition)
     {
         // Set the type
         this.unitType = unitType;
+
+        // Set the base position
+        this.basePosition = basePosition;
 
         // Set the layer mask and tag
         gameObject.layer = LayerMask.NameToLayer(unitType.ToString());
@@ -139,6 +143,10 @@ public class Unit : MonoBehaviour, IAttackable
 
         if (targetInRange.Length > 0)
         {
+            float closestDistance = float.MaxValue;
+            IAttackable closestEnemy = null;
+            Unit closestUnit = null;
+
             foreach (var enemy in targetInRange)
             {
                 if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
@@ -147,16 +155,28 @@ public class Unit : MonoBehaviour, IAttackable
 
                     if (unit != null && unit.UnitType != UnitType)
                     {
-                        if (attackRoutine != null) return;
+                        float distanceToBase = Vector3.Distance(enemy.transform.position, basePosition);
 
-                        canMove = false;
-                        attackableTarget = attackable;
-
-                        unit.OnDead += ResetTargetEnemy;
-                        attackRoutine = StartCoroutine(AttackRoutine());
-                        return;
+                        if (distanceToBase < closestDistance)
+                        {
+                            closestDistance = distanceToBase;
+                            closestEnemy = attackable;
+                            closestUnit = unit;
+                        }
                     }
                 }
+            }
+
+            if (closestEnemy != null)
+            {
+                if (attackRoutine != null) return;
+
+                canMove = false;
+                attackableTarget = closestEnemy;
+
+                closestUnit.OnDead += ResetTargetEnemy;
+                attackRoutine = StartCoroutine(AttackRoutine());
+                return;
             }
         }
 
