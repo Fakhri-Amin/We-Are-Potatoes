@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitStatDataList:
   - UnitHero: 1
+    Health: 100
     MoveSpeed: 1.2
     DetectRadius: 4
     AttackRadius: 1.4
+  - UnitHero: 2
+    Health: 100
+    MoveSpeed: 1.2
+    DetectRadius: 9
+    AttackRadius: 6

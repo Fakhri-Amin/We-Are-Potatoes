@@ -15,11 +15,11 @@ public class UnitAnimation : MonoBehaviour
 
     public void PlayAttackAnimation()
     {
-        animator.SetBool(ATTACK_PARAMETER, true);
+        animator.SetTrigger(ATTACK_PARAMETER);
     }
 
     public void PlayIdleAnimation()
     {
-        animator.SetBool(ATTACK_PARAMETER, false);
+        // animator.SetTrigger(ATTACK_PARAMETER);
     }
 }

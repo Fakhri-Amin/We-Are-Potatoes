@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
@@ -18,24 +19,21 @@ public class Unit : MonoBehaviour, IAttackable
     protected float moveSpeed;
     protected float detectRadius = 3f;
     protected float attackRadius = 1f;
+    protected float attackCooldown = 0;
     private bool canMove = true;
-    private bool isEnemyInRange = false;
     private HealthSystem healthSystem;
     private IAttackable attackableTarget;
     private UnitAnimation unitAnimation;
     private Vector3 moveDirection;
+    private Coroutine attackRoutine;
 
     public UnitType UnitType => unitType;
+    public IAttackable AttackableTarget => attackableTarget;
 
     public virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         unitAnimation = GetComponent<UnitAnimation>();
-    }
-
-    private void Start()
-    {
-        InitializeUnit();
     }
 
     private void OnEnable()
@@ -50,31 +48,42 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void HandleOnDead()
     {
-        // deadFeedbacks?.PlayFeedbacks();
-        var vfx = Instantiate(deadVFX, transform.position, Quaternion.identity);
-        vfx.gameObject.SetActive(true);
+        deadFeedbacks?.PlayFeedbacks();
+        // var vfx = Instantiate(deadVFX, transform.position, Quaternion.identity);
+        // vfx.gameObject.SetActive(true);
         OnAnyUnitDead?.Invoke(this);
     }
 
     private void Update()
     {
-        if (canMove && !isEnemyInRange)
+        if (canMove)
         {
             Move();
         }
 
-        DetectEnemiesAndHandleMoveToward();
         DetectEnemiesAndHandleAttack();
     }
 
-    private void InitializeUnit()
+    public void InitializeUnit(UnitType unitType)
     {
+        // Set the type
+        this.unitType = unitType;
+
+        // Set the layer mask and tag
+        gameObject.layer = LayerMask.NameToLayer(unitType.ToString());
+        gameObject.tag = unitType.ToString();
+        targetMask = LayerMask.GetMask(unitType == UnitType.Player ? "Enemy" : "Player");
+
         // Set the stat
         foreach (var item in unitStatSO.UnitStatDataList)
         {
-            moveSpeed = item.MoveSpeed;
-            detectRadius = item.DetectRadius;
-            attackRadius = item.AttackRadius;
+            if (item.UnitHero == unitHero)
+            {
+                moveSpeed = item.MoveSpeed;
+                detectRadius = item.DetectRadius;
+                attackRadius = item.AttackRadius;
+                attackCooldown = item.attackCooldown;
+            }
         }
 
         // Set the move direction
@@ -88,7 +97,24 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void Move()
     {
-        transform.position += moveSpeed * Time.deltaTime * moveDirection;
+        // Detect for target in range
+        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, detectRadius, targetMask);
+
+        // If there is target detected
+        if (targetInRange.Length > 0)
+        {
+            foreach (var enemy in targetInRange)
+            {
+                if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
+                {
+                    MoveToward(enemy.transform.position);
+                    return;
+                }
+            }
+        }
+
+        // If there is no target detected
+        MoveStraight();
     }
 
     private void MoveToward(Vector3 targetPosition)
@@ -100,22 +126,9 @@ public class Unit : MonoBehaviour, IAttackable
         transform.position += moveSpeed * Time.deltaTime * direction;
     }
 
-    private void DetectEnemiesAndHandleMoveToward()
+    private void MoveStraight()
     {
-        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, detectRadius, targetMask);
-        if (targetInRange.Length > 0)
-        {
-            foreach (var enemy in targetInRange)
-            {
-                if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable) && canMove)
-                {
-                    isEnemyInRange = true;
-                    MoveToward(enemy.transform.position);
-                    return;
-                }
-            }
-        }
-        isEnemyInRange = false;
+        transform.position += moveSpeed * Time.deltaTime * moveDirection;
     }
 
     private void DetectEnemiesAndHandleAttack()
@@ -134,7 +147,9 @@ public class Unit : MonoBehaviour, IAttackable
                     {
                         canMove = false;
                         attackableTarget = attackable;
-                        unitAnimation.PlayAttackAnimation();
+
+                        if (attackRoutine != null) return;
+                        attackRoutine = StartCoroutine(AttackRoutine());
                         return;
                     }
                 }
@@ -144,16 +159,16 @@ public class Unit : MonoBehaviour, IAttackable
         // Reset state if no valid targets are found
         canMove = true;
         attackableTarget = null;
-        unitAnimation.PlayIdleAnimation();
+        attackRoutine = null;
     }
 
-    public virtual void HandleAttack()
+    private IEnumerator AttackRoutine()
     {
-        if (attackableTarget != null)
-        {
-            attackableTarget.Damage(10);
-            Debug.Log($"{UnitType} attacked {attackableTarget}");
-        }
+        unitAnimation.PlayAttackAnimation();
+
+        yield return new WaitForSeconds(attackCooldown);
+
+        attackRoutine = null;
     }
 
     public void Damage(int damageAmount)
