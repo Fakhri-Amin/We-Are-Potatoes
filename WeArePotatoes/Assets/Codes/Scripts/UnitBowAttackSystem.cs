@@ -52,7 +52,7 @@ public class UnitBowAttackSystem : MonoBehaviour
 
             Unit target = unit.AttackableTarget as Unit;
 
-            newProjectile.Initialize(this, unit.UnitType, target.transform, 20, 15);
+            newProjectile.Initialize(this, unit.UnitType, target.transform, unit.DamageAmount, 15);
         }
     }
 }

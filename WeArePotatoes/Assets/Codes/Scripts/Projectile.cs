@@ -33,9 +33,12 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    private void Update()
     {
-
+        if (targetTransform && Vector2.Distance(transform.position, targetTransform.position) < 0.1f)
+        {
+            unitBowAttackSystem.ReturnToPool(this);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

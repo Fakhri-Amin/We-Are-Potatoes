@@ -9,15 +9,18 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Unit unitSword;
     [SerializeField] private Unit unitBow;
+    [SerializeField] private Unit unitCatapult;
     [SerializeField] private Transform playerUnitSpawnPoint;
     [SerializeField] private Button unitSwordButton;
     [SerializeField] private Button unitBowButton;
+    [SerializeField] private Button unitCatapultButton;
 
     private new void Awake()
     {
         base.Awake();
         unitSwordButton.onClick.AddListener(OnUnitSwordSpawn);
         unitBowButton.onClick.AddListener(OnUnitBowSpawn);
+        unitCatapultButton.onClick.AddListener(OnUnitCatapultSpawn);
     }
 
     private void OnEnable()
@@ -38,6 +41,11 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnUnitSwordSpawn()
     {
         OnUnitSpawn(unitSword);
+    }
+
+    private void OnUnitCatapultSpawn()
+    {
+        OnUnitSpawn(unitCatapult);
     }
 
     private void OnUnitSpawn(Unit unit)

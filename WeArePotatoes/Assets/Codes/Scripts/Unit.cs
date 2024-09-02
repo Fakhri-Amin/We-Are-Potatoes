@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private MMFeedbacks deadFeedbacks;
     [SerializeField] private ParticleSystem deadVFX;
 
+    protected int damageAmount;
     protected float moveSpeed;
     protected float detectRadius = 3f;
     protected float attackRadius = 1f;
@@ -31,6 +32,7 @@ public class Unit : MonoBehaviour, IAttackable
 
     public UnitType UnitType => unitType;
     public IAttackable AttackableTarget => attackableTarget;
+    public int DamageAmount => damageAmount;
 
     public virtual void Awake()
     {
@@ -85,6 +87,7 @@ public class Unit : MonoBehaviour, IAttackable
         {
             if (item.UnitHero == unitHero)
             {
+                damageAmount = item.DamageAmount;
                 moveSpeed = item.MoveSpeed;
                 detectRadius = item.DetectRadius;
                 attackRadius = item.AttackRadius;

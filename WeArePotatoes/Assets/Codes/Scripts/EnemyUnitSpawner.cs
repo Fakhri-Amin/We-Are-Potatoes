@@ -9,6 +9,7 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Unit unitSword;
     [SerializeField] private Unit unitBow;
+    [SerializeField] private Unit unitCatapult;
     [SerializeField] private Transform enemyUnitSpawnPoint;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
 
@@ -32,6 +33,10 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         {
             OnUnitBowSpawn();
         }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            OnUnitCatapultSpawn();
+        }
     }
 
     private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
@@ -50,6 +55,11 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     private void OnUnitSwordSpawn()
     {
         OnUnitSpawn(unitSword);
+    }
+
+    private void OnUnitCatapultSpawn()
+    {
+        OnUnitSpawn(unitCatapult);
     }
 
     private void OnUnitSpawn(Unit unit)
