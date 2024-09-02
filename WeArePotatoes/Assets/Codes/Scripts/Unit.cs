@@ -155,7 +155,7 @@ public class Unit : MonoBehaviour, IAttackable
 
                     if (unit != null && unit.UnitType != UnitType)
                     {
-                        float distanceToBase = Vector3.Distance(enemy.transform.position, basePosition);
+                        float distanceToBase = Mathf.Abs(Vector3.Distance(enemy.transform.position, basePosition));
 
                         if (distanceToBase < closestDistance)
                         {
@@ -183,6 +183,7 @@ public class Unit : MonoBehaviour, IAttackable
         // Reset state if no valid targets are found
         canMove = true;
         ResetTargetEnemy();
+        unitAnimation.PlayIdleAnimation();
     }
 
     private void ResetTargetEnemy()
@@ -199,6 +200,7 @@ public class Unit : MonoBehaviour, IAttackable
 
             yield return new WaitForSeconds(attackSpeed);
         }
+
     }
 
     public void Damage(int damageAmount)
