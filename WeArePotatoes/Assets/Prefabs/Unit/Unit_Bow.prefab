@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0896b334843765d4ca6ccecd675c0005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5190286326426748155, guid: 5f6fd97559f018a41baf3bd03697634f, type: 3}
   shootingTransform: {fileID: 5794091688437623355}
+  projectileType: 1
 --- !u!4 &8973787454717084056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1982551077687985118, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}

@@ -15,7 +15,7 @@ public class UnitSwordAttackSystem : MonoBehaviour
     {
         if (unit.AttackableTarget != null)
         {
-            unit.AttackableTarget.Damage(unit.DamageAmount);
+            unit.AttackableTarget.Damage(unit.Stat.DamageAmount);
         }
     }
 }
