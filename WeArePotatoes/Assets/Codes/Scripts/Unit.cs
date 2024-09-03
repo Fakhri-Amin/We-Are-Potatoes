@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour, IAttackable
 
     private bool canMove = true;
     private HealthSystem healthSystem;
-    private IAttackable attackableTarget;
+    private Unit targetUnit;
     private UnitAnimation unitAnimation;
     private Vector3 moveDirection;
     private Coroutine attackRoutine;
@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour, IAttackable
 
     public UnitType UnitType => unitType;
     public UnitStatData Stat => stat;
-    public IAttackable AttackableTarget => attackableTarget;
+    public Unit TargetUnit => targetUnit;
 
     public virtual void Awake()
     {
@@ -139,14 +139,13 @@ public class Unit : MonoBehaviour, IAttackable
         if (targetInRange.Length > 0)
         {
             float closestDistance = float.MaxValue;
-            IAttackable closestEnemy = null;
-            Unit closestUnit = null;
+            // targetUnit = null;
 
             foreach (var enemy in targetInRange)
             {
-                if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
+                if (enemy.TryGetComponent<Unit>(out Unit unit))
                 {
-                    Unit unit = attackable as Unit;
+                    // Unit unit = attackable as Unit;
 
                     if (unit != null && unit.UnitType != UnitType)
                     {
@@ -155,21 +154,19 @@ public class Unit : MonoBehaviour, IAttackable
                         if (distanceToBase < closestDistance)
                         {
                             closestDistance = distanceToBase;
-                            closestEnemy = attackable;
-                            closestUnit = unit;
+                            targetUnit = unit;
                         }
                     }
                 }
             }
 
-            if (closestEnemy != null)
+            if (targetUnit != null)
             {
                 if (attackRoutine != null) return;
 
                 canMove = false;
-                attackableTarget = closestEnemy;
 
-                closestUnit.OnDead += ResetTargetEnemy;
+                targetUnit.OnDead += ResetTargetEnemy;
                 attackRoutine = StartCoroutine(AttackRoutine());
                 return;
             }
@@ -183,8 +180,8 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void ResetTargetEnemy()
     {
-        attackableTarget = null;
         attackRoutine = null;
+        targetUnit = null;
     }
 
     private IEnumerator AttackRoutine()

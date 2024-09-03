@@ -8,8 +8,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float heightY = 2f;
     [SerializeField] private Rigidbody2D rb;
     private int damageAmount;
-    private Transform targetTransform;
+    private Unit targetUnit;
     private UnitType unitType;
+    private UnitStatData stat;
     private ProjectileType projectileType;
 
     private void Awake()
@@ -19,14 +20,27 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (!targetTransform) return;
-
-        transform.position = Vector3.Slerp(transform.position, targetTransform.position, Time.deltaTime);
-
-        if (Vector2.Distance(transform.position, targetTransform.position) <= 0.05f)
+        if (!targetUnit)
         {
             ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
+            return;
         }
+
+        if (unitType == UnitType.Enemy)
+        {
+            if (Vector2.Distance(transform.position, PlayerUnitSpawner.Instance.GetUnitPosition(targetUnit)) <= 0.05f)
+            {
+                ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
+            }
+        }
+        else if (unitType == UnitType.Player)
+        {
+            if (Vector2.Distance(transform.position, EnemyUnitSpawner.Instance.GetUnitPosition(targetUnit)) <= 0.05f)
+            {
+                ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
+            }
+        }
+
     }
 
     public IEnumerator CurveMovementRoutine(Vector2 start, Vector2 target, float attackSpeed)
@@ -50,18 +64,19 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void Initialize(UnitType unitType, UnitStatData stat, ProjectileType projectileType, Transform targetTransform)
+    public void Initialize(UnitType unitType, UnitStatData stat, ProjectileType projectileType, Unit targetUnit)
     {
         this.unitType = unitType;
+        this.stat = stat;
         this.projectileType = projectileType;
-        this.targetTransform = targetTransform;
+        this.targetUnit = targetUnit;
         this.damageAmount = stat.DamageAmount;
 
         if (stat.UnitRangeType == UnitRangeType.RangeStraight)
         {
             // Set the direction
-            Vector3 direction = targetTransform.position - transform.position;
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * stat.MoveSpeed;
+            Vector3 direction = targetUnit.gameObject.transform.position - transform.position;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * stat.AttackSpeed * 3;
 
             // Set the rotation
             float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -71,7 +86,7 @@ public class Projectile : MonoBehaviour
         else if (stat.UnitRangeType == UnitRangeType.RangeCurve)
         {
             float calculatedAttackSpeed = 1 / (stat.AttackSpeed / 4);
-            StartCoroutine(CurveMovementRoutine(transform.position, targetTransform.position, calculatedAttackSpeed));
+            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, calculatedAttackSpeed));
             return;
         }
     }

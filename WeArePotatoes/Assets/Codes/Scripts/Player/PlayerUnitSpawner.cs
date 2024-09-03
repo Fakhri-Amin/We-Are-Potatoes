@@ -14,6 +14,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private Button unitSwordButton;
     [SerializeField] private Button unitBowButton;
     [SerializeField] private Button unitCatapultButton;
+    [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private new void Awake()
     {
@@ -30,7 +31,11 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 
     private void PlayerUnit_OnAnyPlayerUnitDead(Unit unit)
     {
-        if (unit && unit.UnitType == UnitType.Player) Destroy(unit.gameObject);
+        if (unit && unit.UnitType == UnitType.Player)
+        {
+            spawnedUnits.Remove(unit);
+            Destroy(unit.gameObject);
+        }
     }
 
     private void OnUnitBowSpawn()
@@ -48,10 +53,13 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         OnUnitSpawn(unitCatapult);
     }
 
+    public Vector3 GetUnitPosition(Unit unit) => spawnedUnits.Find(i => i == unit).gameObject.transform.position;
+
     private void OnUnitSpawn(Unit unit)
     {
         Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = Instantiate(unit, playerUnitSpawnPoint.position + offset, Quaternion.identity);
         spawnedUnit.InitializeUnit(UnitType.Player, baseTransform.position);
+        spawnedUnits.Add(spawnedUnit);
     }
 }

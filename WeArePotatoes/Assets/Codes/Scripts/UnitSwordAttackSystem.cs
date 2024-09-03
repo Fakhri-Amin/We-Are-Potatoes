@@ -13,9 +13,9 @@ public class UnitSwordAttackSystem : MonoBehaviour
 
     public virtual void HandleAttack()
     {
-        if (unit.AttackableTarget != null)
+        if (unit.TargetUnit != null)
         {
-            unit.AttackableTarget.Damage(unit.Stat.DamageAmount);
+            unit.TargetUnit.Damage(unit.Stat.DamageAmount);
         }
     }
 }

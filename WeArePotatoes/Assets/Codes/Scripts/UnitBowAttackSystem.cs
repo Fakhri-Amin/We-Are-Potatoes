@@ -8,15 +8,15 @@ public class UnitBowAttackSystem : UnitRangeAttackSystem
 {
     public void HandleAttack()
     {
-        if (unit.AttackableTarget != null)
+        if (unit.TargetUnit != null)
         {
             var newProjectile = ProjectileObjectPool.Instance.GetPooledObject(projectileType);
 
             newProjectile.transform.position = shootingTransform.position;
 
-            Unit target = unit.AttackableTarget as Unit;
+            // Unit target = unit.AttackableTarget as Unit;
 
-            newProjectile.Initialize(unit.UnitType, unit.Stat, projectileType, target.transform);
+            newProjectile.Initialize(unit.UnitType, unit.Stat, projectileType, unit.TargetUnit);
         }
     }
 }
