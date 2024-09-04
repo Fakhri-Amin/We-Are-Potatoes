@@ -7,5 +7,14 @@ public enum UnitHero
     None,
     Sword,
     Bow,
-    Catapult
+    Catapult,
+    Thorn,
+    Shield,
+    Axe,
+    Boomerang,
+    Sniper,
+    HorseSpear,
+    GreatSword,
+    IceOrb,
+    FireOrb
 }

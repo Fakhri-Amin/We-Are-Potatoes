@@ -4996,12 +4996,12 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 6618608347987325842}
         DebugActive: 0
-        Mode: 2
+        Mode: 0
         ObjectPoolSize: 1
         MutualizePools: 0
         ParentTransform: {fileID: 0}
         CachedRecycle: 1
-        ParticlesPrefab: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+        ParticlesPrefab: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
         RandomParticlePrefabs: []
         ForceSetActiveOnPlay: 1
         StopOnReset: 0

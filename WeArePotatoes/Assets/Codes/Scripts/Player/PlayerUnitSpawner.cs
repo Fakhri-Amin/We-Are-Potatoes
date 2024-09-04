@@ -36,8 +36,12 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     {
         if (unit && unit.UnitType == UnitType.Player)
         {
-            var vfx = Instantiate(unitDeadVFX, unit.transform.position, Quaternion.identity);
-            vfx.gameObject.SetActive(true);
+            // var vfx = Instantiate(unitDeadVFX, unit.transform.position, Quaternion.identity);
+            // vfx.gameObject.SetActive(true);
+
+            var vfx = VisualEffectObjectPool.Instance.GetPooledObject(VisualEffectType.Dead);
+            vfx.transform.position = unit.transform.position;
+            vfx.Play();
 
             spawnedUnits.Remove(unit);
             Destroy(unit.gameObject);
@@ -46,8 +50,17 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 
     private void EnemyUnit_OnProjectileAreaHit(Projectile projectile)
     {
-        var vfx = Instantiate(projectileHitVFX, projectile.transform.position, Quaternion.identity);
-        vfx.gameObject.SetActive(true);
+        SpawnAreaHitEffect(projectile.transform.position);
+    }
+
+    public void SpawnAreaHitEffect(Vector3 position)
+    {
+        // var vfx = Instantiate(projectileHitVFX, position, Quaternion.identity);
+        // vfx.gameObject.SetActive(true);
+
+        var vfx = VisualEffectObjectPool.Instance.GetPooledObject(VisualEffectType.Hit);
+        vfx.transform.position = position;
+        vfx.Play();
     }
 
     private void OnUnitBowSpawn()

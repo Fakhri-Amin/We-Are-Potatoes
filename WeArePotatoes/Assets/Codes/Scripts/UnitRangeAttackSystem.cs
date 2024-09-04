@@ -12,4 +12,18 @@ public class UnitRangeAttackSystem : MonoBehaviour
     {
         unit = GetComponent<Unit>();
     }
+
+    public void HandleAttack()
+    {
+        if (unit.TargetUnit != null)
+        {
+            var newProjectile = ProjectileObjectPool.Instance.GetPooledObject(projectileType);
+
+            newProjectile.transform.position = shootingTransform.position;
+
+            // Unit target = unit.AttackableTarget as Unit;
+
+            newProjectile.Initialize(unit, unit.TargetUnit, projectileType);
+        }
+    }
 }
