@@ -29,6 +29,7 @@ public class Unit : MonoBehaviour, IAttackable
     public UnitType UnitType => unitType;
     public UnitStatData Stat => stat;
     public Unit TargetUnit => targetUnit;
+    public LayerMask TargetMask => targetMask;
 
     public virtual void Awake()
     {

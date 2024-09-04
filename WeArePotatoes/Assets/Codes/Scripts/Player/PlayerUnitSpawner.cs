@@ -14,6 +14,8 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private Button unitSwordButton;
     [SerializeField] private Button unitBowButton;
     [SerializeField] private Button unitCatapultButton;
+    [SerializeField] private ParticleSystem unitDeadVFX;
+    [SerializeField] private ParticleSystem projectileHitVFX;
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private new void Awake()
@@ -27,15 +29,25 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += PlayerUnit_OnAnyPlayerUnitDead;
+        Projectile.OnProjectileAreaHit += EnemyUnit_OnProjectileAreaHit;
     }
 
     private void PlayerUnit_OnAnyPlayerUnitDead(Unit unit)
     {
         if (unit && unit.UnitType == UnitType.Player)
         {
+            var vfx = Instantiate(unitDeadVFX, unit.transform.position, Quaternion.identity);
+            vfx.gameObject.SetActive(true);
+
             spawnedUnits.Remove(unit);
             Destroy(unit.gameObject);
         }
+    }
+
+    private void EnemyUnit_OnProjectileAreaHit(Projectile projectile)
+    {
+        var vfx = Instantiate(projectileHitVFX, projectile.transform.position, Quaternion.identity);
+        vfx.gameObject.SetActive(true);
     }
 
     private void OnUnitBowSpawn()

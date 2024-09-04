@@ -15,7 +15,7 @@ public class UnitCatapultAttackSystem : UnitRangeAttackSystem
 
             // Unit target = unit.AttackableTarget as Unit;
 
-            newProjectile.Initialize(unit.UnitType, unit.Stat, projectileType, unit.TargetUnit);
+            newProjectile.Initialize(unit, unit.TargetUnit, projectileType);
         }
     }
 }

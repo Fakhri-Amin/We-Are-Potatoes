@@ -4311,6 +4311,9 @@ MonoBehaviour:
   unitSwordButton: {fileID: 302402674}
   unitBowButton: {fileID: 979229515}
   unitCatapultButton: {fileID: 1819158682}
+  unitDeadVFX: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
+  projectileHitVFX: {fileID: 6024780486867847350, guid: d9b2b0f8e23d63447be65be726da1d17, type: 3}
+  spawnedUnits: []
 --- !u!1 &690144997
 GameObject:
   m_ObjectHideFlags: 0
@@ -10044,6 +10047,9 @@ MonoBehaviour:
   unitCatapult: {fileID: 530729902207760050, guid: c3ee7013187f9b345b42288859abb4a4, type: 3}
   enemyUnitSpawnPoint: {fileID: 2108512095}
   unitDeadFeedbacks: {fileID: 1949874899}
+  unitDeadVFX: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
+  projectileHitVFX: {fileID: 6024780486867847350, guid: d9b2b0f8e23d63447be65be726da1d17, type: 3}
+  spawnedUnits: []
 --- !u!1 &1068661058
 GameObject:
   m_ObjectHideFlags: 0

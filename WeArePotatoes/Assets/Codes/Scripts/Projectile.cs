@@ -1,46 +1,59 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public static event Action<Projectile> OnProjectileAreaHit;
+
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private float heightY = 2f;
     [SerializeField] private Rigidbody2D rb;
-    private int damageAmount;
+    private Unit sourceUnit;
     private Unit targetUnit;
-    private UnitType unitType;
-    private UnitStatData stat;
     private ProjectileType projectileType;
+
+    private const float DistanceThreshold = 0.05f;
 
     private void Awake()
     {
-        // rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+            if (rb == null)
+            {
+                Debug.LogError("Rigidbody2D component is missing.");
+            }
+        }
     }
 
     private void Update()
     {
         if (!targetUnit)
         {
-            ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
+            ReturnToPool();
             return;
         }
 
-        if (unitType == UnitType.Enemy)
+        if (IsTargetReached())
         {
-            if (Vector2.Distance(transform.position, PlayerUnitSpawner.Instance.GetUnitPosition(targetUnit)) <= 0.05f)
-            {
-                ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
-            }
+            ReturnToPool();
         }
-        else if (unitType == UnitType.Player)
-        {
-            if (Vector2.Distance(transform.position, EnemyUnitSpawner.Instance.GetUnitPosition(targetUnit)) <= 0.05f)
-            {
-                ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
-            }
-        }
+    }
 
+    private bool IsTargetReached()
+    {
+        Vector2 targetPosition = sourceUnit.UnitType == UnitType.Enemy
+            ? PlayerUnitSpawner.Instance.GetUnitPosition(targetUnit)
+            : EnemyUnitSpawner.Instance.GetUnitPosition(targetUnit);
+
+        return Vector2.Distance(transform.position, targetPosition) <= DistanceThreshold;
+    }
+
+    private void ReturnToPool()
+    {
+        ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
     }
 
     public IEnumerator CurveMovementRoutine(Vector2 start, Vector2 target, float attackSpeed)
@@ -56,51 +69,75 @@ public class Projectile : MonoBehaviour
             float heightT = animationCurve.Evaluate(linearT);
 
             float height = Mathf.Lerp(0f, heightY, heightT);
-
             transform.position = Vector2.Lerp(start, end, linearT) + new Vector2(0f, height);
 
             yield return null;
         }
-
     }
 
-    public void Initialize(UnitType unitType, UnitStatData stat, ProjectileType projectileType, Unit targetUnit)
+    public void Initialize(Unit sourceUnit, Unit targetUnit, ProjectileType projectileType)
     {
-        this.unitType = unitType;
-        this.stat = stat;
-        this.projectileType = projectileType;
+        this.sourceUnit = sourceUnit;
         this.targetUnit = targetUnit;
-        this.damageAmount = stat.DamageAmount;
+        this.projectileType = projectileType;
 
-        if (stat.UnitRangeType == UnitRangeType.RangeStraight)
-        {
-            // Set the direction
-            Vector3 direction = targetUnit.gameObject.transform.position - transform.position;
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * stat.AttackSpeed * 3;
+        gameObject.layer = sourceUnit.gameObject.layer;
 
-            // Set the rotation
-            float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, rotation);
-            return;
-        }
-        else if (stat.UnitRangeType == UnitRangeType.RangeCurve)
+        if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeStraight)
         {
-            float calculatedAttackSpeed = 1 / (stat.AttackSpeed / 4);
-            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, calculatedAttackSpeed));
-            return;
+            InitializeStraightProjectile();
         }
+        else if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeCurve)
+        {
+            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, 1 / (sourceUnit.Stat.AttackSpeed / 4)));
+        }
+    }
+
+    private void InitializeStraightProjectile()
+    {
+        Vector2 direction = (Vector2)(targetUnit.transform.position - transform.position);
+        rb.velocity = direction.normalized * sourceUnit.Stat.AttackSpeed * 3;
+
+        float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<IAttackable>(out IAttackable attackable))
+        Unit singleUnit = other.GetComponent<Unit>();
+
+        // Ensure the unit is valid and belongs to a different faction
+        if (singleUnit == null || singleUnit.UnitType == sourceUnit.UnitType)
         {
-            Unit target = attackable as Unit;
-            if (target.UnitType != unitType)
+            return;
+        }
+
+        // Handle single target attack
+        if (sourceUnit.Stat.UnitAttackType == UnitAttackType.Single)
+        {
+            singleUnit.Damage(sourceUnit.Stat.DamageAmount);
+        }
+        // Handle area of effect attack
+        else if (sourceUnit.Stat.UnitAttackType == UnitAttackType.Area)
+        {
+            ApplyAreaOfEffectDamage();
+        }
+
+        ReturnToPool();
+    }
+
+    private void ApplyAreaOfEffectDamage()
+    {
+        Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, sourceUnit.Stat.AreaOfEffectRadius, sourceUnit.TargetMask);
+
+        foreach (var item in targetsInRadius)
+        {
+            if (item.TryGetComponent<Unit>(out Unit unit) && unit.UnitType != sourceUnit.UnitType)
             {
-                attackable.Damage(damageAmount);
-                ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
+                OnProjectileAreaHit?.Invoke(this);
+                unit.Damage(sourceUnit.Stat.DamageAmount);
             }
         }
     }
+
 }

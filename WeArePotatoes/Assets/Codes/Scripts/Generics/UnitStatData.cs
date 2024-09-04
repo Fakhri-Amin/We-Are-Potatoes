@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 [System.Serializable]
 public class UnitStatData
@@ -14,4 +15,5 @@ public class UnitStatData
     public float DetectRadius;
     public float AttackRadius;
     public float AttackSpeed;
+    [ShowIf("UnitAttackType", UnitAttackType.Area)] public float AreaOfEffectRadius;
 }

@@ -4683,7 +4683,7 @@ MonoBehaviour:
     m_Bits: 128
   visual: {fileID: 8820177487835407135}
   deadFeedbacks: {fileID: 6618608347987325842}
-  deadVFX: {fileID: 5772536683907555387, guid: b2bafaeb725330249ad165c31f16899a, type: 3}
+  deadVFX: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
 --- !u!114 &7889476563095270075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5001,7 +5001,7 @@ MonoBehaviour:
         MutualizePools: 0
         ParentTransform: {fileID: 0}
         CachedRecycle: 1
-        ParticlesPrefab: {fileID: 5772536683907555387, guid: b2bafaeb725330249ad165c31f16899a, type: 3}
+        ParticlesPrefab: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
         RandomParticlePrefabs: []
         ForceSetActiveOnPlay: 1
         StopOnReset: 0

@@ -33,7 +33,7 @@ public class ProjectileObjectPool : Singleton<ProjectileObjectPool>
             }, obj =>
             {
                 Destroy(obj.gameObject);
-            }, false, 5, 10);
+            }, false, 15, 25);
         }
     }
 

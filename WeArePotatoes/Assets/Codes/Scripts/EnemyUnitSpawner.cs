@@ -12,11 +12,14 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     [SerializeField] private Unit unitCatapult;
     [SerializeField] private Transform enemyUnitSpawnPoint;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
+    [SerializeField] private ParticleSystem unitDeadVFX;
+    [SerializeField] private ParticleSystem projectileHitVFX;
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitDead;
+        Projectile.OnProjectileAreaHit += EnemyUnit_OnProjectileAreaHit;
     }
 
     private void Update()
@@ -39,10 +42,20 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     {
         if (unit && unit.UnitType == UnitType.Enemy)
         {
+            var vfx = Instantiate(unitDeadVFX, unit.transform.position, Quaternion.identity);
+            vfx.gameObject.SetActive(true);
+
             spawnedUnits.Remove(unit);
             Destroy(unit.gameObject);
         }
     }
+
+    private void EnemyUnit_OnProjectileAreaHit(Projectile projectile)
+    {
+        var vfx = Instantiate(projectileHitVFX, projectile.transform.position, Quaternion.identity);
+        vfx.gameObject.SetActive(true);
+    }
+
 
     private void OnUnitBowSpawn()
     {
