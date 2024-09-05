@@ -31,6 +31,9 @@ public class Unit : MonoBehaviour, IAttackable
     public Unit TargetUnit => targetUnit;
     public LayerMask TargetMask => targetMask;
 
+    private float attackSpeed = 0;
+    private bool canAttack = true;
+
     public virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
@@ -49,22 +52,34 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void HandleOnDead()
     {
-        deadFeedbacks?.PlayFeedbacks();
         OnDead?.Invoke();
-        // var vfx = Instantiate(deadVFX, transform.position, Quaternion.identity);
-        // vfx.gameObject.SetActive(true);
         OnAnyUnitDead?.Invoke(this);
     }
 
     private void Update()
     {
+        // Handle attack cooldown
+        if (!canAttack)
+        {
+            attackSpeed -= Time.deltaTime;
+            canAttack = attackSpeed <= 0;
+        }
+
+        // Handle movement and attack
         if (canMove)
         {
             Move();
         }
+        else if (!canMove && canAttack)
+        {
+            unitAnimation.PlayAttackAnimation();
+            attackSpeed = stat.AttackSpeed;
+            canAttack = false;
+        }
 
-        DetectEnemiesAndHandleAttack();
+        DetectEnemiesAndHandleAttack(); // Ensure enemy detection and handling is checked every frame
     }
+
 
     public void InitializeUnit(UnitType unitType, Vector3 basePosition)
     {
@@ -87,6 +102,9 @@ public class Unit : MonoBehaviour, IAttackable
                 stat = item;
             }
         }
+
+        // Set the health
+        healthSystem.ResetHealth(stat.Health);
 
         // Set the move direction
         moveDirection = unitType == UnitType.Player ? Vector3.right : Vector3.left;
@@ -163,20 +181,24 @@ public class Unit : MonoBehaviour, IAttackable
 
             if (targetUnit != null)
             {
-                if (attackRoutine != null) return;
-
                 canMove = false;
-
-                targetUnit.OnDead += ResetTargetEnemy;
-                attackRoutine = StartCoroutine(AttackRoutine());
                 return;
             }
+
+            // if (targetUnit != null)
+            // {
+            //     if (attackRoutine != null) return;
+
+            //     canMove = false;
+
+            //     targetUnit.OnDead += ResetTargetEnemy;
+            //     // attackRoutine = StartCoroutine(AttackRoutine());
+            //     return;
+            // }
         }
 
         // Reset state if no valid targets are found
         canMove = true;
-        ResetTargetEnemy();
-        unitAnimation.PlayIdleAnimation();
     }
 
     private void ResetTargetEnemy()

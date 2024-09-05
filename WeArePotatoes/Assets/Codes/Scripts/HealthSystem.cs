@@ -8,13 +8,14 @@ public class HealthSystem : MonoBehaviour
     public Action OnHealthChanged;
     public Action OnDead;
 
-    [SerializeField] private int maxHealth = 100;
-
     private int healthAmount;
+    private int maxHealth;
 
-    private void Awake()
+    public void ResetHealth(int maxHealth)
     {
+        this.maxHealth = maxHealth;
         healthAmount = maxHealth;
+        OnHealthChanged?.Invoke();
     }
 
     public void Damage(int damageAmount)

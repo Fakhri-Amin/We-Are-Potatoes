@@ -11,8 +11,8 @@ public class VisualEffectObjectPool : Singleton<VisualEffectObjectPool>
     {
         public VisualEffectType Type;
         public ParticleSystem Effect;
-        public Transform ParentTransform;
-        public ObjectPool<ParticleSystem> ObjectPool;
+        [HideInInspector] public Transform ParentTransform;
+        [HideInInspector] public ObjectPool<ParticleSystem> ObjectPool;
     }
 
     [SerializeField] private List<VisualEffectData> visualEffectDatas = new List<VisualEffectData>();
@@ -22,6 +22,11 @@ public class VisualEffectObjectPool : Singleton<VisualEffectObjectPool>
         {
             item.ObjectPool = new ObjectPool<ParticleSystem>(() =>
             {
+                if (item.ParentTransform == null)
+                {
+                    item.ParentTransform = Instantiate(new GameObject(), transform).transform;
+                    item.ParentTransform.name = item.Type.ToString();
+                }
                 return Instantiate(item.Effect, item.ParentTransform);
             }, obj =>
             {

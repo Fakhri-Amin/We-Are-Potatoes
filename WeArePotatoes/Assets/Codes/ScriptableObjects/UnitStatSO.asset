@@ -43,3 +43,23 @@ MonoBehaviour:
     AttackRadius: 9
     AttackSpeed: 8
     AreaOfEffectRadius: 0.8
+  - UnitHero: 5
+    UnitRangeType: 0
+    UnitAttackType: 0
+    Health: 300
+    DamageAmount: 0
+    MoveSpeed: 1.2
+    DetectRadius: 4
+    AttackRadius: 0.6
+    AttackSpeed: 5
+    AreaOfEffectRadius: 0
+  - UnitHero: 6
+    UnitRangeType: 1
+    UnitAttackType: 0
+    Health: 120
+    DamageAmount: 40
+    MoveSpeed: 1.2
+    DetectRadius: 8
+    AttackRadius: 3
+    AttackSpeed: 7
+    AreaOfEffectRadius: 0

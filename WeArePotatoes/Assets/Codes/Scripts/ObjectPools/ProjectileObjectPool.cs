@@ -9,10 +9,10 @@ public class ProjectileObjectPool : Singleton<ProjectileObjectPool>
     [System.Serializable]
     public class ProjectileData
     {
-        public ProjectileType ProjectileType;
+        public ProjectileType Type;
         public Projectile Projectile;
-        public Transform ParentTransform;
-        public ObjectPool<Projectile> ObjectPool;
+        [HideInInspector] public Transform ParentTransform;
+        [HideInInspector] public ObjectPool<Projectile> ObjectPool;
     }
 
     [SerializeField] private List<ProjectileData> projectileDatas = new List<ProjectileData>();
@@ -23,6 +23,11 @@ public class ProjectileObjectPool : Singleton<ProjectileObjectPool>
         {
             item.ObjectPool = new ObjectPool<Projectile>(() =>
             {
+                if (item.ParentTransform == null)
+                {
+                    item.ParentTransform = Instantiate(new GameObject(), transform).transform;
+                    item.ParentTransform.name = item.Type.ToString();
+                }
                 return Instantiate(item.Projectile, item.ParentTransform);
             }, obj =>
             {
@@ -39,11 +44,11 @@ public class ProjectileObjectPool : Singleton<ProjectileObjectPool>
 
     public Projectile GetPooledObject(ProjectileType type)
     {
-        return projectileDatas.Find(i => i.ProjectileType == type).ObjectPool.Get();
+        return projectileDatas.Find(i => i.Type == type).ObjectPool.Get();
     }
 
     public void ReturnToPool(ProjectileType type, Projectile projectile)
     {
-        projectileDatas.Find(i => i.ProjectileType == type).ObjectPool.Release(projectile);
+        projectileDatas.Find(i => i.Type == type).ObjectPool.Release(projectile);
     }
 }

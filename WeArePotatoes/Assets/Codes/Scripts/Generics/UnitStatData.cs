@@ -9,7 +9,7 @@ public class UnitStatData
     public UnitHero UnitHero;
     public UnitRangeType UnitRangeType;
     public UnitAttackType UnitAttackType;
-    public float Health;
+    public int Health;
     public int DamageAmount;
     public float MoveSpeed;
     public float DetectRadius;
