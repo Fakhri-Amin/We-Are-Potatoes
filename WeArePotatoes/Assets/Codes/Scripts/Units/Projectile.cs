@@ -13,8 +13,9 @@ public class Projectile : MonoBehaviour
     private Unit sourceUnit;
     private Unit targetUnit;
     private ProjectileType projectileType;
+    private Vector2 targetPosition;
 
-    private const float DistanceThreshold = 0.05f;
+    private const float DistanceThreshold = 0.1f;
 
     private void Awake()
     {
@@ -47,6 +48,12 @@ public class Projectile : MonoBehaviour
         Vector2 targetPosition = sourceUnit.UnitType == UnitType.Enemy
             ? PlayerUnitSpawner.Instance.GetUnitPosition(targetUnit)
             : EnemyUnitSpawner.Instance.GetUnitPosition(targetUnit);
+
+        Vector2 lastTargetPosition = targetPosition;
+        if (targetUnit == null)
+        {
+            targetPosition = lastTargetPosition;
+        }
 
         return Vector2.Distance(transform.position, targetPosition) <= DistanceThreshold;
     }

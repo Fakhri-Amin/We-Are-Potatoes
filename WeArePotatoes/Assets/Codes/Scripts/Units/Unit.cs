@@ -113,6 +113,9 @@ public class Unit : MonoBehaviour, IAttackable
         visual.localScale = unitType == UnitType.Player
             ? new Vector3(Mathf.Abs(visual.localScale.x), visual.localScale.y, visual.localScale.z)
             : new Vector3(-Mathf.Abs(visual.localScale.x), visual.localScale.y, visual.localScale.z);
+
+        // Set the initial canMove variable
+        canMove = true;
     }
 
     private void Move()
@@ -158,14 +161,11 @@ public class Unit : MonoBehaviour, IAttackable
         if (targetInRange.Length > 0)
         {
             float closestDistance = float.MaxValue;
-            // targetUnit = null;
 
             foreach (var enemy in targetInRange)
             {
                 if (enemy.TryGetComponent<Unit>(out Unit unit))
                 {
-                    // Unit unit = attackable as Unit;
-
                     if (unit != null && unit.UnitType != UnitType)
                     {
                         float distanceToBase = Mathf.Abs(Vector3.Distance(enemy.transform.position, basePosition));
@@ -184,26 +184,16 @@ public class Unit : MonoBehaviour, IAttackable
                 canMove = false;
                 return;
             }
-
-            // if (targetUnit != null)
-            // {
-            //     if (attackRoutine != null) return;
-
-            //     canMove = false;
-
-            //     targetUnit.OnDead += ResetTargetEnemy;
-            //     // attackRoutine = StartCoroutine(AttackRoutine());
-            //     return;
-            // }
         }
 
         // Reset state if no valid targets are found
+        targetUnit = null;
         canMove = true;
     }
 
     private void ResetTargetEnemy()
     {
-        attackRoutine = null;
+        // attackRoutine = null;
         targetUnit = null;
     }
 
