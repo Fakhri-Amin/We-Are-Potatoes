@@ -3107,10 +3107,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualEffectDatas:
   - Type: 0
-    Effect: {fileID: 6024780486867847350, guid: d9b2b0f8e23d63447be65be726da1d17, type: 3}
+    Effect: {fileID: 8747429201938379428, guid: a565cae997c97f349b349c74662226f3, type: 3}
     ParentTransform: {fileID: 19254998}
   - Type: 1
-    Effect: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
+    Effect: {fileID: 8747429201938379428, guid: 8f3771062ca77c74b8fb2b09dfd7fc7e, type: 3}
     ParentTransform: {fileID: 1729536295}
 --- !u!1001 &448896370
 PrefabInstance:
@@ -4395,8 +4395,8 @@ MonoBehaviour:
   unitSwordButton: {fileID: 302402674}
   unitBowButton: {fileID: 979229515}
   unitCatapultButton: {fileID: 1819158682}
-  unitDeadVFX: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
-  projectileHitVFX: {fileID: 6024780486867847350, guid: d9b2b0f8e23d63447be65be726da1d17, type: 3}
+  unitDeadVFX: {fileID: 6146545414153545492, guid: 61753401622c2a947a30e2147430e97d, type: 3}
+  projectileHitVFX: {fileID: 6146545414153545492, guid: 61753401622c2a947a30e2147430e97d, type: 3}
   spawnedUnits: []
 --- !u!1 &690144997
 GameObject:
@@ -10131,8 +10131,8 @@ MonoBehaviour:
   unitCatapult: {fileID: 530729902207760050, guid: c3ee7013187f9b345b42288859abb4a4, type: 3}
   enemyUnitSpawnPoint: {fileID: 2108512095}
   unitDeadFeedbacks: {fileID: 1949874899}
-  unitDeadVFX: {fileID: 8316550562219741043, guid: 4e5ec22be1848554b82f6e4816fbc69e, type: 3}
-  projectileHitVFX: {fileID: 6024780486867847350, guid: d9b2b0f8e23d63447be65be726da1d17, type: 3}
+  unitDeadVFX: {fileID: 6146545414153545492, guid: 61753401622c2a947a30e2147430e97d, type: 3}
+  projectileHitVFX: {fileID: 6146545414153545492, guid: 61753401622c2a947a30e2147430e97d, type: 3}
   spawnedUnits: []
 --- !u!1 &1068661058
 GameObject:
