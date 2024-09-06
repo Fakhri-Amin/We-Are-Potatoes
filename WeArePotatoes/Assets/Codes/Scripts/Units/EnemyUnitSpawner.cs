@@ -42,6 +42,10 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         {
             SpawnUnit(UnitHero.Axe);
         }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            SpawnUnit(UnitHero.Sniper);
+        }
     }
 
     private void EnemyUnit_OnAnyEnemyUnitHit(Unit unit)

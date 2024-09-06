@@ -9,10 +9,9 @@ public class HealthBarUI : MonoBehaviour
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private MMProgressBar healthBar;
 
-    private void Start()
+    private void OnEnable()
     {
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        UpdateHealthBar();
     }
 
     private void OnDisable()

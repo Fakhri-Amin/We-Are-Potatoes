@@ -63,3 +63,13 @@ MonoBehaviour:
     AttackRadius: 3
     AttackSpeed: 7
     AreaOfEffectRadius: 0
+  - UnitHero: 8
+    UnitRangeType: 1
+    UnitAttackType: 0
+    Health: 30
+    DamageAmount: 50
+    MoveSpeed: 1.2
+    DetectRadius: 12
+    AttackRadius: 12
+    AttackSpeed: 10
+    AreaOfEffectRadius: 0
