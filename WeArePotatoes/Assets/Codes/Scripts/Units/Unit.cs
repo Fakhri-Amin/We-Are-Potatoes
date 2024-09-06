@@ -14,15 +14,14 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private UnitHero unitHero;
     [SerializeField] private LayerMask targetMask;
     [SerializeField] private Transform visual;
-    [SerializeField] private MMFeedbacks deadFeedbacks;
-    [SerializeField] private ParticleSystem deadVFX;
 
     private bool canMove = true;
-    private HealthSystem healthSystem;
     private Unit targetUnit;
+    private HealthSystem healthSystem;
     private UnitAnimation unitAnimation;
+    private UnitParticle unitParticle;
+    private UnitAudio unitAudio;
     private Vector3 moveDirection;
-    private Coroutine attackRoutine;
     private Vector3 basePosition;
     private UnitStatData stat;
 
@@ -38,20 +37,33 @@ public class Unit : MonoBehaviour, IAttackable
     {
         healthSystem = GetComponent<HealthSystem>();
         unitAnimation = GetComponent<UnitAnimation>();
+        unitParticle = GetComponent<UnitParticle>();
+        unitAudio = GetComponent<UnitAudio>();
     }
 
     private void OnEnable()
     {
+        healthSystem.OnHit += HandleOnHit;
         healthSystem.OnDead += HandleOnDead;
     }
 
     private void OnDisable()
     {
+        healthSystem.OnHit -= HandleOnHit;
         healthSystem.OnDead -= HandleOnDead;
+    }
+
+    private void HandleOnHit()
+    {
+        unitParticle.PlayHitParticle();
+        unitAudio.PlayHitSound();
     }
 
     private void HandleOnDead()
     {
+        unitParticle.PlayDeadParticle();
+        unitAudio.PlayDeadSound();
+
         OnDead?.Invoke();
         OnAnyUnitDead?.Invoke(this);
     }
@@ -189,23 +201,6 @@ public class Unit : MonoBehaviour, IAttackable
         // Reset state if no valid targets are found
         targetUnit = null;
         canMove = true;
-    }
-
-    private void ResetTargetEnemy()
-    {
-        // attackRoutine = null;
-        targetUnit = null;
-    }
-
-    private IEnumerator AttackRoutine()
-    {
-        while (!canMove)
-        {
-            unitAnimation.PlayAttackAnimation();
-
-            yield return new WaitForSeconds(stat.AttackSpeed);
-        }
-
     }
 
     public void Damage(int damageAmount)

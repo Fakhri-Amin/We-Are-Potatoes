@@ -37,7 +37,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     {
         if (unit && unit.UnitType == UnitType.Player)
         {
-            PlayVFX(VisualEffectType.Dead, unit.transform.position);
+            PlayVFX(ParticleEffectType.Dead, unit.transform.position);
             spawnedUnits.Remove(unit);
             // Destroy(unit.gameObject); // Consider pooling instead of destroying
             UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
@@ -51,12 +51,12 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 
     public void SpawnAreaHitEffect(Vector3 position)
     {
-        PlayVFX(VisualEffectType.Hit, position);
+        PlayVFX(ParticleEffectType.Hit, position);
     }
 
-    private void PlayVFX(VisualEffectType vfxType, Vector3 position)
+    private void PlayVFX(ParticleEffectType vfxType, Vector3 position)
     {
-        var vfx = VisualEffectObjectPool.Instance.GetPooledObject(vfxType);
+        var vfx = ParticleEffectObjectPool.Instance.GetPooledObject(vfxType);
         if (vfx)
         {
             vfx.transform.position = position;

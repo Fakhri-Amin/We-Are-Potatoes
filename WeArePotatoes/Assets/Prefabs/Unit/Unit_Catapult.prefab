@@ -99,6 +99,18 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 3227390528768859159, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
+      propertyPath: unitRangeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227390528768859159, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
+      propertyPath: projectileType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227390528768859159, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
+      propertyPath: shootingTransform
+      value: 
+      objectReference: {fileID: 5794091688437623355}
     - target: {fileID: 3228670454581676198, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Controller
       value: 
@@ -141,30 +153,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1982551077687985118, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5794091688437623355}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8108510425585971553, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6737690345774572345}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
---- !u!1 &1697035531335480103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8108510425585971553, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
-  m_PrefabInstance: {fileID: 7424786064552608326}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6737690345774572345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697035531335480103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121538185f962a1418ee58a88cd46905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingTransform: {fileID: 5794091688437623355}
-  projectileType: 2
 --- !u!4 &8973787454717084056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1982551077687985118, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}

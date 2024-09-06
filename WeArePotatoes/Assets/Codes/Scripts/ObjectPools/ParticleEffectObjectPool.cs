@@ -4,12 +4,12 @@ using Farou.Utility;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class VisualEffectObjectPool : Singleton<VisualEffectObjectPool>
+public class ParticleEffectObjectPool : Singleton<ParticleEffectObjectPool>
 {
     [System.Serializable]
     public class VisualEffectData
     {
-        public VisualEffectType Type;
+        public ParticleEffectType Type;
         public ParticleSystem Effect;
         [HideInInspector] public Transform ParentTransform;
         [HideInInspector] public ObjectPool<ParticleSystem> ObjectPool;
@@ -41,18 +41,18 @@ public class VisualEffectObjectPool : Singleton<VisualEffectObjectPool>
         }
     }
 
-    public ParticleSystem GetPooledObject(VisualEffectType type)
+    public ParticleSystem GetPooledObject(ParticleEffectType type)
     {
         return visualEffectDatas.Find(i => i.Type == type).ObjectPool.Get();
     }
 
-    public void ReturnToPool(VisualEffectType type, ParticleSystem effect)
+    public void ReturnToPool(ParticleEffectType type, ParticleSystem effect)
     {
         visualEffectDatas.Find(i => i.Type == type).ObjectPool.Release(effect);
     }
 }
 
-public enum VisualEffectType
+public enum ParticleEffectType
 {
     Hit,
     Dead

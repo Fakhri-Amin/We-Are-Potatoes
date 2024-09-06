@@ -40,7 +40,7 @@ MonoBehaviour:
     DamageAmount: 10
     MoveSpeed: 1.2
     DetectRadius: 12
-    AttackRadius: 9
+    AttackRadius: 11
     AttackSpeed: 8
     AreaOfEffectRadius: 0.8
   - UnitHero: 5

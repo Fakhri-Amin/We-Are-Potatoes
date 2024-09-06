@@ -12,13 +12,12 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitDead;
-        Projectile.OnProjectileAreaHit += EnemyUnit_OnProjectileAreaHit;
+        Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitHit;
     }
 
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= EnemyUnit_OnAnyEnemyUnitDead;
-        Projectile.OnProjectileAreaHit -= EnemyUnit_OnProjectileAreaHit;
     }
 
     private void Update()
@@ -45,34 +44,23 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         }
     }
 
-    private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
+    private void EnemyUnit_OnAnyEnemyUnitHit(Unit unit)
     {
         if (unit && unit.UnitType == UnitType.Enemy)
         {
-            PlayVFX(VisualEffectType.Dead, unit.transform.position);
             spawnedUnits.Remove(unit);
             // Destroy(unit.gameObject); // Consider object pooling here for better performance
             UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
         }
     }
 
-    private void EnemyUnit_OnProjectileAreaHit(Projectile projectile)
+    private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
     {
-        SpawnAreaHitEffect(projectile.transform.position);
-    }
-
-    public void SpawnAreaHitEffect(Vector3 position)
-    {
-        PlayVFX(VisualEffectType.Hit, position);
-    }
-
-    private void PlayVFX(VisualEffectType vfxType, Vector3 position)
-    {
-        var vfx = VisualEffectObjectPool.Instance.GetPooledObject(vfxType);
-        if (vfx)
+        if (unit && unit.UnitType == UnitType.Enemy)
         {
-            vfx.transform.position = position;
-            vfx.Play();
+            spawnedUnits.Remove(unit);
+            // Destroy(unit.gameObject); // Consider object pooling here for better performance
+            UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
         }
     }
 

@@ -12,8 +12,20 @@ public class HealthBarUI : MonoBehaviour
 
     private void Start()
     {
-        healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         UpdateHealthBar();
+    }
+
+    private void OnEnable()
+    {
+        healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
+        healthSystem.OnHit += HealthSystem_OnHealthChanged;
+
+    }
+
+    private void OnDisable()
+    {
+        healthSystem.OnHealthChanged -= HealthSystem_OnHealthChanged;
+        healthSystem.OnHit -= HealthSystem_OnHealthChanged;
     }
 
     private void HealthSystem_OnHealthChanged()
@@ -23,7 +35,6 @@ public class HealthBarUI : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        // barImage.fillAmount = healthSystem.GetHealthNormalized();
         healthBar.UpdateBar01(healthSystem.GetHealthNormalized());
         gameObject.SetActive(healthSystem.GetHealthNormalized() < 1);
     }
