@@ -4616,7 +4616,7 @@ Animator:
   m_GameObject: {fileID: 8108510425585971553}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f65659a7fdd59424697672bcf1b2e380, type: 2}
+  m_Controller: {fileID: 9100000, guid: 38f41f23626a2c346a91377d28deb88c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4639,7 +4639,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 30
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -4653,7 +4653,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &7177851908834963531
 CircleCollider2D:
   m_ObjectHideFlags: 0

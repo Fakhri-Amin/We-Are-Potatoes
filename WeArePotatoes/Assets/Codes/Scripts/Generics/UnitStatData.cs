@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 [System.Serializable]
 public class UnitStatData
 {
+    [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
     [TabGroup("General")]
     [EnumPaging]
     public UnitHero UnitHero;
@@ -16,6 +17,7 @@ public class UnitStatData
     [EnumPaging]
     public UnitAttackType UnitAttackType;
 
+    [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
     [TabGroup("Stat")]
     public int Health;
     [TabGroup("Stat")]
@@ -28,6 +30,8 @@ public class UnitStatData
     public float AttackRadius;
     [TabGroup("Stat")]
     public float AttackSpeed;
+    [TabGroup("Stat")]
+    [HideIf("UnitRangeType", UnitRangeType.Melee)] public float ProjectileSpeed;
     [TabGroup("Stat")]
     [ShowIf("UnitAttackType", UnitAttackType.Area)] public float AreaOfEffectRadius;
 }

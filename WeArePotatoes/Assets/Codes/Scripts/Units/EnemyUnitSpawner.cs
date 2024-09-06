@@ -12,7 +12,6 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitDead;
-        Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitHit;
     }
 
     private void OnDisable()
@@ -46,15 +45,13 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         {
             SpawnUnit(UnitHero.Sniper);
         }
-    }
-
-    private void EnemyUnit_OnAnyEnemyUnitHit(Unit unit)
-    {
-        if (unit && unit.UnitType == UnitType.Enemy)
+        else if (Input.GetKeyDown(KeyCode.M))
         {
-            spawnedUnits.Remove(unit);
-            // Destroy(unit.gameObject); // Consider object pooling here for better performance
-            UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
+            SpawnUnit(UnitHero.Sniper);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            SpawnUnit(UnitHero.GreatSword);
         }
     }
 

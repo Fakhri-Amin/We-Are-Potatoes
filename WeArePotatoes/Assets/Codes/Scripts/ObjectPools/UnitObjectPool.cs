@@ -15,11 +15,11 @@ public class UnitObjectPool : Singleton<UnitObjectPool>
         [HideInInspector] public ObjectPool<Unit> ObjectPool;
     }
 
-    [SerializeField] private List<UnitHeroReference> unitHeroReferences = new List<UnitHeroReference>();
+    public List<UnitHeroReference> UnitHeroReferences = new List<UnitHeroReference>();
 
     private void Start()
     {
-        foreach (var item in unitHeroReferences)
+        foreach (var item in UnitHeroReferences)
         {
             item.ObjectPool = new ObjectPool<Unit>(() =>
             {
@@ -44,12 +44,12 @@ public class UnitObjectPool : Singleton<UnitObjectPool>
 
     public Unit GetPooledObject(UnitHero type)
     {
-        return unitHeroReferences.Find(i => i.Type == type).ObjectPool.Get();
+        return UnitHeroReferences.Find(i => i.Type == type).ObjectPool.Get();
     }
 
     public void ReturnToPool(UnitHero type, Unit effect)
     {
-        unitHeroReferences.Find(i => i.Type == type).ObjectPool.Release(effect);
+        UnitHeroReferences.Find(i => i.Type == type).ObjectPool.Release(effect);
     }
 }
 

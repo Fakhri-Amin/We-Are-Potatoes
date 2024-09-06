@@ -16,9 +16,19 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         base.Awake();
         for (int i = 0; i < unitButtons.Length; i++)
         {
-            int index = i; // Capture loop variable
-            unitButtons[i].onClick.AddListener(() => OnUnitSpawn(unitHeroes[index]));
+            int buttonIndex = i; // Capture the button index
+
+            for (int j = 0; j < UnitObjectPool.Instance.UnitHeroReferences.Count; j++)
+            {
+                if (buttonIndex == j) // Compare with captured button index
+                {
+                    var unitHeroReference = UnitObjectPool.Instance.UnitHeroReferences[j]; // Capture reference here
+
+                    unitButtons[buttonIndex].onClick.AddListener(() => OnUnitSpawn(unitHeroReference.Type));
+                }
+            }
         }
+
     }
 
     private void OnEnable()

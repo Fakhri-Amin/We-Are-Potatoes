@@ -107,10 +107,6 @@ PrefabInstance:
       propertyPath: shootingTransform
       value: 
       objectReference: {fileID: 5794091688437623355}
-    - target: {fileID: 3228670454581676198, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ed0e546c81f906f4fb7a42b9ec299cdc, type: 2}
     - target: {fileID: 3989395770664636578, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: unitHero
       value: 2
@@ -121,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6942206049368192244, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: unitHero
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7006459065488840092, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_LocalPosition.x

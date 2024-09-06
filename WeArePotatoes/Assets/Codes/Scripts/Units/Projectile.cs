@@ -52,16 +52,16 @@ public class Projectile : MonoBehaviour
         ProjectileObjectPool.Instance.ReturnToPool(projectileType, this);
     }
 
-    public IEnumerator CurveMovementRoutine(Vector2 start, Vector2 target, float attackSpeed)
+    public IEnumerator CurveMovementRoutine(Vector2 start, Vector2 target, float projectileSpeed)
     {
         float timePassed = 0f;
         Vector2 end = target;
 
-        while (timePassed < attackSpeed)
+        while (timePassed < projectileSpeed)
         {
             timePassed += Time.deltaTime;
 
-            float linearT = timePassed / attackSpeed;
+            float linearT = timePassed / projectileSpeed;
             float heightT = animationCurve.Evaluate(linearT);
 
             float height = Mathf.Lerp(0f, heightY, heightT);
@@ -87,14 +87,14 @@ public class Projectile : MonoBehaviour
         }
         else if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeCurve)
         {
-            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, 1 / (sourceUnit.Stat.AttackSpeed / 4)));
+            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, 1 / sourceUnit.Stat.ProjectileSpeed));
         }
     }
 
     private void InitializeStraightProjectile()
     {
         Vector2 direction = (Vector2)(targetUnit.transform.position - transform.position);
-        rb.velocity = direction.normalized * sourceUnit.Stat.AttackSpeed * 3;
+        rb.velocity = direction.normalized * sourceUnit.Stat.ProjectileSpeed;
 
         float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotation);

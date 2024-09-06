@@ -25,9 +25,10 @@ public class Unit : MonoBehaviour, IAttackable
     private Vector3 basePosition;
     private UnitStatData stat;
 
-    public UnitType UnitType => unitType;
-    public UnitStatData Stat => stat;
     public Unit TargetUnit => targetUnit;
+    public UnitStatData Stat => stat;
+    public UnitType UnitType => unitType;
+    public UnitHero UnitHero => unitHero;
     public LayerMask TargetMask => targetMask;
 
     private float attackSpeed = 0;
@@ -120,6 +121,9 @@ public class Unit : MonoBehaviour, IAttackable
 
         // Set the initial canMove variable
         canMove = true;
+
+        // Set the animation to idle 
+        unitAnimation.PlayIdleAnimation();
     }
 
     private void Move()

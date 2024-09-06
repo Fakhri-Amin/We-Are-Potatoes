@@ -99,13 +99,9 @@ PrefabInstance:
       propertyPath: shootingTransform
       value: 
       objectReference: {fileID: 3419716099518427860}
-    - target: {fileID: 3228670454581676198, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 18d3e7cad9535484f9f0be0b2c033f42, type: 2}
     - target: {fileID: 6942206049368192244, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: unitHero
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7407876514876931392, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Sprite
