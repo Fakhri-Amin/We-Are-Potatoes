@@ -43,20 +43,12 @@ public class Unit : MonoBehaviour, IAttackable
 
     private void OnEnable()
     {
-        healthSystem.OnHit += HandleOnHit;
         healthSystem.OnDead += HandleOnDead;
     }
 
     private void OnDisable()
     {
-        healthSystem.OnHit -= HandleOnHit;
         healthSystem.OnDead -= HandleOnDead;
-    }
-
-    private void HandleOnHit()
-    {
-        unitParticle.PlayHitParticle();
-        unitAudio.PlayHitSound();
     }
 
     private void HandleOnDead()
@@ -205,6 +197,9 @@ public class Unit : MonoBehaviour, IAttackable
 
     public void Damage(int damageAmount)
     {
+        unitParticle.PlayHitParticle();
+        unitAudio.PlayHitSound();
+
         healthSystem.Damage(damageAmount);
     }
 }

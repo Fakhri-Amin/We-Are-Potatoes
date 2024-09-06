@@ -6,7 +6,6 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     public Action OnHealthChanged;
-    public Action OnHit;
     public Action OnDead;
 
     private int healthAmount;
@@ -29,7 +28,7 @@ public class HealthSystem : MonoBehaviour
             OnDead?.Invoke();
         }
 
-        OnHit?.Invoke();
+        OnHealthChanged?.Invoke();
     }
 
     public float GetHealthNormalized()

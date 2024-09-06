@@ -32,7 +32,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5087864843209912758}
+  - {fileID: 8399957858055266630}
   m_Father: {fileID: 1982551077687985118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -821,6 +821,57 @@ MonoBehaviour:
         Duration: 0
         GrabDurationFromBlinkButton:
           ButtonText: Grab Duration From Blink Component
+--- !u!1 &3108743228100831355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8399957858055266630}
+  - component: {fileID: 7626386149970038175}
+  m_Layer: 6
+  m_Name: HealthBarUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8399957858055266630
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3108743228100831355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5087864843209912758}
+  m_Father: {fileID: 6237485143487695559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7626386149970038175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3108743228100831355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2564a57b6e4bd0e41b2bcfc79b5e5be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSystem: {fileID: 7889476563095270075}
+  healthBar: {fileID: 2159469114508196223}
 --- !u!1 &3190276944913976436
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +957,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5087864843209912758}
   - component: {fileID: 2159469114508196223}
-  - component: {fileID: 8818087781455437542}
   m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
@@ -921,7 +971,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994093917044676766}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -932,7 +982,7 @@ RectTransform:
   - {fileID: 8526566385975386957}
   - {fileID: 3729694075271024992}
   - {fileID: 7414479396680161989}
-  m_Father: {fileID: 6237485143487695559}
+  m_Father: {fileID: 8399957858055266630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1299,21 +1349,6 @@ MonoBehaviour:
   BarTarget: 0.92300004
   DelayedBarIncreasingProgress: 0.92300004
   DelayedBarDecreasingProgress: 0.92300004
---- !u!114 &8818087781455437542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3994093917044676766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2564a57b6e4bd0e41b2bcfc79b5e5be8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthSystem: {fileID: 7889476563095270075}
-  healthBar: {fileID: 2159469114508196223}
-  barImage: {fileID: 0}
 --- !u!1 &4330208910676024566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1656,7 @@ MonoBehaviour:
     - rid: 1779414934241935544
       type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: -968316917
         Label: Sound
         ChannelMode: 0

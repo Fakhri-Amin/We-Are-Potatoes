@@ -8,24 +8,16 @@ public class HealthBarUI : MonoBehaviour
 {
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private MMProgressBar healthBar;
-    [SerializeField] private Image barImage;
 
     private void Start()
     {
-        UpdateHealthBar();
-    }
-
-    private void OnEnable()
-    {
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        healthSystem.OnHit += HealthSystem_OnHealthChanged;
-
+        UpdateHealthBar();
     }
 
     private void OnDisable()
     {
         healthSystem.OnHealthChanged -= HealthSystem_OnHealthChanged;
-        healthSystem.OnHit -= HealthSystem_OnHealthChanged;
     }
 
     private void HealthSystem_OnHealthChanged()
@@ -36,6 +28,6 @@ public class HealthBarUI : MonoBehaviour
     private void UpdateHealthBar()
     {
         healthBar.UpdateBar01(healthSystem.GetHealthNormalized());
-        gameObject.SetActive(healthSystem.GetHealthNormalized() < 1);
+        healthBar.gameObject.SetActive(healthSystem.GetHealthNormalized() < 1);
     }
 }

@@ -24,43 +24,20 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += PlayerUnit_OnAnyPlayerUnitDead;
-        Projectile.OnProjectileAreaHit += EnemyUnit_OnProjectileAreaHit;
     }
 
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= PlayerUnit_OnAnyPlayerUnitDead;
-        Projectile.OnProjectileAreaHit -= EnemyUnit_OnProjectileAreaHit;
     }
 
     private void PlayerUnit_OnAnyPlayerUnitDead(Unit unit)
     {
         if (unit && unit.UnitType == UnitType.Player)
         {
-            PlayVFX(ParticleEffectType.Dead, unit.transform.position);
             spawnedUnits.Remove(unit);
             // Destroy(unit.gameObject); // Consider pooling instead of destroying
             UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
-        }
-    }
-
-    private void EnemyUnit_OnProjectileAreaHit(Projectile projectile)
-    {
-        SpawnAreaHitEffect(projectile.transform.position);
-    }
-
-    public void SpawnAreaHitEffect(Vector3 position)
-    {
-        PlayVFX(ParticleEffectType.Hit, position);
-    }
-
-    private void PlayVFX(ParticleEffectType vfxType, Vector3 position)
-    {
-        var vfx = ParticleEffectObjectPool.Instance.GetPooledObject(vfxType);
-        if (vfx)
-        {
-            vfx.transform.position = position;
-            vfx.Play();
         }
     }
 
