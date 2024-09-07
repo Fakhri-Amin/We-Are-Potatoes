@@ -32,6 +32,7 @@ public class UnitObjectPool : Singleton<UnitObjectPool>
             }, obj =>
             {
                 obj.gameObject.SetActive(true);
+                obj.ResetState();
             }, obj =>
             {
                 obj.gameObject.SetActive(false);

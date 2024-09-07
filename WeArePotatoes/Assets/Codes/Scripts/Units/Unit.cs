@@ -14,6 +14,9 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private UnitHero unitHero;
     [SerializeField] private LayerMask targetMask;
     [SerializeField] private Transform visual;
+    [SerializeField] private MMFeedbacks resetFeedbacks;
+    [SerializeField] private SpriteRenderer bodySprite;
+    [SerializeField] private SpriteRenderer weaponSprite;
 
     private bool canMove = true;
     private Unit targetUnit;
@@ -108,8 +111,9 @@ public class Unit : MonoBehaviour, IAttackable
             }
         }
 
-        // Set the health
+        // Reset state
         healthSystem.ResetHealth(stat.Health);
+        // ResetState();
 
         // Set the move direction
         moveDirection = unitType == UnitType.Player ? Vector3.right : Vector3.left;
@@ -124,6 +128,12 @@ public class Unit : MonoBehaviour, IAttackable
 
         // Set the animation to idle 
         unitAnimation.PlayIdleAnimation();
+    }
+
+    public void ResetState()
+    {
+        bodySprite.material.SetFloat("_HitEffectBlend", 0);
+        weaponSprite.material.SetFloat("_HitEffectBlend", 0);
     }
 
     private void Move()

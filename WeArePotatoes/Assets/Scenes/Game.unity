@@ -3164,7 +3164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualEffectDatas:
   - Type: 0
-    Effect: {fileID: 8747429201938379428, guid: a565cae997c97f349b349c74662226f3, type: 3}
+    Effect: {fileID: 8747429201938379428, guid: 80bf5299ca26238468b9ee3177d96f5d, type: 3}
     ParentTransform: {fileID: 0}
   - Type: 1
     Effect: {fileID: 8747429201938379428, guid: 8f3771062ca77c74b8fb2b09dfd7fc7e, type: 3}

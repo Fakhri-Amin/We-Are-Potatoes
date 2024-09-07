@@ -77,7 +77,7 @@ MonoBehaviour:
     DetectRadius: 12
     AttackRadius: 12
     AttackSpeed: 5
-    ProjectileSpeed: 23
+    ProjectileSpeed: 25
     AreaOfEffectRadius: 0
   - UnitHero: 7
     UnitRangeType: 0

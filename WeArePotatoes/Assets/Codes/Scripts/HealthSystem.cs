@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    public Action OnHealthReset;
     public Action OnHealthChanged;
     public Action OnDead;
 
@@ -15,6 +17,7 @@ public class HealthSystem : MonoBehaviour
     {
         this.maxHealth = maxHealth;
         healthAmount = maxHealth;
+        OnHealthReset?.Invoke();
         OnHealthChanged?.Invoke();
     }
 
