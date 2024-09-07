@@ -94,7 +94,7 @@ PrefabInstance:
     - target: {fileID: 2272017547782301160, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 614ef5b0acfb8604a873505adea47268, type: 3}
+      objectReference: {fileID: 21300000, guid: 03d8d802fa9e5cb4dab92b2a322c590d, type: 3}
     - target: {fileID: 3227390528768859159, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: shootingTransform
       value: 
@@ -118,7 +118,7 @@ PrefabInstance:
     - target: {fileID: 7407876514876931392, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c9041fcef9d7b9d49a51db00820aa366, type: 3}
+      objectReference: {fileID: 21300000, guid: 4a04543cfba6f574fa0513ac2ace1a70, type: 3}
     - target: {fileID: 8108510425585971553, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Name
       value: Unit_GreatSword

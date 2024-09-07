@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 7407876514876931392, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 83de4e7c89e9a8547868846917487045, type: 3}
+      objectReference: {fileID: 21300000, guid: b7dab9781aebc184bad6238450556f3e, type: 3}
     - target: {fileID: 8108510425585971553, guid: 670b48a6894f0174ca869be0d22f4e9c, type: 3}
       propertyPath: m_Name
       value: Unit_Catapult
