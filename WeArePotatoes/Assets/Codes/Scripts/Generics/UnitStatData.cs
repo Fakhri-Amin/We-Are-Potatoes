@@ -16,6 +16,8 @@ public class UnitStatData
     [TabGroup("General")]
     [EnumPaging]
     public UnitAttackType UnitAttackType;
+    [TabGroup("General")]
+    public Unit Prefab;
 
     [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
     [TabGroup("Stat")]

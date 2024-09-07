@@ -16,6 +16,7 @@ MonoBehaviour:
   - UnitHero: 1
     UnitRangeType: 0
     UnitAttackType: 0
+    Prefab: {fileID: 2147124410541410135, guid: da1c27dc42ab57f41b1a77db62449eb4, type: 3}
     Health: 100
     DamageAmount: 10
     MoveSpeed: 1.2
@@ -27,6 +28,7 @@ MonoBehaviour:
   - UnitHero: 2
     UnitRangeType: 1
     UnitAttackType: 0
+    Prefab: {fileID: 530729902207760050, guid: 1506b19e66a19de49928310b6b5c31d2, type: 3}
     Health: 60
     DamageAmount: 20
     MoveSpeed: 1.2
@@ -38,6 +40,7 @@ MonoBehaviour:
   - UnitHero: 3
     UnitRangeType: 2
     UnitAttackType: 1
+    Prefab: {fileID: 530729902207760050, guid: c3ee7013187f9b345b42288859abb4a4, type: 3}
     Health: 40
     DamageAmount: 10
     MoveSpeed: 1.2
@@ -49,10 +52,11 @@ MonoBehaviour:
   - UnitHero: 4
     UnitRangeType: 0
     UnitAttackType: 0
+    Prefab: {fileID: 2147124410541410135, guid: 4f88aa25cf8e54141802e2e106ad2aec, type: 3}
     Health: 300
     DamageAmount: 0
     MoveSpeed: 1.2
-    DetectRadius: 4
+    DetectRadius: 5
     AttackRadius: 0.6
     AttackSpeed: 5
     ProjectileSpeed: 0
@@ -60,6 +64,7 @@ MonoBehaviour:
   - UnitHero: 5
     UnitRangeType: 1
     UnitAttackType: 0
+    Prefab: {fileID: 2147124410541410135, guid: fb4edc960b7f10844bd7bcc2c89f12c3, type: 3}
     Health: 120
     DamageAmount: 40
     MoveSpeed: 1.2
@@ -71,6 +76,7 @@ MonoBehaviour:
   - UnitHero: 6
     UnitRangeType: 1
     UnitAttackType: 0
+    Prefab: {fileID: 530729902207760050, guid: 82db81a023d77c44c8347429585d84ff, type: 3}
     Health: 30
     DamageAmount: 50
     MoveSpeed: 1.2
@@ -82,6 +88,7 @@ MonoBehaviour:
   - UnitHero: 7
     UnitRangeType: 0
     UnitAttackType: 1
+    Prefab: {fileID: 2147124410541410135, guid: 42e14f3467e26d2468343571a2b54c52, type: 3}
     Health: 120
     DamageAmount: 25
     MoveSpeed: 1.2
@@ -90,3 +97,15 @@ MonoBehaviour:
     AttackSpeed: 3
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0.8
+  - UnitHero: 8
+    UnitRangeType: 0
+    UnitAttackType: 0
+    Prefab: {fileID: 2147124410541410135, guid: 10a12614378c6fd4abb6e249bc787b67, type: 3}
+    Health: 150
+    DamageAmount: 40
+    MoveSpeed: 1.6
+    DetectRadius: 8
+    AttackRadius: 2
+    AttackSpeed: 2
+    ProjectileSpeed: 0
+    AreaOfEffectRadius: 0

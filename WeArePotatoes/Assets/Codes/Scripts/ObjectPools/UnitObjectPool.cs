@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -15,7 +16,7 @@ public class UnitObjectPool : Singleton<UnitObjectPool>
         [HideInInspector] public ObjectPool<Unit> ObjectPool;
     }
 
-    public List<UnitHeroReference> UnitHeroReferences = new List<UnitHeroReference>();
+    [TableList(ShowIndexLabels = true)] public List<UnitHeroReference> UnitHeroReferences = new List<UnitHeroReference>();
 
     private void Start()
     {

@@ -12,8 +12,8 @@ public enum UnitHero
     Axe,
     Sniper,
     GreatSword,
-    Boomerang,
     HorseSpear,
+    Boomerang,
     IceOrb,
     FireOrb
 }

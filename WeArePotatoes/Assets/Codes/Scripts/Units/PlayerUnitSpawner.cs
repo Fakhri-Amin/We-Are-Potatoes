@@ -8,7 +8,6 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
     [SerializeField] private Button[] unitButtons; // Array to simplify button handling
-    [SerializeField] private UnitHero[] unitHeroes; // Corresponding unit types for the buttons
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private new void Awake()

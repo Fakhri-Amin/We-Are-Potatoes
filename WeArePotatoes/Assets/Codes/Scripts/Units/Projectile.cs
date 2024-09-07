@@ -13,9 +13,7 @@ public class Projectile : MonoBehaviour
     private Unit sourceUnit;
     private Unit targetUnit;
     private ProjectileType projectileType;
-    private Vector2 targetPosition;
-
-    private const float DistanceThreshold = .1f;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -27,6 +25,8 @@ public class Projectile : MonoBehaviour
                 Debug.LogError("Rigidbody2D component is missing.");
             }
         }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -36,15 +36,6 @@ public class Projectile : MonoBehaviour
             ReturnToPool();
             return;
         }
-    }
-
-    private bool IsTargetReached()
-    {
-        Vector2 targetPosition = sourceUnit.UnitType == UnitType.Enemy
-            ? PlayerUnitSpawner.Instance.GetUnitPosition(targetUnit)
-            : EnemyUnitSpawner.Instance.GetUnitPosition(targetUnit);
-
-        return Vector2.Distance(transform.position, targetPosition) <= DistanceThreshold;
     }
 
     private void ReturnToPool()
@@ -80,6 +71,8 @@ public class Projectile : MonoBehaviour
         this.projectileType = projectileType;
 
         gameObject.layer = sourceUnit.gameObject.layer;
+
+        spriteRenderer.flipY = sourceUnit.UnitType == UnitType.Player ? false : true;
 
         if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeStraight)
         {
