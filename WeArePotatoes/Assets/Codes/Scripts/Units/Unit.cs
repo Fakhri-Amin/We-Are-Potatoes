@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, IAttackable
@@ -150,7 +151,7 @@ public class Unit : MonoBehaviour, IAttackable
             {
                 if (enemy.TryGetComponent<IAttackable>(out IAttackable attackable))
                 {
-                    MoveToward(enemy.transform.position);
+                    MoveToward(attackable.GameObject.transform.position);
                     return;
                 }
             }

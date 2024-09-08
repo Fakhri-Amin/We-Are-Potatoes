@@ -6,5 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitStatSO", menuName = "Farou/Unit Stat")]
 public class UnitStatSO : ScriptableObject
 {
+    public int PlayerBaseMaxHealth;
+    public int EnemyBaseMaxHealth;
     [TableList(ShowIndexLabels = true)] public List<UnitStatData> UnitStatDataList;
 }

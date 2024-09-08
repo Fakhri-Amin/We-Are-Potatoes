@@ -95,7 +95,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Unit singleUnit = other.GetComponent<Unit>();
+        IAttackable singleUnit = other.GetComponent<IAttackable>();
 
         // Ensure the unit is valid and belongs to a different faction
         if (singleUnit == null || singleUnit.UnitType == sourceUnit.UnitType)
@@ -123,7 +123,7 @@ public class Projectile : MonoBehaviour
 
         foreach (var item in targetsInRadius)
         {
-            if (item.TryGetComponent<Unit>(out Unit unit) && unit.UnitType != sourceUnit.UnitType)
+            if (item.TryGetComponent<IAttackable>(out IAttackable unit) && unit.UnitType != sourceUnit.UnitType)
             {
                 OnProjectileAreaHit?.Invoke(this);
                 unit.Damage(sourceUnit.Stat.DamageAmount);
