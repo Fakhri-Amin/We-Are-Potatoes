@@ -45,7 +45,7 @@ MonoBehaviour:
     DamageAmount: 10
     MoveSpeed: 1.2
     DetectRadius: 12
-    AttackRadius: 10
+    AttackRadius: 8
     AttackSpeed: 8
     ProjectileSpeed: 2
     AreaOfEffectRadius: 0.8
@@ -81,7 +81,7 @@ MonoBehaviour:
     DamageAmount: 50
     MoveSpeed: 1.2
     DetectRadius: 12
-    AttackRadius: 12
+    AttackRadius: 11
     AttackSpeed: 5
     ProjectileSpeed: 25
     AreaOfEffectRadius: 0
