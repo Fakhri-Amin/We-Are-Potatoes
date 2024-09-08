@@ -47,7 +47,7 @@ MonoBehaviour:
     DamageAmount: 10
     MoveSpeed: 1.2
     DetectRadius: 12
-    AttackRadius: 8
+    AttackRadius: 8.5
     AttackSpeed: 8
     ProjectileSpeed: 2
     AreaOfEffectRadius: 0.8
