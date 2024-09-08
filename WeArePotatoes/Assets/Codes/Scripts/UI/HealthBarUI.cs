@@ -48,7 +48,6 @@ public class HealthBarUI : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        Debug.Log("Reset!");
         healthBar.UpdateBar01(healthSystem.GetHealthNormalized());
         healthBar.gameObject.SetActive(healthSystem.GetHealthNormalized() < 1);
     }

@@ -57,7 +57,7 @@ public class UnitAttackSystem : MonoBehaviour
 
         foreach (var target in targetsInRadius)
         {
-            if (target.TryGetComponent(out Unit targetUnit) && targetUnit.UnitType != unit.UnitType)
+            if (target.TryGetComponent(out IAttackable targetUnit))
             {
                 targetUnit.Damage(unit.Stat.DamageAmount);
             }

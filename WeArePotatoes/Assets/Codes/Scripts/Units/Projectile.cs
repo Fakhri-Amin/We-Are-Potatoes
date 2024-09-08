@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float heightY = 2f;
     [SerializeField] private Rigidbody2D rb;
     private Unit sourceUnit;
-    private Unit targetUnit;
+    private IAttackable targetUnit;
     private ProjectileType projectileType;
     private SpriteRenderer spriteRenderer;
 
@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (!targetUnit)
+        if (targetUnit == null)
         {
             ReturnToPool();
             return;
@@ -64,7 +64,7 @@ public class Projectile : MonoBehaviour
         ReturnToPool();
     }
 
-    public void Initialize(Unit sourceUnit, Unit targetUnit, ProjectileType projectileType)
+    public void Initialize(Unit sourceUnit, IAttackable targetUnit, ProjectileType projectileType)
     {
         this.sourceUnit = sourceUnit;
         this.targetUnit = targetUnit;
@@ -80,13 +80,13 @@ public class Projectile : MonoBehaviour
         }
         else if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeCurve)
         {
-            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.gameObject.transform.position, 1 / sourceUnit.Stat.ProjectileSpeed));
+            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.GameObject.transform.position, 1 / sourceUnit.Stat.ProjectileSpeed));
         }
     }
 
     private void InitializeStraightProjectile()
     {
-        Vector2 direction = (Vector2)(targetUnit.transform.position - transform.position);
+        Vector2 direction = (Vector2)(targetUnit.GameObject.transform.position - transform.position);
         rb.velocity = direction.normalized * sourceUnit.Stat.ProjectileSpeed;
 
         float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

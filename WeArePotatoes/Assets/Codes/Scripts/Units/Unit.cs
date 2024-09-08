@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private SpriteRenderer weaponSprite;
 
     private bool canMove = true;
-    private Unit targetUnit;
+    private IAttackable targetUnit;
     private HealthSystem healthSystem;
     private UnitAnimation unitAnimation;
     private UnitParticle unitParticle;
@@ -28,11 +28,13 @@ public class Unit : MonoBehaviour, IAttackable
     private Vector3 basePosition;
     private UnitStatData stat;
 
-    public Unit TargetUnit => targetUnit;
+    public IAttackable TargetUnit => targetUnit;
     public UnitStatData Stat => stat;
     public UnitType UnitType => unitType;
     public UnitHero UnitHero => unitHero;
     public LayerMask TargetMask => targetMask;
+
+    public GameObject GameObject => gameObject;
 
     private float attackSpeed = 0;
     private bool canAttack = true;
@@ -182,17 +184,14 @@ public class Unit : MonoBehaviour, IAttackable
 
             foreach (var enemy in targetInRange)
             {
-                if (enemy.TryGetComponent<Unit>(out Unit unit))
+                if (enemy.TryGetComponent<IAttackable>(out IAttackable unit))
                 {
-                    if (unit != null && unit.UnitType != UnitType)
-                    {
-                        float distanceToBase = Mathf.Abs(Vector3.Distance(enemy.transform.position, basePosition));
+                    float distanceToBase = Mathf.Abs(Vector3.Distance(enemy.transform.position, basePosition));
 
-                        if (distanceToBase < closestDistance)
-                        {
-                            closestDistance = distanceToBase;
-                            targetUnit = unit;
-                        }
+                    if (distanceToBase < closestDistance)
+                    {
+                        closestDistance = distanceToBase;
+                        targetUnit = unit;
                     }
                 }
             }
