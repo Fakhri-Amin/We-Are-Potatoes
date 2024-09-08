@@ -109,3 +109,15 @@ MonoBehaviour:
     AttackSpeed: 2
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
+  - UnitHero: 9
+    UnitRangeType: 0
+    UnitAttackType: 0
+    Prefab: {fileID: 2147124410541410135, guid: 76d4d949f231663438699c0ee6563bf3, type: 3}
+    Health: 50
+    DamageAmount: 10
+    MoveSpeed: 1.2
+    DetectRadius: 4
+    AttackRadius: 1
+    AttackSpeed: 0
+    ProjectileSpeed: 0
+    AreaOfEffectRadius: 0
