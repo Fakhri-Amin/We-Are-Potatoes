@@ -1,13 +1,34 @@
+using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
+    [SerializeField] private string levelID;
+    [SerializeField] private LevelWaveDatabaseSO levelWaveDatabaseSO;
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
+
+    private LevelWaveSO levelWaveSO;
+
+    private void Start()
+    {
+        levelID = SceneManager.GetActiveScene().name;
+
+        foreach (var item in levelWaveDatabaseSO.LevelWaveSOs)
+        {
+            if (item.name == levelID)
+            {
+                levelWaveSO = item;
+            }
+        }
+
+        StartCoroutine(SpawnUnitWaveRoutine());
+    }
 
     private void OnEnable()
     {
@@ -17,6 +38,24 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= EnemyUnit_OnAnyEnemyUnitDead;
+    }
+
+    private IEnumerator SpawnUnitWaveRoutine()
+    {
+        yield return new WaitForSeconds(levelWaveSO.DelayAtStart);
+
+        foreach (var wave in levelWaveSO.WaveDatas)
+        {
+            foreach (var unit in wave.WaveHeroDatas)
+            {
+                for (int i = 0; i < unit.Count; i++)
+                {
+                    SpawnUnit(unit.UnitType);
+                }
+            }
+
+            yield return new WaitForSeconds(levelWaveSO.DelayBetweenWaves);
+        }
     }
 
     private void Update()
