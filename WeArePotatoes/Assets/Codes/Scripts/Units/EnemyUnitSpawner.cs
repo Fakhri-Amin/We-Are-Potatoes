@@ -42,57 +42,38 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 
     private IEnumerator SpawnUnitWaveRoutine()
     {
-        yield return new WaitForSeconds(levelWaveSO.DelayAtStart);
+        // Cache levelWaveSO properties to reduce repeated access
+        var delayAtStart = levelWaveSO.DelayAtStart;
+        var delayBetweenWaves = levelWaveSO.DelayBetweenWaves;
+        var waveDatas = levelWaveSO.WaveDatas;
 
-        foreach (var wave in levelWaveSO.WaveDatas)
+        // Wait before starting the waves
+        yield return new WaitForSeconds(delayAtStart);
+
+        // Iterate through each wave
+        for (int waveIndex = 0; waveIndex < waveDatas.Count; waveIndex++)
         {
-            foreach (var unit in wave.WaveHeroDatas)
+            var currentWave = waveDatas[waveIndex];
+            var unitDatas = currentWave.WaveHeroDatas;
+
+            // Iterate through each hero data in the wave
+            for (int heroIndex = 0; heroIndex < unitDatas.Count; heroIndex++)
             {
-                for (int i = 0; i < unit.Count; i++)
+                var unitData = unitDatas[heroIndex];
+                var unitType = unitData.UnitType;
+
+                // Spawn the required number of units
+                for (int i = 0; i < unitData.Count; i++)
                 {
-                    SpawnUnit(unit.UnitType);
+                    SpawnUnit(unitType);
                 }
             }
 
-            yield return new WaitForSeconds(levelWaveSO.DelayBetweenWaves);
+            // Wait between waves
+            yield return new WaitForSeconds(delayBetweenWaves);
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SpawnUnit(UnitHero.Sword);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            SpawnUnit(UnitHero.Bow);
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            SpawnUnit(UnitHero.Catapult);
-        }
-        else if (Input.GetKeyDown(KeyCode.V))
-        {
-            SpawnUnit(UnitHero.Shield);
-        }
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            SpawnUnit(UnitHero.Axe);
-        }
-        else if (Input.GetKeyDown(KeyCode.N))
-        {
-            SpawnUnit(UnitHero.Sniper);
-        }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            SpawnUnit(UnitHero.Sniper);
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnUnit(UnitHero.GreatSword);
-        }
-    }
 
     private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
     {

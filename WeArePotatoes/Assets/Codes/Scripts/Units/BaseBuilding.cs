@@ -8,7 +8,7 @@ public class BaseBuilding : MonoBehaviour, IAttackable
 
     public UnitType UnitType => unitType;
 
-    [SerializeField] private UnitStatSO unitStatSO;
+    [SerializeField] private UnitDataSO unitStatSO;
     [SerializeField] private UnitType unitType;
     [SerializeField] private GameObject spawnPosition;
 

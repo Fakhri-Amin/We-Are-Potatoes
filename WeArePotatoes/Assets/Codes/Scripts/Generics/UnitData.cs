@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 [System.Serializable]
-public class UnitStatData
+public class UnitData
 {
     [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
     [TabGroup("General")]
@@ -18,8 +18,12 @@ public class UnitStatData
     public UnitAttackType UnitAttackType;
     [TabGroup("General")]
     public Unit Prefab;
+    [TabGroup("General")]
+    public Sprite Sprite;
 
     [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
+    [TabGroup("Stat")]
+    public int SeedCost;
     [TabGroup("Stat")]
     public int Health;
     [TabGroup("Stat")]

@@ -4,9 +4,9 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitStatSO", menuName = "Farou/Unit Stat")]
-public class UnitStatSO : ScriptableObject
+public class UnitDataSO : ScriptableObject
 {
     public int PlayerBaseMaxHealth;
     public int EnemyBaseMaxHealth;
-    [TableList(ShowIndexLabels = true)] public List<UnitStatData> UnitStatDataList;
+    [TableList(ShowIndexLabels = true)] public List<UnitData> UnitStatDataList;
 }

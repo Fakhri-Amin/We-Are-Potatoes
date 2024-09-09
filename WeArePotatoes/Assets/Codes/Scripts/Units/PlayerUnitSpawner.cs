@@ -56,7 +56,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         return foundUnit ? foundUnit.transform.position : Vector3.zero;
     }
 
-    private void OnUnitSpawn(UnitHero unitHero)
+    public void OnUnitSpawn(UnitHero unitHero)
     {
         Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);

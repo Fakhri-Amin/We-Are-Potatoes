@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour, IAttackable
     public static event Action<Unit> OnAnyUnitDead;
     public event Action OnDead;
 
-    [SerializeField] private UnitStatSO unitStatSO;
+    [SerializeField] private UnitDataSO unitStatSO;
     [SerializeField] private UnitType unitType;
     [SerializeField] private UnitHero unitHero;
     [SerializeField] private LayerMask targetMask;
@@ -27,10 +27,10 @@ public class Unit : MonoBehaviour, IAttackable
     private UnitAudio unitAudio;
     private Vector3 moveDirection;
     private Vector3 basePosition;
-    private UnitStatData stat;
+    private UnitData stat;
 
     public IAttackable TargetUnit => targetUnit;
-    public UnitStatData Stat => stat;
+    public UnitData Stat => stat;
     public UnitType UnitType => unitType;
     public UnitHero UnitHero => unitHero;
     public LayerMask TargetMask => targetMask;
