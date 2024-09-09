@@ -1,20 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUnitCardUI : MonoBehaviour
 {
     [SerializeField] private UnitDataSO unitDataSO;
+    [SerializeField] private Transform buttonParent;
     [SerializeField] private UnitCardUI normalUnitCardTemplate;
     [SerializeField] private UnitCardUI longUnitCardTemplate;
+    [SerializeField] private TMP_Text seedCountText;
 
-    [SerializeField] private Transform buttonParent;
     [SerializeField] private UnitHero[] normalUnitCardSize;
     [SerializeField] private UnitHero[] longUnitCardSize;
 
     [SerializeField] private List<UnitHero> selectedUnits = new List<UnitHero>();
+
+    [Header("Reference To Other Gameobject")]
+    [SerializeField] private PlayerUnitSpawner playerUnitSpawner;
+
+    private void OnEnable()
+    {
+        playerUnitSpawner.OnSeedCountChanged += OnSeedProductionCountChanged;
+    }
+
+    private void OnDisable()
+    {
+        playerUnitSpawner.OnSeedCountChanged -= OnSeedProductionCountChanged;
+    }
 
     private void Start()
     {
@@ -37,6 +52,11 @@ public class GameUnitCardUI : MonoBehaviour
                 unitCardUI.gameObject.SetActive(true);
             }
         }
+    }
+
+    private void OnSeedProductionCountChanged(float currentSeedCount)
+    {
+        seedCountText.text = currentSeedCount.ToString();
     }
 
 

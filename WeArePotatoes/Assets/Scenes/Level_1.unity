@@ -5563,6 +5563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ff5a5894e30d74db4818cbca914ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SeedCount: 0
+  unitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
   baseTransform: {fileID: 6735665845902316428}
   unitSpawnPoint: {fileID: 4762239030247968129}
   unitButtons:
@@ -24314,12 +24316,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
+  buttonParent: {fileID: 891743694}
   normalUnitCardTemplate: {fileID: 814852549}
   longUnitCardTemplate: {fileID: 814707524}
-  buttonParent: {fileID: 891743694}
+  seedCountText: {fileID: 617693556}
   normalUnitCardSize: 010000000200000004000000050000000600000009000000
   longUnitCardSize: 030000000700000008000000
   selectedUnits: 010000000200000003000000
+  playerUnitSpawner: {fileID: 685728919}
 --- !u!1 &2063978312
 GameObject:
   m_ObjectHideFlags: 0
