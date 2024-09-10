@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tazkan.Utility
+namespace Farou.Utility
 {
     public enum EventType
     {
-        OnLombaFinished,
-        OnLombaGameOver,
-        OnParticipantFail,
-        OnParticipantSuccess,
-        OnPlayerFail
+        OnLevelWin,
+        OnLevelLose
     }
 }

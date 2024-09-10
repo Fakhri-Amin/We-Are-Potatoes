@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Farou.Utility;
 using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour, IAttackable
@@ -28,6 +29,30 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         else
         {
             healthSystem.ResetHealth(unitStatSO.EnemyBaseMaxHealth);
+        }
+    }
+
+    private void OnEnable()
+    {
+        healthSystem.OnDead += OnBaseDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        healthSystem.OnDead -= OnBaseDestroyed;
+    }
+
+    private void OnBaseDestroyed()
+    {
+        if (unitType == UnitType.Player)
+        {
+            EventManager.Publish(Farou.Utility.EventType.OnLevelLose);
+            // GameLevelManager.Instance.HandleLevelLose();
+        }
+        else
+        {
+            EventManager.Publish(Farou.Utility.EventType.OnLevelWin);
+            // GameLevelManager.Instance.HandleLevelWin();
         }
     }
 

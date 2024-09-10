@@ -16,13 +16,5 @@ MonoBehaviour:
   DelayBetweenWaves: 3
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 1
-      Count: 1
-  - WaveHeroDatas:
-    - UnitType: 1
-      Count: 2
-  - WaveHeroDatas:
-    - UnitType: 1
-      Count: 1
     - UnitType: 2
-      Count: 1
+      Count: 2

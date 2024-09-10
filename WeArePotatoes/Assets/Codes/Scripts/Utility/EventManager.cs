@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Tazkan.Utility
+namespace Farou.Utility
 {
 
     public static class EventManager

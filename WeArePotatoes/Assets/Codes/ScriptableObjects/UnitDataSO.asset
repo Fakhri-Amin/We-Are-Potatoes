@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0b72286c4f6ba44b453ef2b119c046, type: 3}
   m_Name: UnitDataSO
   m_EditorClassIdentifier: 
-  PlayerBaseMaxHealth: 500
-  EnemyBaseMaxHealth: 500
+  PlayerBaseMaxHealth: 30
+  EnemyBaseMaxHealth: 30
   UnitStatDataList:
   - UnitHero: 1
     UnitRangeType: 0
