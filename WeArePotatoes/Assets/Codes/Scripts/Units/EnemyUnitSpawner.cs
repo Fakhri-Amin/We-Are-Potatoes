@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
@@ -80,8 +81,8 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         if (unit && unit.UnitType == UnitType.Enemy)
         {
             spawnedUnits.Remove(unit);
-            // Destroy(unit.gameObject); // Consider object pooling here for better performance
             UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
+            EventManager.Publish(Farou.Utility.EventType.OnEnemyCoinDropped);
         }
     }
 
@@ -93,7 +94,7 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 
     private void SpawnUnit(UnitHero unitHero)
     {
-        Vector3 offset = new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
+        Vector3 offset = new Vector3(0, UnityEngine.Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);
         if (spawnedUnit)
         {

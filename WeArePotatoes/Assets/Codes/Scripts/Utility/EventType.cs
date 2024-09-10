@@ -7,6 +7,7 @@ namespace Farou.Utility
     public enum EventType
     {
         OnLevelWin,
-        OnLevelLose
+        OnLevelLose,
+        OnEnemyCoinDropped
     }
 }

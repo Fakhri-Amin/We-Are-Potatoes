@@ -47,12 +47,10 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         if (unitType == UnitType.Player)
         {
             EventManager.Publish(Farou.Utility.EventType.OnLevelLose);
-            // GameLevelManager.Instance.HandleLevelLose();
         }
         else
         {
             EventManager.Publish(Farou.Utility.EventType.OnLevelWin);
-            // GameLevelManager.Instance.HandleLevelWin();
         }
     }
 
