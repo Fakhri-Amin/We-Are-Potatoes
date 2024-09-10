@@ -20,6 +20,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 2147124410541410135, guid: da1c27dc42ab57f41b1a77db62449eb4, type: 3}
     Sprite: {fileID: 21300000, guid: 9cc40604c1690ca43960570047b8e2ad, type: 3}
+    Name: Sword
     SeedCost: 3
     Health: 100
     DamageAmount: 10
@@ -34,6 +35,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 530729902207760050, guid: 1506b19e66a19de49928310b6b5c31d2, type: 3}
     Sprite: {fileID: 21300000, guid: de1a6fee30f567c44b82ba20b097947e, type: 3}
+    Name: Bow
     SeedCost: 5
     Health: 60
     DamageAmount: 20
@@ -48,6 +50,7 @@ MonoBehaviour:
     UnitAttackType: 1
     Prefab: {fileID: 530729902207760050, guid: c3ee7013187f9b345b42288859abb4a4, type: 3}
     Sprite: {fileID: 21300000, guid: 532452d018b728d41884cd513b38aa0c, type: 3}
+    Name: Catapult
     SeedCost: 8
     Health: 40
     DamageAmount: 10
@@ -62,6 +65,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 2147124410541410135, guid: 4f88aa25cf8e54141802e2e106ad2aec, type: 3}
     Sprite: {fileID: 21300000, guid: 2edbf1cb3c1a546468bdf164338c5ce0, type: 3}
+    Name: Shield
     SeedCost: 4
     Health: 300
     DamageAmount: 0
@@ -76,6 +80,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 2147124410541410135, guid: fb4edc960b7f10844bd7bcc2c89f12c3, type: 3}
     Sprite: {fileID: 21300000, guid: c7e7a56bb34be9a4e963e633ea91cd8d, type: 3}
+    Name: Axe
     SeedCost: 7
     Health: 120
     DamageAmount: 40
@@ -90,6 +95,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 530729902207760050, guid: 82db81a023d77c44c8347429585d84ff, type: 3}
     Sprite: {fileID: 21300000, guid: 5db0150a7dfe7c148ad9bb3c8f5d1afd, type: 3}
+    Name: Sniper
     SeedCost: 9
     Health: 30
     DamageAmount: 50
@@ -104,6 +110,7 @@ MonoBehaviour:
     UnitAttackType: 1
     Prefab: {fileID: 2147124410541410135, guid: 42e14f3467e26d2468343571a2b54c52, type: 3}
     Sprite: {fileID: 21300000, guid: 7fb4a490f4cd0ee458a5d2b255b5610e, type: 3}
+    Name: Great Sword
     SeedCost: 12
     Health: 120
     DamageAmount: 25
@@ -118,6 +125,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 2147124410541410135, guid: 10a12614378c6fd4abb6e249bc787b67, type: 3}
     Sprite: {fileID: 21300000, guid: 1811b95863784de45aa3872614f73828, type: 3}
+    Name: Lance
     SeedCost: 10
     Health: 150
     DamageAmount: 40
@@ -132,6 +140,7 @@ MonoBehaviour:
     UnitAttackType: 0
     Prefab: {fileID: 2147124410541410135, guid: 76d4d949f231663438699c0ee6563bf3, type: 3}
     Sprite: {fileID: 21300000, guid: d72119113e6d4ae479d51933e4d0a678, type: 3}
+    Name: Dagger
     SeedCost: 2
     Health: 50
     DamageAmount: 10

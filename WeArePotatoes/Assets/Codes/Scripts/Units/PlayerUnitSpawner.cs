@@ -12,27 +12,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private UnitDataSO unitDataSO;
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
-    [SerializeField] private Button[] unitButtons; // Array to simplify button handling
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
-
-    private new void Awake()
-    {
-        base.Awake();
-        for (int i = 0; i < unitButtons.Length; i++)
-        {
-            int buttonIndex = i; // Capture the button index
-
-            for (int j = 0; j < UnitObjectPool.Instance.UnitHeroReferences.Count; j++)
-            {
-                if (buttonIndex == j) // Compare with captured button index
-                {
-                    var unitHeroReference = UnitObjectPool.Instance.UnitHeroReferences[j]; // Capture reference here
-
-                    unitButtons[buttonIndex].onClick.AddListener(() => OnUnitSpawn(unitHeroReference.Type));
-                }
-            }
-        }
-    }
 
     private void Start()
     {

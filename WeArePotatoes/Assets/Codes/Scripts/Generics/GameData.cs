@@ -9,4 +9,5 @@ public class GameData : BaseData
 
     public List<string> UnlockedUnitList = new List<string>();
     public int Coin = 0;
+    public int SelectedLevel;
 }

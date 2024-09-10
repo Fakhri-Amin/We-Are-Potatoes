@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
     private IAttackable targetUnit;
     private ProjectileType projectileType;
     private SpriteRenderer spriteRenderer;
+    private Vector3 targetPosition;
 
     private void Awake()
     {
@@ -36,6 +37,10 @@ public class Projectile : MonoBehaviour
             ReturnToPool();
             return;
         }
+        else if (Vector2.Distance(rb.position, targetPosition) <= .2f) // Increase tolerance
+        {
+            ReturnToPool();
+        }
     }
 
     private void ReturnToPool()
@@ -47,6 +52,7 @@ public class Projectile : MonoBehaviour
     {
         float timePassed = 0f;
         Vector2 end = target;
+        targetPosition = target;
 
         while (timePassed < projectileSpeed)
         {
@@ -86,6 +92,8 @@ public class Projectile : MonoBehaviour
 
     private void InitializeStraightProjectile()
     {
+        targetPosition = targetUnit.GameObject.transform.position;
+
         Vector2 direction = (Vector2)(targetUnit.GameObject.transform.position - transform.position);
         rb.velocity = direction.normalized * sourceUnit.Stat.ProjectileSpeed;
 

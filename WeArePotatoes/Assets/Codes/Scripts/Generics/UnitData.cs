@@ -20,6 +20,8 @@ public class UnitData
     public Unit Prefab;
     [TabGroup("General")]
     public Sprite Sprite;
+    [TabGroup("General")]
+    public string Name;
 
     [Title("@UnitHero", titleAlignment: TitleAlignments.Centered)]
     [TabGroup("Stat")]

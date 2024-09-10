@@ -20,17 +20,23 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Data.Save();
     }
 
+    public void SelectLevel(int levelNumber)
+    {
+        Data.Get<GameData>().SelectedLevel = levelNumber;
+        Save();
+    }
+
     public void ModifyMoney(int amount)
     {
         Data.Get<GameData>().Coin += amount;
         OnCoinUpdated?.Invoke(Data.Get<GameData>().Coin);
-        Data.Save<GameData>();
+        Save();
     }
 
     public void AddUnlockedUnit(UnitHero unitHero)
     {
         string unlockedUnit = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero).UnitHero.ToString();
         Data.Get<GameData>().UnlockedUnitList.Add(unlockedUnit);
-        Data.Save<GameData>();
+        Save();
     }
 }

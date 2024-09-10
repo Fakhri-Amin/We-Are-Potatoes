@@ -9,25 +9,16 @@ using UnityEngine.SceneManagement;
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
     [SerializeField] private string levelID;
-    [SerializeField] private LevelWaveDatabaseSO levelWaveDatabaseSO;
+
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private LevelWaveSO levelWaveSO;
 
-    private void Start()
+    public void Initialize(LevelWaveSO levelWaveSO)
     {
-        levelID = SceneManager.GetActiveScene().name;
-
-        foreach (var item in levelWaveDatabaseSO.LevelWaveSOs)
-        {
-            if (item.name == levelID)
-            {
-                levelWaveSO = item;
-            }
-        }
-
+        this.levelWaveSO = levelWaveSO;
         StartCoroutine(SpawnUnitWaveRoutine());
     }
 
@@ -67,6 +58,10 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
                 for (int i = 0; i < unitData.Count; i++)
                 {
                     SpawnUnit(unitType);
+
+                    // Wait between waves
+                    float delayBetweenUnitSpawn = delayBetweenWaves * 0.01f;
+                    yield return new WaitForSeconds(delayBetweenUnitSpawn);
                 }
             }
 
