@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   LevelIndex: 1
-  UnitReward: 8
+  UnitReward: 0
   DelayAtStart: 3
   DelayBetweenWaves: 3
   WaveDatas:
   - WaveHeroDatas:
     - UnitType: 2
-      Count: 100
+      Count: 1
