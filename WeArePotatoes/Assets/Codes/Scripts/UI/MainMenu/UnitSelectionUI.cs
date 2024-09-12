@@ -86,6 +86,10 @@ public class UnitSelectionUI : MonoBehaviour
     public void SetSelectedUnit()
     {
         List<UnitHero> selectedUnitList = selectedSlotUIs.ConvertAll(item => item.UnitData.UnitHero);
+        foreach (var item in selectedUnitList)
+        {
+            Debug.Log(item);
+        }
         GameDataManager.Instance.SetSelectedUnit(selectedUnitList);
     }
 

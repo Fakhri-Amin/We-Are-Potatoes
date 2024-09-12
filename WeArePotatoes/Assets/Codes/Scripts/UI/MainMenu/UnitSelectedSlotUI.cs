@@ -40,13 +40,14 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
 
         SelectUnit(draggableItem.UnitData);
         unitSelectionUI.SetSelectedUnit();
-        draggableItemUI.Initialize(unitSelectionUI, unitData);
         EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
     }
 
     public void SelectUnit(UnitData unitData)
     {
         this.unitData = unitData;
+        draggableItemUI.Initialize(unitSelectionUI, unitData);
+
         image.gameObject.SetActive(true);
         image.sprite = unitData.Sprite;
         seedCost.text = unitData.SeedCost.ToString();
@@ -54,7 +55,7 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
 
     public void RemoveUnit()
     {
-        unitData = null;
+        unitData = new UnitData();
         image.gameObject.SetActive(false);
         seedCost.text = "-";
     }
