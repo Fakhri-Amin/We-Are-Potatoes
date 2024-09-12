@@ -8,5 +8,7 @@ public class UnitDataSO : ScriptableObject
 {
     public int PlayerBaseMaxHealth;
     public int EnemyBaseMaxHealth;
+    [TableList] public List<UnitMoveSpeedData> MoveSpeedDataList;
+    [TableList] public List<UnitAttackSpeedData> AttackSpeedDataList;
     [TableList(ShowIndexLabels = true)] public List<UnitData> UnitStatDataList;
 }

@@ -7890,6 +7890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelID: 
+  unitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
   baseTransform: {fileID: 8682061408249679707}
   unitSpawnPoint: {fileID: 6905638283452823388}
   spawnedUnits: []
@@ -13988,7 +13989,7 @@ MonoBehaviour:
   seedCountText: {fileID: 617693556}
   normalUnitCardSize: 010000000200000004000000050000000600000009000000
   longUnitCardSize: 030000000700000008000000
-  selectedUnits: 010000000200000003000000
+  selectedUnits: 040000000700000006000000
   playerUnitSpawner: {fileID: 685728919}
 --- !u!1 &2058138614
 GameObject:

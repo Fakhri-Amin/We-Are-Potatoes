@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
 {
     [SerializeField] private string levelID;
+    [SerializeField] private UnitDataSO unitDataSO;
 
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
@@ -46,18 +47,19 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         for (int waveIndex = 0; waveIndex < waveDatas.Count; waveIndex++)
         {
             var currentWave = waveDatas[waveIndex];
-            var unitDatas = currentWave.WaveHeroDatas;
+            var waveUnitDatas = currentWave.WaveHeroDatas;
 
             // Iterate through each hero data in the wave
-            for (int heroIndex = 0; heroIndex < unitDatas.Count; heroIndex++)
+            for (int heroIndex = 0; heroIndex < waveUnitDatas.Count; heroIndex++)
             {
-                var unitData = unitDatas[heroIndex];
-                var unitType = unitData.UnitType;
+                var waveUnitData = waveUnitDatas[heroIndex];
+                var unitType = waveUnitData.UnitType;
+                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitType);
 
                 // Spawn the required number of units
-                for (int i = 0; i < unitData.Count; i++)
+                for (int i = 0; i < waveUnitData.Count; i++)
                 {
-                    SpawnUnit(unitType);
+                    SpawnUnit(unitType, unitData);
 
                     // Wait between waves
                     float delayBetweenUnitSpawn = delayBetweenWaves * 0.01f;
@@ -76,7 +78,7 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         if (unit && unit.UnitType == UnitType.Enemy)
         {
             spawnedUnits.Remove(unit);
-            UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
+            UnitObjectPool.Instance.ReturnToPool(unit.UnitData.UnitHero, unit);
             EventManager.Publish(Farou.Utility.EventType.OnEnemyCoinDropped);
         }
     }
@@ -87,14 +89,16 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
         return foundUnit ? foundUnit.transform.position : Vector3.zero;
     }
 
-    private void SpawnUnit(UnitHero unitHero)
+    private void SpawnUnit(UnitHero unitHero, UnitData unitData)
     {
         Vector3 offset = new Vector3(0, UnityEngine.Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);
         if (spawnedUnit)
         {
             spawnedUnit.transform.position = unitSpawnPoint.position + offset;
-            spawnedUnit.InitializeUnit(UnitType.Enemy, baseTransform.position);
+            float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
+            float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
+            spawnedUnit.InitializeUnit(UnitType.Enemy, unitData, baseTransform.position, moveSpeed, attackSpeed);
             spawnedUnits.Add(spawnedUnit);
         }
     }

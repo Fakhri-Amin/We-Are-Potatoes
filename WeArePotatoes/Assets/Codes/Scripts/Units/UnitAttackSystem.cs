@@ -32,11 +32,11 @@ public class UnitAttackSystem : MonoBehaviour
 
     private void HandleMeleeAttack()
     {
-        if (unit.Stat.UnitAttackType == UnitAttackType.Single)
+        if (unit.UnitData.UnitAttackType == UnitAttackType.Single)
         {
             PerformSingleTargetMeleeAttack();
         }
-        else if (unit.Stat.UnitAttackType == UnitAttackType.Area)
+        else if (unit.UnitData.UnitAttackType == UnitAttackType.Area)
         {
             PerformAreaOfEffectAttack();
         }
@@ -44,14 +44,14 @@ public class UnitAttackSystem : MonoBehaviour
 
     private void PerformSingleTargetMeleeAttack()
     {
-        unit.TargetUnit.Damage(unit.Stat.DamageAmount);
+        unit.TargetUnit.Damage(unit.UnitData.DamageAmount);
     }
 
     private void PerformAreaOfEffectAttack()
     {
         Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(
             shootingTransform.position,
-            unit.Stat.AreaOfEffectRadius,
+            unit.UnitData.AreaOfEffectRadius,
             unit.TargetMask
         );
 
@@ -59,7 +59,7 @@ public class UnitAttackSystem : MonoBehaviour
         {
             if (target.TryGetComponent(out IAttackable targetUnit))
             {
-                targetUnit.Damage(unit.Stat.DamageAmount);
+                targetUnit.Damage(unit.UnitData.DamageAmount);
             }
         }
     }

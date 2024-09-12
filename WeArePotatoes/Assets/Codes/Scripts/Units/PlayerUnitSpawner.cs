@@ -47,7 +47,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         {
             spawnedUnits.Remove(unit);
             // Destroy(unit.gameObject); // Consider pooling instead of destroying
-            UnitObjectPool.Instance.ReturnToPool(unit.Stat.UnitHero, unit);
+            UnitObjectPool.Instance.ReturnToPool(unit.UnitData.UnitHero, unit);
         }
     }
 
@@ -59,7 +59,8 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
 
     public void OnUnitSpawn(UnitHero unitHero)
     {
-        var unitSeedCost = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero).SeedCost;
+        UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero);
+        var unitSeedCost = unitData.SeedCost;
 
         if (SeedCount < unitSeedCost) return;
 
@@ -70,7 +71,9 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
             ModifySeedCount(-unitSeedCost);
 
             spawnedUnit.transform.position = unitSpawnPoint.position + offset;
-            spawnedUnit.InitializeUnit(UnitType.Player, baseTransform.position);
+            float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
+            float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
+            spawnedUnit.InitializeUnit(UnitType.Player, unitData, baseTransform.position, moveSpeed, attackSpeed);
             spawnedUnits.Add(spawnedUnit);
         }
     }

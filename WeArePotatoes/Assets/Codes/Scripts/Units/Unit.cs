@@ -10,7 +10,6 @@ public class Unit : MonoBehaviour, IAttackable
     public static event Action<Unit> OnAnyUnitDead;
     public event Action OnDead;
 
-    [SerializeField] private UnitDataSO unitStatSO;
     [SerializeField] private UnitType unitType;
     [SerializeField] private UnitHero unitHero;
     [SerializeField] private LayerMask targetMask;
@@ -20,6 +19,9 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private SpriteRenderer weaponSprite;
 
     private bool canMove = true;
+    private float moveSpeed;
+    private float attackSpeed;
+    private float attackCooldown;
     private IAttackable targetUnit;
     private HealthSystem healthSystem;
     private UnitAnimation unitAnimation;
@@ -27,17 +29,16 @@ public class Unit : MonoBehaviour, IAttackable
     private UnitAudio unitAudio;
     private Vector3 moveDirection;
     private Vector3 basePosition;
-    private UnitData stat;
+    private UnitData unitData;
 
     public IAttackable TargetUnit => targetUnit;
-    public UnitData Stat => stat;
+    public UnitData UnitData => unitData;
     public UnitType UnitType => unitType;
     public UnitHero UnitHero => unitHero;
     public LayerMask TargetMask => targetMask;
 
     public GameObject GameObject => gameObject;
 
-    private float attackSpeed = 0;
     private bool canAttack = true;
 
     public virtual void Awake()
@@ -72,8 +73,8 @@ public class Unit : MonoBehaviour, IAttackable
         // Handle attack cooldown
         if (!canAttack)
         {
-            attackSpeed -= Time.deltaTime;
-            canAttack = attackSpeed <= 0;
+            attackCooldown -= Time.deltaTime;
+            canAttack = attackCooldown <= 0;
         }
 
         // Handle movement and attack
@@ -84,7 +85,7 @@ public class Unit : MonoBehaviour, IAttackable
         else if (!canMove && canAttack)
         {
             unitAnimation.PlayAttackAnimation();
-            attackSpeed = stat.AttackSpeed;
+            attackCooldown = attackSpeed;
             canAttack = false;
         }
 
@@ -92,30 +93,30 @@ public class Unit : MonoBehaviour, IAttackable
     }
 
 
-    public void InitializeUnit(UnitType unitType, Vector3 basePosition)
+    public void InitializeUnit(UnitType unitType, UnitData unitData, Vector3 basePosition, float moveSpeed, float attackSpeed)
     {
         // Set the type
         this.unitType = unitType;
 
+        // Set the unit data
+        this.unitData = unitData;
+
         // Set the base position
         this.basePosition = basePosition;
+
+        // Set the move speed
+        this.moveSpeed = moveSpeed;
+
+        // Set the attack speed
+        this.attackSpeed = attackSpeed;
 
         // Set the layer mask and tag
         gameObject.layer = LayerMask.NameToLayer(unitType.ToString());
         gameObject.tag = unitType.ToString();
         targetMask = LayerMask.GetMask(unitType == UnitType.Player ? "Enemy" : "Player");
 
-        // Set the stat
-        foreach (var item in unitStatSO.UnitStatDataList)
-        {
-            if (item.UnitHero == unitHero)
-            {
-                stat = item;
-            }
-        }
-
         // Reset state
-        healthSystem.ResetHealth(stat.Health);
+        healthSystem.ResetHealth(this.unitData.Health);
         // ResetState();
 
         // Set the move direction
@@ -142,7 +143,7 @@ public class Unit : MonoBehaviour, IAttackable
     private void Move()
     {
         // Detect for target in range
-        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, stat.DetectRadius, targetMask);
+        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, unitData.DetectRadius, targetMask);
 
         // If there is target detected
         if (targetInRange.Length > 0)
@@ -167,17 +168,17 @@ public class Unit : MonoBehaviour, IAttackable
         Vector3 direction = (targetPosition - transform.position).normalized;
 
         // Move the unit towards the target
-        transform.position += stat.MoveSpeed * Time.deltaTime * direction;
+        transform.position += moveSpeed * Time.deltaTime * direction;
     }
 
     private void MoveStraight()
     {
-        transform.position += stat.MoveSpeed * Time.deltaTime * moveDirection;
+        transform.position += moveSpeed * Time.deltaTime * moveDirection;
     }
 
     private void DetectEnemiesAndHandleAttack()
     {
-        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, stat.AttackRadius, targetMask);
+        Collider2D[] targetInRange = Physics2D.OverlapCircleAll(transform.position, unitData.AttackRadius, targetMask);
 
         if (targetInRange.Length > 0)
         {

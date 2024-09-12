@@ -80,13 +80,13 @@ public class Projectile : MonoBehaviour
 
         spriteRenderer.flipY = sourceUnit.UnitType == UnitType.Player ? false : true;
 
-        if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeStraight)
+        if (sourceUnit.UnitData.UnitRangeType == UnitRangeType.RangeStraight)
         {
             InitializeStraightProjectile();
         }
-        else if (sourceUnit.Stat.UnitRangeType == UnitRangeType.RangeCurve)
+        else if (sourceUnit.UnitData.UnitRangeType == UnitRangeType.RangeCurve)
         {
-            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.GameObject.transform.position, 1 / sourceUnit.Stat.ProjectileSpeed));
+            StartCoroutine(CurveMovementRoutine(transform.position, targetUnit.GameObject.transform.position, 1 / sourceUnit.UnitData.ProjectileSpeed));
         }
     }
 
@@ -95,7 +95,7 @@ public class Projectile : MonoBehaviour
         targetPosition = targetUnit.GameObject.transform.position;
 
         Vector2 direction = (Vector2)(targetUnit.GameObject.transform.position - transform.position);
-        rb.velocity = direction.normalized * sourceUnit.Stat.ProjectileSpeed;
+        rb.velocity = direction.normalized * sourceUnit.UnitData.ProjectileSpeed;
 
         float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotation);
@@ -112,12 +112,12 @@ public class Projectile : MonoBehaviour
         }
 
         // Handle single target attack
-        if (sourceUnit.Stat.UnitAttackType == UnitAttackType.Single)
+        if (sourceUnit.UnitData.UnitAttackType == UnitAttackType.Single)
         {
-            singleUnit.Damage(sourceUnit.Stat.DamageAmount);
+            singleUnit.Damage(sourceUnit.UnitData.DamageAmount);
         }
         // Handle area of effect attack
-        else if (sourceUnit.Stat.UnitAttackType == UnitAttackType.Area)
+        else if (sourceUnit.UnitData.UnitAttackType == UnitAttackType.Area)
         {
             ApplyAreaOfEffectDamage();
         }
@@ -127,14 +127,14 @@ public class Projectile : MonoBehaviour
 
     private void ApplyAreaOfEffectDamage()
     {
-        Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, sourceUnit.Stat.AreaOfEffectRadius, sourceUnit.TargetMask);
+        Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, sourceUnit.UnitData.AreaOfEffectRadius, sourceUnit.TargetMask);
 
         foreach (var item in targetsInRadius)
         {
             if (item.TryGetComponent<IAttackable>(out IAttackable unit) && unit.UnitType != sourceUnit.UnitType)
             {
                 OnProjectileAreaHit?.Invoke(this);
-                unit.Damage(sourceUnit.Stat.DamageAmount);
+                unit.Damage(sourceUnit.UnitData.DamageAmount);
             }
         }
     }

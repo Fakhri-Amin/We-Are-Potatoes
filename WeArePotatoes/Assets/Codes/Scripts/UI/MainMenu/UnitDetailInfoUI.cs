@@ -52,9 +52,9 @@ public class UnitDetailInfoUI : MonoBehaviour
         seedCostText.text = unitData.SeedCost.ToString();
         healthText.text = unitData.Health.ToString();
         damageText.text = unitData.DamageAmount.ToString();
-        moveSpeedText.text = unitData.MoveSpeed.ToString();
+        moveSpeedText.text = unitData.MoveSpeedType.ToString();
         attackRangeText.text = unitData.AttackRadius.ToString();
-        attackSpeedText.text = unitData.AttackSpeed.ToString();
+        attackSpeedText.text = unitData.AttackSpeedType.ToString();
     }
 
 }

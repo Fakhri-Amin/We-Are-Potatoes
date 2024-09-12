@@ -31,13 +31,13 @@ public class UnitData
     [TabGroup("Stat")]
     public int DamageAmount;
     [TabGroup("Stat")]
-    public float MoveSpeed;
+    public UnitMoveSpeedType MoveSpeedType;
+    [TabGroup("Stat")]
+    public UnitAttackSpeedType AttackSpeedType;
     [TabGroup("Stat")]
     public float DetectRadius;
     [TabGroup("Stat")]
     public float AttackRadius;
-    [TabGroup("Stat")]
-    public float AttackSpeed;
     [TabGroup("Stat")]
     [HideIf("UnitRangeType", UnitRangeType.Melee)] public float ProjectileSpeed;
     [TabGroup("Stat")]
