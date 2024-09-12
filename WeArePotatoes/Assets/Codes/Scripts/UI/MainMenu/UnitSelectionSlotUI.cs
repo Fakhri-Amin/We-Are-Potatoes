@@ -7,24 +7,15 @@ using System;
 
 public class UnitSelectionSlotUI : MonoBehaviour
 {
-    private Button button;
-    private Transform focus;
-    private Transform inUse;
+    [SerializeField] private Button button;
+    [SerializeField] private Transform inUse;
 
     private UnitData unitData;
 
     public UnitData UnitData => unitData;
 
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-        focus = transform.GetChild(1);
-        inUse = transform.GetChild(2);
-    }
-
     private void Start()
     {
-        focus.gameObject.SetActive(false);
         inUse.gameObject.SetActive(false);
     }
 
@@ -33,14 +24,8 @@ public class UnitSelectionSlotUI : MonoBehaviour
         this.unitData = unitData;
         button.onClick.AddListener(() =>
         {
-            Select();
             onButtonClicked();
         }
         );
-    }
-
-    public void Select()
-    {
-        focus.gameObject.SetActive(true);
     }
 }
