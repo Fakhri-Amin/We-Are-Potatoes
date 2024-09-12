@@ -11,6 +11,7 @@ public class GameLevelManager : Singleton<GameLevelManager>
     private LevelManager levelManager;
     private PauseManager pauseManager;
     private EnemyUnitSpawner enemyUnitSpawner;
+    private PlayerUnitSpawner playerUnitSpawner;
 
     public new void Awake()
     {
@@ -19,11 +20,13 @@ public class GameLevelManager : Singleton<GameLevelManager>
         levelManager = GetComponent<LevelManager>();
         pauseManager = GetComponent<PauseManager>();
         enemyUnitSpawner = FindObjectOfType<EnemyUnitSpawner>();
+        playerUnitSpawner = FindObjectOfType<PlayerUnitSpawner>();
     }
 
     private void Start()
     {
         enemyUnitSpawner.Initialize(levelManager.CurrentLevelWave);
+        playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
     }
 
     private void OnEnable()

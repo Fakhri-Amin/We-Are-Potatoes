@@ -14,6 +14,10 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private Transform unitSpawnPoint;
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
+    private List<UnitHero> selectedUnitHeroList = new List<UnitHero>();
+
+    public List<UnitHero> SelectedUnitTypeList => selectedUnitHeroList;
+
     private void Start()
     {
         ModifySeedCount(0);
@@ -29,6 +33,11 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= PlayerUnit_OnAnyPlayerUnitDead;
+    }
+
+    public void Initialize(List<UnitHero> selectedUnitHerolist)
+    {
+        this.selectedUnitHeroList = selectedUnitHerolist;
     }
 
     private IEnumerator ProduceSeedRoutine()

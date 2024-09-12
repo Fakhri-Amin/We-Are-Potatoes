@@ -16,8 +16,6 @@ public class GameUnitCardUI : MonoBehaviour
     [SerializeField] private UnitHero[] normalUnitCardSize;
     [SerializeField] private UnitHero[] longUnitCardSize;
 
-    [SerializeField] private List<UnitHero> selectedUnits = new List<UnitHero>();
-
     [Header("Reference To Other Gameobject")]
     [SerializeField] private PlayerUnitSpawner playerUnitSpawner;
 
@@ -36,7 +34,9 @@ public class GameUnitCardUI : MonoBehaviour
         normalUnitCardTemplate.gameObject.SetActive(false);
         longUnitCardTemplate.gameObject.SetActive(false);
 
-        foreach (var item in selectedUnits)
+        List<UnitHero> selectedUnitHeroList = playerUnitSpawner.SelectedUnitTypeList;
+
+        foreach (var item in selectedUnitHeroList)
         {
             UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == item);
             if (normalUnitCardSize.Contains(unitData.UnitHero))

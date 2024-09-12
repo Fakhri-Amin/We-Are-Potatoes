@@ -18,6 +18,8 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private UnitDataSO unitDataSO;
 
     [Header("Unit Selection UI")]
+    [SerializeField] private UnitSelectionSlotUI unitSlotTemplate;
+    [SerializeField] private Transform parent;
     [SerializeField] private List<UnitSelectionSlotReference> unitSelectionSlotReferences = new List<UnitSelectionSlotReference>();
 
     private UnitDetailInfoUI unitDetailInfoUI;
@@ -29,10 +31,15 @@ public class UnitSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        foreach (var item in unitSelectionSlotReferences)
+        unitSlotTemplate.gameObject.SetActive(false);
+
+        var unitDataList = unitDataSO.UnitStatDataList;
+        foreach (var item in unitDataList)
         {
-            UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == item.UnitHero);
-            item.Slot.Initialize(unitData, () => unitDetailInfoUI.Select(unitData));
+            // UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == item.UnitHero);
+            UnitSelectionSlotUI slotUI = Instantiate(unitSlotTemplate, parent);
+            slotUI.gameObject.SetActive(true);
+            slotUI.Initialize(item, () => unitDetailInfoUI.Select(item));
         }
 
         Hide();

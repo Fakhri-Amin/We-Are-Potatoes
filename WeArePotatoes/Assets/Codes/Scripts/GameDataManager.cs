@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farou.Utility;
 
+[DefaultExecutionOrder(-99999999)]
 public class GameDataManager : PersistentSingleton<GameDataManager>
 {
     public UnitDataSO unitDataSO;
     public event Action<int> OnCoinUpdated;
+    public List<UnitHero> SelectedUnitHeroList = new List<UnitHero>(3);
 
-    private void Start()
+    public new void Awake()
     {
+        base.Awake();
+
         int coin = Data.Get<GameData>().Coin;
         OnCoinUpdated?.Invoke(coin);
+
+        SelectedUnitHeroList = Data.Get<GameData>().SelectedUnitList;
     }
 
     public void Save()
