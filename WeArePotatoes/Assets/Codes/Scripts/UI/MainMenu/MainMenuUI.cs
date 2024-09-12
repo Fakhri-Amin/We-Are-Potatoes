@@ -11,7 +11,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button upgradeButton;
 
     [Header("Potatoes UI")]
-    [SerializeField] private UnitSelectionUI potatoSelectionUI;
+    [SerializeField] private UnitSelectionUI unitSelectionUI;
     [SerializeField] private Image potatoIcon;
     [SerializeField] private TMP_Text potatoText;
     [SerializeField] private Image potatoCloseIcon;
@@ -26,11 +26,12 @@ public class MainMenuUI : MonoBehaviour
 
             if (isPotatoSelectionMenuOpen)
             {
-                potatoSelectionUI.Show();
+                unitSelectionUI.Show();
+                unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
             }
             else
             {
-                potatoSelectionUI.Hide();
+                unitSelectionUI.Hide();
             }
 
             potatoIcon.gameObject.SetActive(!isPotatoSelectionMenuOpen);

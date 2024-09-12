@@ -45,4 +45,11 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Data.Get<GameData>().UnlockedUnitList.Add(unlockedUnit);
         Save();
     }
+
+    public void SetSelectedUnit(List<UnitHero> selectedUnitList)
+    {
+        SelectedUnitHeroList = selectedUnitList;
+        Data.Get<GameData>().SelectedUnitList = selectedUnitList;
+        Save();
+    }
 }

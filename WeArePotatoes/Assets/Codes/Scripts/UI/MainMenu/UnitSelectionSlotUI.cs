@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Farou.Utility;
 
 public class UnitSelectionSlotUI : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UnitSelectionSlotUI : MonoBehaviour
     [SerializeField] private DraggableItemUI draggableItemUI;
 
     private UnitData unitData;
+    private UnitSelectionUI unitSelectionUI;
 
     public UnitData UnitData => unitData;
 
@@ -23,8 +25,19 @@ public class UnitSelectionSlotUI : MonoBehaviour
         inUse.gameObject.SetActive(false);
     }
 
-    public void Initialize(UnitData unitData, Action onButtonClicked)
+    private void OnEnable()
     {
+        EventManager.Subscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
+    }
+
+    public void Initialize(UnitSelectionUI unitSelectionUI, UnitData unitData, Action onButtonClicked)
+    {
+        this.unitSelectionUI = unitSelectionUI;
         this.unitData = unitData;
 
         unitImage.sprite = unitData.Sprite;
@@ -37,12 +50,28 @@ public class UnitSelectionSlotUI : MonoBehaviour
         }
         );
 
-        draggableItemUI.Initialize(this, unitData);
+        draggableItemUI.Initialize(unitSelectionUI, unitData);
     }
 
-    public void SelectUnit()
+    private void HandleUnitSelection()
+    {
+        if (!unitSelectionUI.IsUnitAlreadyInUse(unitData))
+        {
+            DeselectUnitOnList();
+        }
+        else if (unitSelectionUI.IsUnitAlreadyInUse(unitData))
+        {
+            SelectUnitOnList();
+        }
+    }
+
+    public void SelectUnitOnList()
     {
         inUse.gameObject.SetActive(true);
-        inUse.transform.SetAsLastSibling();
+    }
+
+    public void DeselectUnitOnList()
+    {
+        inUse.gameObject.SetActive(false);
     }
 }

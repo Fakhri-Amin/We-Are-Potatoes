@@ -3,29 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Farou.Utility;
 
 public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public bool isUnitFromInventory = true;
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public UnitData UnitData;
 
     private Image image;
-    private UnitSelectionSlotUI unitSelectionSlotUI;
+    private UnitSelectionUI unitSelectionUI;
 
     private void Awake()
     {
         image = GetComponent<Image>();
     }
 
-    public void Initialize(UnitSelectionSlotUI unitSelectionSlotUI, UnitData unitData)
+    public void Initialize(UnitSelectionUI unitSelectionUI, UnitData unitData)
     {
-        this.unitSelectionSlotUI = unitSelectionSlotUI;
         UnitData = unitData;
-    }
-
-    public void Select()
-    {
-        unitSelectionSlotUI.SelectUnit();
+        this.unitSelectionUI = unitSelectionUI;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -34,6 +31,11 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         image.raycastTarget = false;
+
+        if (!isUnitFromInventory)
+        {
+            unitSelectionUI.ShowRemoveArea();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,7 +45,18 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Reset();
+
+        if (!isUnitFromInventory)
+        {
+            unitSelectionUI.HideRemoveArea();
+        }
+    }
+
+    public void Reset()
+    {
         transform.SetParent(parentAfterDrag, false);
+        transform.SetAsFirstSibling();
         image.raycastTarget = true;
     }
 }
