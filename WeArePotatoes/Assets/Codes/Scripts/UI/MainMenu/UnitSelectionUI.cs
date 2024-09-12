@@ -48,26 +48,30 @@ public class UnitSelectionUI : MonoBehaviour
             selectedSlotUIs[i].Initialize(this, unitData);
         }
 
+        InitializeUnitSlots();
+        unitRemoveAreaUI.Initialize(this);
+    }
+
+    private void InitializeUnitSlots()
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.GetComponent<UnitSelectionSlotUI>() == unitSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
+
         var unitDataList = unitDataSO.UnitStatDataList;
         foreach (var item in unitDataList)
         {
-            // UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == item.UnitHero);
-            UnitSelectionSlotUI slotUI = Instantiate(unitSlotTemplate, parent);
+            var slotUI = Instantiate(unitSlotTemplate, parent);
             slotUI.gameObject.SetActive(true);
             slotUI.Initialize(this, item, () => unitDetailInfoUI.Select(item));
         }
-
-        unitRemoveAreaUI.Initialize(this);
     }
 
     public bool IsUnitAlreadyInUse(UnitData unitData)
     {
-        var selectedSlot = selectedSlotUIs.Find(i => i.UnitData == unitData);
-        if (selectedSlot != null)
-        {
-            return true;
-        }
-        return false;
+        return selectedSlotUIs.Exists(i => i.UnitData == unitData);
     }
 
     public void RemoveUnitFromSelectedUnitSlot(UnitData unitData)
@@ -79,13 +83,9 @@ public class UnitSelectionUI : MonoBehaviour
         }
     }
 
-    public void SetSelectedUnit(UnitSelectedSlotUI unitSelectedSlotUI)
+    public void SetSelectedUnit()
     {
-        List<UnitHero> selectedUnitList = new List<UnitHero>();
-        foreach (var item in selectedSlotUIs)
-        {
-            selectedUnitList.Add(item.UnitData.UnitHero);
-        }
+        List<UnitHero> selectedUnitList = selectedSlotUIs.ConvertAll(item => item.UnitData.UnitHero);
         GameDataManager.Instance.SetSelectedUnit(selectedUnitList);
     }
 
@@ -109,3 +109,4 @@ public class UnitSelectionUI : MonoBehaviour
         unitRemoveAreaUI.gameObject.SetActive(false);
     }
 }
+

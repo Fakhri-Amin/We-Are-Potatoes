@@ -15,14 +15,15 @@ public class UnitRemoveAreaUI : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag;
-        DraggableItemUI draggableItem = dropped.GetComponent<DraggableItemUI>();
+        var draggableItem = eventData.pointerDrag.GetComponent<DraggableItemUI>();
 
-        draggableItem.Reset();
-
-        unitSelectionUI.HideRemoveArea();
-        unitSelectionUI.RemoveUnitFromSelectedUnitSlot(draggableItem.UnitData);
-
-        EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
+        if (draggableItem != null)
+        {
+            draggableItem.Reset();
+            unitSelectionUI.RemoveUnitFromSelectedUnitSlot(draggableItem.UnitData);
+            unitSelectionUI.HideRemoveArea();
+            EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
+        }
     }
 }
+

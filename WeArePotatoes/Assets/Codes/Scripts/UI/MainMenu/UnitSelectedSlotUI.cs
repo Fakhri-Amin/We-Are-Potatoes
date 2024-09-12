@@ -34,24 +34,19 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag;
-        DraggableItemUI draggableItem = dropped.GetComponent<DraggableItemUI>();
+        var draggableItem = eventData.pointerDrag.GetComponent<DraggableItemUI>();
 
         if (unitSelectionUI.IsUnitAlreadyInUse(draggableItem.UnitData)) return;
 
-        unitData = draggableItem.UnitData;
-
-        SelectUnit(unitData);
-
-        unitSelectionUI.SetSelectedUnit(this);
-
+        SelectUnit(draggableItem.UnitData);
+        unitSelectionUI.SetSelectedUnit();
         draggableItemUI.Initialize(unitSelectionUI, unitData);
-
         EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
     }
 
     public void SelectUnit(UnitData unitData)
     {
+        this.unitData = unitData;
         image.gameObject.SetActive(true);
         image.sprite = unitData.Sprite;
         seedCost.text = unitData.SeedCost.ToString();
@@ -64,3 +59,4 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
         seedCost.text = "-";
     }
 }
+

@@ -44,24 +44,19 @@ public class UnitSelectionSlotUI : MonoBehaviour
         unitNameText.text = unitData.Name;
         seedCostText.text = unitData.SeedCost.ToString();
 
-        button.onClick.AddListener(() =>
-        {
-            onButtonClicked();
-        }
-        );
-
+        button.onClick.AddListener(() => onButtonClicked());
         draggableItemUI.Initialize(unitSelectionUI, unitData);
     }
 
     private void HandleUnitSelection()
     {
-        if (!unitSelectionUI.IsUnitAlreadyInUse(unitData))
-        {
-            DeselectUnitOnList();
-        }
-        else if (unitSelectionUI.IsUnitAlreadyInUse(unitData))
+        if (unitSelectionUI.IsUnitAlreadyInUse(unitData))
         {
             SelectUnitOnList();
+        }
+        else
+        {
+            DeselectUnitOnList();
         }
     }
 
@@ -75,3 +70,5 @@ public class UnitSelectionSlotUI : MonoBehaviour
         inUse.gameObject.SetActive(false);
     }
 }
+
+

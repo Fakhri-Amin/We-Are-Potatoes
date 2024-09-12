@@ -20,24 +20,38 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        potatoSelectionButton.onClick.AddListener(() =>
-        {
-            isPotatoSelectionMenuOpen = !isPotatoSelectionMenuOpen;
+        potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
+    }
 
-            if (isPotatoSelectionMenuOpen)
-            {
-                unitSelectionUI.Show();
-                unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
-            }
-            else
-            {
-                unitSelectionUI.Hide();
-            }
+    private void TogglePotatoSelectionMenu()
+    {
+        isPotatoSelectionMenuOpen = !isPotatoSelectionMenuOpen;
 
-            potatoIcon.gameObject.SetActive(!isPotatoSelectionMenuOpen);
-            potatoText.gameObject.SetActive(!isPotatoSelectionMenuOpen);
-            potatoCloseIcon.gameObject.SetActive(isPotatoSelectionMenuOpen);
-            potatoCloseText.gameObject.SetActive(isPotatoSelectionMenuOpen);
-        });
+        if (isPotatoSelectionMenuOpen)
+            OpenPotatoSelectionMenu();
+        else
+            ClosePotatoSelectionMenu();
+    }
+
+    private void OpenPotatoSelectionMenu()
+    {
+        unitSelectionUI.Show();
+        unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
+        SetPotatoUIState(false);
+    }
+
+    private void ClosePotatoSelectionMenu()
+    {
+        unitSelectionUI.Hide();
+        SetPotatoUIState(true);
+    }
+
+    private void SetPotatoUIState(bool isSelectionClosed)
+    {
+        potatoIcon.gameObject.SetActive(isSelectionClosed);
+        potatoText.gameObject.SetActive(isSelectionClosed);
+        potatoCloseIcon.gameObject.SetActive(!isSelectionClosed);
+        potatoCloseText.gameObject.SetActive(!isSelectionClosed);
     }
 }
+
