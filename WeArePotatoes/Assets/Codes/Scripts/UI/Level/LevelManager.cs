@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
         // Assuming CoinManager is a component on the same GameObject
         coinManager = GetComponent<CoinManager>();
 
-        int selectedLevel = 1; // Placeholder for actual level selection
+        int selectedLevel = GameDataManager.Instance.SelectedLevelIndex;
         currentLevelWave = levelWaveDatabaseSO.LevelWaveSOs.Find(l => l.LevelIndex == selectedLevel);
     }
 

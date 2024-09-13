@@ -16,15 +16,15 @@ MonoBehaviour:
   EnemyBaseMaxHealth: 30
   MoveSpeedDataList:
   - UnitMoveSpeedType: 0
-    MoveSpeed: 0.3
-  - UnitMoveSpeedType: 1
-    MoveSpeed: 0.6
-  - UnitMoveSpeedType: 2
     MoveSpeed: 0.9
-  - UnitMoveSpeedType: 3
+  - UnitMoveSpeedType: 1
     MoveSpeed: 1.2
-  - UnitMoveSpeedType: 4
+  - UnitMoveSpeedType: 2
     MoveSpeed: 1.5
+  - UnitMoveSpeedType: 3
+    MoveSpeed: 1.8
+  - UnitMoveSpeedType: 4
+    MoveSpeed: 2.1
   AttackSpeedDataList:
   - UnitAttackSpeedType: 0
     AttackSpeed: 6

@@ -6,28 +6,14 @@ using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [Header("Project References")]
-    [SerializeField] private UnitDataSO unitDataSO;
 
-    [SerializeField] private Button battleButton;
-    [SerializeField] private Button potatoSelectionButton;
-    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Transform panel;
 
     [Header("Selected Potato UI")]
     [SerializeField] private Image[] selectedPotatoImageArray;
 
-    [Header("Potatoes UI")]
-    [SerializeField] private UnitSelectionUI unitSelectionUI;
-    [SerializeField] private Image potatoIcon;
-    [SerializeField] private TMP_Text potatoText;
-    [SerializeField] private Image potatoCloseIcon;
-    [SerializeField] private TMP_Text potatoCloseText;
-    private bool isPotatoSelectionMenuOpen;
-
-    private void Awake()
-    {
-        potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
-    }
+    [Header("Project References")]
+    [SerializeField] private UnitDataSO unitDataSO;
 
     private void Start()
     {
@@ -42,37 +28,6 @@ public class MainMenuUI : MonoBehaviour
     private void OnDisable()
     {
         GameDataManager.Instance.OnSelectedUnitListChanged -= HandleSelectedUnitListChanged;
-    }
-
-    private void TogglePotatoSelectionMenu()
-    {
-        isPotatoSelectionMenuOpen = !isPotatoSelectionMenuOpen;
-
-        if (isPotatoSelectionMenuOpen)
-            OpenPotatoSelectionMenu();
-        else
-            ClosePotatoSelectionMenu();
-    }
-
-    private void OpenPotatoSelectionMenu()
-    {
-        unitSelectionUI.Show();
-        unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.UnlockedUnitlist);
-        SetPotatoUIState(false);
-    }
-
-    private void ClosePotatoSelectionMenu()
-    {
-        unitSelectionUI.Hide();
-        SetPotatoUIState(true);
-    }
-
-    private void SetPotatoUIState(bool isSelectionClosed)
-    {
-        potatoIcon.gameObject.SetActive(isSelectionClosed);
-        potatoText.gameObject.SetActive(isSelectionClosed);
-        potatoCloseIcon.gameObject.SetActive(!isSelectionClosed);
-        potatoCloseText.gameObject.SetActive(!isSelectionClosed);
     }
 
     private void HandleSelectedUnitListChanged(List<UnitHero> unitHeroes)
@@ -90,6 +45,16 @@ public class MainMenuUI : MonoBehaviour
             }
             selectedPotatoImageArray[i].sprite = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == unitHeroes[i]).Sprite;
         }
+    }
+
+    public void Show()
+    {
+        panel.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        panel.gameObject.SetActive(false);
     }
 }
 

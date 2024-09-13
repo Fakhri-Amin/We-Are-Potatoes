@@ -14,3 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelWaveSOs:
   - {fileID: 11400000, guid: 03ade2c67c1201c40ae79166863922d1, type: 2}
+  - {fileID: 11400000, guid: b3967368406894e429e239aca4ddd6de, type: 2}
+  - {fileID: 11400000, guid: 374388c5b5e967d40bbd1ba33497f129, type: 2}
+  - {fileID: 11400000, guid: 44880a67a2bbca94baf5410d2b060bdc, type: 2}
+  - {fileID: 11400000, guid: c57033de4c893fb46afa223dad02ff13, type: 2}
+  - {fileID: 11400000, guid: 9a5da5778d5cdb34182d8fd2c5f1d06b, type: 2}
+  - {fileID: 11400000, guid: bc446a28542429d41b65090f1d69c751, type: 2}
+  - {fileID: 11400000, guid: 9c1a5106337762a4ba7c75fcbc5fed26, type: 2}
+  - {fileID: 11400000, guid: 0d986f54ec9b6094dba1da8016709a93, type: 2}
+  - {fileID: 11400000, guid: 8717dd788f734e14783edee652fe5445, type: 2}
+  - {fileID: 11400000, guid: d7c0ac6fc130779449ba013c3d45ac9b, type: 2}
+  - {fileID: 11400000, guid: fd0f5fc5d66a7ac4e841beccbb6dfe7c, type: 2}
+  - {fileID: 11400000, guid: 9d95933dd6c23f44386456db11b0dd8e, type: 2}
+  - {fileID: 11400000, guid: da37e815c57e31248a672a7ae47dc7c6, type: 2}
+  - {fileID: 11400000, guid: ce405ecc054159d4397b351e6ca64309, type: 2}
+  - {fileID: 11400000, guid: cd6a9340bf7cdfb4bba7abd186d9f3d2, type: 2}

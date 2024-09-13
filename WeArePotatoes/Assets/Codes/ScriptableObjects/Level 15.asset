@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90826034bb00d5b409eecdc158342021, type: 3}
-  m_Name: Level_1
+  m_Name: Level 15
   m_EditorClassIdentifier: 
-  LevelIndex: 1
+  LevelIndex: 15
   UnitReward: 0
   DelayAtStart: 3
-  DelayBetweenWaves: 3
+  DelayBetweenWaves: 4
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 3
-      Count: 2
-    - UnitType: 4
-      Count: 2
-    - UnitType: 5
-      Count: 2
-    - UnitType: 6
-      Count: 2
-    - UnitType: 7
-      Count: 2
-    - UnitType: 8
-      Count: 2
-    - UnitType: 9
-      Count: 2
+    - UnitType: 1
+      Count: 3
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 6
+  - WaveHeroDatas: []
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 9
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 12
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 15

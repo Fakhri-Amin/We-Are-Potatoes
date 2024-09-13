@@ -34,7 +34,7 @@ public class GameUnitCardUI : MonoBehaviour
         normalUnitCardTemplate.gameObject.SetActive(false);
         longUnitCardTemplate.gameObject.SetActive(false);
 
-        List<UnitHero> selectedUnitHeroList = playerUnitSpawner.SelectedUnitTypeList;
+        List<UnitHero> selectedUnitHeroList = GameDataManager.Instance.SelectedUnitList;
 
         foreach (var item in selectedUnitHeroList)
         {
