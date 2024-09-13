@@ -10,5 +10,6 @@ public class LevelWaveSO : ScriptableObject
     public UnitHero UnitReward;
     public float DelayAtStart;
     public float DelayBetweenWaves;
+    public int BaseHealth;
     [TableList(ShowIndexLabels = true)] public List<WaveData> WaveDatas = new();
 }

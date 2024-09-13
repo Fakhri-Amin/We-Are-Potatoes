@@ -9,7 +9,6 @@ public class BaseBuilding : MonoBehaviour, IAttackable
 
     public UnitType UnitType => unitType;
 
-    [SerializeField] private UnitDataSO unitStatSO;
     [SerializeField] private UnitType unitType;
     [SerializeField] private GameObject spawnPosition;
 
@@ -20,18 +19,6 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         healthSystem = GetComponent<HealthSystem>();
     }
 
-    private void Start()
-    {
-        if (unitType == UnitType.Player)
-        {
-            healthSystem.ResetHealth(unitStatSO.PlayerBaseMaxHealth);
-        }
-        else
-        {
-            healthSystem.ResetHealth(unitStatSO.EnemyBaseMaxHealth);
-        }
-    }
-
     private void OnEnable()
     {
         healthSystem.OnDead += OnBaseDestroyed;
@@ -40,6 +27,11 @@ public class BaseBuilding : MonoBehaviour, IAttackable
     private void OnDisable()
     {
         healthSystem.OnDead -= OnBaseDestroyed;
+    }
+
+    public void Initialize(int baseHealth)
+    {
+        healthSystem.ResetHealth(baseHealth);
     }
 
     private void OnBaseDestroyed()

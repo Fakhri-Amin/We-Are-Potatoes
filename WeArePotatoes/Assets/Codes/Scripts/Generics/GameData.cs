@@ -7,6 +7,8 @@ public class GameData : BaseData
     public override string Name => "Game Data";
     public override string Key => "GameData";
 
+    public float SeedProductionRate;
+    public int BaseHealth;
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<UnitHero> SelectedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();

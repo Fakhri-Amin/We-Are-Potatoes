@@ -7,14 +7,20 @@ using Farou.Utility;
 [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : PersistentSingleton<GameDataManager>
 {
-    public UnitDataSO UnitDataSO;
-    public LevelWaveDatabaseSO LevelWaveDatabaseSO;
     public event Action<int> OnCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
+    public event Action<float> OnSeedProductionRateChanged;
+    public event Action<int> OnBaseHealthChanged;
+
+    public UnitDataSO UnitDataSO;
+    public LevelWaveDatabaseSO LevelWaveDatabaseSO;
+    public BaseBuildingSO BaseBuildingSO;
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();
     public int SelectedLevelIndex = 0;
+    public float SeedProductionRate;
+    public int BaseHealth;
 
     public new void Awake()
     {
@@ -28,6 +34,41 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         UnlockedUnitList = Data.Get<GameData>().UnlockedUnitList;
         CompletedLevelList = Data.Get<GameData>().CompletedLevelList;
+
+        SeedProductionRate = Data.Get<GameData>().SeedProductionRate;
+        OnSeedProductionRateChanged?.Invoke(SeedProductionRate);
+
+        BaseHealth = Data.Get<GameData>().BaseHealth;
+        OnBaseHealthChanged?.Invoke(BaseHealth);
+    }
+
+    private void Start()
+    {
+        // Set default data
+        AddNewCompletedLevel(0);
+
+        AddUnlockedUnit(UnitHero.Sword);
+
+        if (SelectedUnitList.Count <= 1)
+        {
+            List<UnitHero> unitHeroes = new List<UnitHero>
+            {
+                UnitHero.Sword,
+                UnitHero.None,
+                UnitHero.None
+            };
+            SetSelectedUnit(unitHeroes);
+        }
+
+        if (SeedProductionRate == 0)
+        {
+            SetNewSeedProductionRate(BaseBuildingSO.SeedProductionRate);
+        }
+
+        if (BaseHealth == 0)
+        {
+            SetNewBaseHealth(BaseBuildingSO.BaseHealth);
+        }
     }
 
     public void Save()
@@ -50,6 +91,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public void AddUnlockedUnit(UnitHero unitHero)
     {
+        if (UnlockedUnitList.Contains(unitHero)) return;
+
         Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
         Save();
     }
@@ -69,8 +112,28 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public void AddNewCompletedLevel(int levelIndex)
     {
+        if (CompletedLevelList.Contains(levelIndex)) return;
+
         CompletedLevelList.Add(levelIndex);
         Data.Get<GameData>().CompletedLevelList = CompletedLevelList;
         Save();
+    }
+
+    public void SetNewSeedProductionRate(float rate)
+    {
+        SeedProductionRate = rate;
+        Data.Get<GameData>().SeedProductionRate = rate;
+        Save();
+
+        OnSeedProductionRateChanged?.Invoke(SeedProductionRate);
+    }
+
+    public void SetNewBaseHealth(int health)
+    {
+        BaseHealth = health;
+        Data.Get<GameData>().BaseHealth = health;
+        Save();
+
+        OnBaseHealthChanged?.Invoke(BaseHealth);
     }
 }

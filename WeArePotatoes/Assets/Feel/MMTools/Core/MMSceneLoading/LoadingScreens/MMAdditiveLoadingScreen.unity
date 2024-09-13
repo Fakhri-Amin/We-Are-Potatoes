@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 500
   FadeInDirection: 0
-  FadeOutDirection: 2
+  FadeOutDirection: 3
   DefaultDuration: 0.5
   DefaultTween:
     MMTweenDefinitionType: 0

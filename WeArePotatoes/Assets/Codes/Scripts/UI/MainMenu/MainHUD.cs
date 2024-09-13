@@ -15,13 +15,21 @@ public class MainHUD : Singleton<MainHUD>
     [Header("Main Menu")]
     [SerializeField] private MainMenuUI mainMenuUI;
 
+    [Header("Upgrade UI")]
+    [SerializeField] private UpgradeUI upgradeUI;
+    [SerializeField] private Image upgradeIcon;
+    [SerializeField] private TMP_Text upgradeText;
+    [SerializeField] private Image upgradeCloseIcon;
+    [SerializeField] private TMP_Text upgradeCloseText;
+    public bool isUpgradeMenuOpen;
+
     [Header("Unit Selection")]
     [SerializeField] private UnitSelectionUI unitSelectionUI;
     [SerializeField] private Image potatoIcon;
     [SerializeField] private TMP_Text potatoText;
     [SerializeField] private Image potatoCloseIcon;
     [SerializeField] private TMP_Text potatoCloseText;
-    private bool isPotatoSelectionMenuOpen;
+    public bool isPotatoSelectionMenuOpen;
 
     [Header("Level Selection UI")]
     [SerializeField] private LevelSelectionUI levelSelectionUI;
@@ -29,18 +37,33 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private TMP_Text battleText;
     [SerializeField] private Image baseIcon;
     [SerializeField] private TMP_Text baseText;
-    private bool isLevelSelectionMenuOpen;
+    public bool isLevelSelectionMenuOpen;
 
     public new void Awake()
     {
         base.Awake();
 
+        upgradeButton.onClick.AddListener(ToggleUpgradeMenu);
         potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
         battleButton.onClick.AddListener(ToggleLevelSelectionMenu);
     }
 
+    private void ToggleUpgradeMenu()
+    {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+
+        isUpgradeMenuOpen = !isUpgradeMenuOpen;
+
+        if (isUpgradeMenuOpen)
+            OpenUpgradeMenu();
+        else
+            CloseUpgradeMenu();
+    }
+
     private void TogglePotatoSelectionMenu()
     {
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+
         isPotatoSelectionMenuOpen = !isPotatoSelectionMenuOpen;
 
         if (isPotatoSelectionMenuOpen)
@@ -57,6 +80,18 @@ public class MainHUD : Singleton<MainHUD>
             OpenLevelSelectionMenu();
         else
             CloseLevelSelectionMenu();
+    }
+
+    private void OpenUpgradeMenu()
+    {
+        upgradeUI.Show();
+        SetUpgradeUIState(false);
+    }
+
+    private void CloseUpgradeMenu()
+    {
+        upgradeUI.Hide();
+        SetUpgradeUIState(true);
     }
 
     private void OpenPotatoSelectionMenu()
@@ -84,6 +119,14 @@ public class MainHUD : Singleton<MainHUD>
         levelSelectionUI.Hide();
         mainMenuUI.Show();
         SetLevelUIState(true);
+    }
+
+    private void SetUpgradeUIState(bool isSelectionClosed)
+    {
+        upgradeIcon.gameObject.SetActive(isSelectionClosed);
+        upgradeText.gameObject.SetActive(isSelectionClosed);
+        upgradeCloseIcon.gameObject.SetActive(!isSelectionClosed);
+        upgradeCloseText.gameObject.SetActive(!isSelectionClosed);
     }
 
     private void SetPotatoUIState(bool isSelectionClosed)

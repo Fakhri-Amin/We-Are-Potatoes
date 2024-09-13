@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,10 +8,17 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private LevelWaveDatabaseSO levelWaveDatabaseSO;
     [SerializeField] private UnitDataSO unitDataSO;
+    [SerializeField] private BaseBuildingSO baseBuildingSO;
     [SerializeField] private WinUI winUI;
     [SerializeField] private LoseUI loseUI;
     [SerializeField] private UnitLevelRewardUI unitLevelRewardUI;
+    [SerializeField] private MMFeedbacks loadMainMenuFeedbacks;
 
+    [Header("Base Buildings")]
+    [SerializeField] private BaseBuilding playerBase;
+    [SerializeField] private BaseBuilding enemyBase;
+
+    private int currentLevelIndex;
     private LevelWaveSO currentLevelWave;
     private CoinManager coinManager;
 
@@ -21,12 +29,15 @@ public class LevelManager : MonoBehaviour
         // Assuming CoinManager is a component on the same GameObject
         coinManager = GetComponent<CoinManager>();
 
-        int selectedLevel = GameDataManager.Instance.SelectedLevelIndex;
-        currentLevelWave = levelWaveDatabaseSO.LevelWaveSOs.Find(l => l.LevelIndex == selectedLevel);
+        currentLevelIndex = GameDataManager.Instance.SelectedLevelIndex;
+        currentLevelWave = levelWaveDatabaseSO.LevelWaveSOs.Find(l => l.LevelIndex == currentLevelIndex);
     }
 
     private void Start()
     {
+        playerBase.Initialize(baseBuildingSO.BaseHealth);
+        enemyBase.Initialize(CurrentLevelWave.BaseHealth);
+
         HideAllUI();
     }
 
@@ -46,9 +57,11 @@ public class LevelManager : MonoBehaviour
         else
         {
             ShowUnitRewardUI();
+            GameDataManager.Instance.AddUnlockedUnit(currentLevelWave.UnitReward);
         }
 
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+        GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
     }
 
     public void HandleLevelLose()
@@ -74,7 +87,8 @@ public class LevelManager : MonoBehaviour
 
     private void LoadMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
+        loadMainMenuFeedbacks.PlayFeedbacks();
     }
 }
 
