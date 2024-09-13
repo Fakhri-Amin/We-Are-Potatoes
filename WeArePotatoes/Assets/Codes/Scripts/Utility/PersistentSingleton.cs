@@ -59,5 +59,14 @@ namespace Farou.Utility
                 }
             }
         }
+
+        protected virtual void OnDestroy()
+        {
+            // Clean up the instance if the object is being destroyed
+            if (instance == this)
+            {
+                instance = null;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ public class GameData : BaseData
 
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<UnitHero> SelectedUnitList = new List<UnitHero>();
-    public List<int> UnlockedLevelList = new List<int>();
+    public List<int> CompletedLevelList = new List<int>();
     public int Coin = 0;
     public int SelectedLevel;
 }

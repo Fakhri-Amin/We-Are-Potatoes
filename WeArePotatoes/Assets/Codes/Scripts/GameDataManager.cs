@@ -13,7 +13,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
-    public List<int> UnlockedLevelList = new List<int>();
+    public List<int> CompletedLevelList = new List<int>();
     public int SelectedLevelIndex = 0;
 
     public new void Awake()
@@ -27,7 +27,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
 
         UnlockedUnitList = Data.Get<GameData>().UnlockedUnitList;
-        UnlockedLevelList = Data.Get<GameData>().UnlockedLevelList;
+        CompletedLevelList = Data.Get<GameData>().CompletedLevelList;
     }
 
     public void Save()
@@ -65,5 +65,12 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public void SetSelectedLevel(int levelIndex)
     {
         SelectedLevelIndex = levelIndex;
+    }
+
+    public void AddNewCompletedLevel(int levelIndex)
+    {
+        CompletedLevelList.Add(levelIndex);
+        Data.Get<GameData>().CompletedLevelList = CompletedLevelList;
+        Save();
     }
 }

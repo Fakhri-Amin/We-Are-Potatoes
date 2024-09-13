@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90826034bb00d5b409eecdc158342021, type: 3}
   m_Name: Level 7
   m_EditorClassIdentifier: 
-  LevelIndex: 7
+  LevelIndex: 6
   UnitReward: 5
   DelayAtStart: 3
   DelayBetweenWaves: 4.45
