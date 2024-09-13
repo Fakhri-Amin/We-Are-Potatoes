@@ -58,5 +58,10 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         transform.SetParent(parentAfterDrag, false);
         transform.SetAsFirstSibling();
         image.raycastTarget = true;
+
+        if (!isUnitFromInventory)
+        {
+            unitSelectionUI.HideRemoveArea();
+        }
     }
 }

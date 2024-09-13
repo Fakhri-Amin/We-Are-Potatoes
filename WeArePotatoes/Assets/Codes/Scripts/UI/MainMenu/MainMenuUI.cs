@@ -31,7 +31,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void Start()
     {
-        HandleSelectedUnitListChanged(GameDataManager.Instance.SelectedUnitHeroList);
+        HandleSelectedUnitListChanged(GameDataManager.Instance.SelectedUnitList);
     }
 
     private void OnEnable()
@@ -57,7 +57,7 @@ public class MainMenuUI : MonoBehaviour
     private void OpenPotatoSelectionMenu()
     {
         unitSelectionUI.Show();
-        unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
+        unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.UnlockedUnitlist);
         SetPotatoUIState(false);
     }
 

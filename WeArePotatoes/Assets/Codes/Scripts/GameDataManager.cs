@@ -10,7 +10,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public UnitDataSO unitDataSO;
     public event Action<int> OnCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
-    public List<UnitHero> SelectedUnitHeroList = new List<UnitHero>(3);
+    public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
+    public List<UnitHero> UnlockedUnitlist = new List<UnitHero>();
 
     public new void Awake()
     {
@@ -19,8 +20,10 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         int coin = Data.Get<GameData>().Coin;
         OnCoinUpdated?.Invoke(coin);
 
-        SelectedUnitHeroList = Data.Get<GameData>().SelectedUnitList;
-        OnSelectedUnitListChanged?.Invoke(SelectedUnitHeroList);
+        SelectedUnitList = Data.Get<GameData>().SelectedUnitList;
+        OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
+
+        UnlockedUnitlist = Data.Get<GameData>().UnlockedUnitList;
     }
 
     public void Save()
@@ -43,16 +46,15 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public void AddUnlockedUnit(UnitHero unitHero)
     {
-        string unlockedUnit = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero).UnitHero.ToString();
-        Data.Get<GameData>().UnlockedUnitList.Add(unlockedUnit);
+        Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
         Save();
     }
 
     public void SetSelectedUnit(List<UnitHero> selectedUnitList)
     {
-        SelectedUnitHeroList = selectedUnitList;
+        SelectedUnitList = selectedUnitList;
         Data.Get<GameData>().SelectedUnitList = selectedUnitList;
-        OnSelectedUnitListChanged?.Invoke(SelectedUnitHeroList);
+        OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
         Save();
     }
 }

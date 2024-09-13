@@ -26,7 +26,7 @@ public class GameLevelManager : Singleton<GameLevelManager>
     private void Start()
     {
         enemyUnitSpawner.Initialize(levelManager.CurrentLevelWave);
-        playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitHeroList);
+        playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitList);
     }
 
     private void OnEnable()

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 
 public class UnitSelectionUI : MonoBehaviour
 {
@@ -37,19 +38,19 @@ public class UnitSelectionUI : MonoBehaviour
         Hide();
     }
 
-    public void Initialize(List<UnitHero> selectedUnitList)
+    public void Initialize(List<UnitHero> selectedUnitList, List<UnitHero> unlockedUnitList)
     {
         unitSlotTemplate.gameObject.SetActive(false);
         HideRemoveArea();
 
-        InitializeUnitSlots();
+        InitializeUnitSlots(unlockedUnitList);
 
         InitializeUnitSelectedSlots(selectedUnitList);
 
         unitRemoveAreaUI.Initialize(this);
     }
 
-    private void InitializeUnitSlots()
+    private void InitializeUnitSlots(List<UnitHero> unlockedUnitList)
     {
         foreach (Transform child in parent)
         {
@@ -57,12 +58,12 @@ public class UnitSelectionUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var unitDataList = unitDataSO.UnitStatDataList;
-        foreach (var item in unitDataList)
+        foreach (var item in unlockedUnitList)
         {
+            UnitData unitData = unitDataSO.UnitStatDataList.First(i => i.UnitHero == item);
             var slotUI = Instantiate(unitSlotTemplate, parent);
             slotUI.gameObject.SetActive(true);
-            slotUI.Initialize(this, item, () => unitDetailInfoUI.Select(item));
+            slotUI.Initialize(this, unitData, () => unitDetailInfoUI.Select(unitData));
         }
     }
 
@@ -98,9 +99,17 @@ public class UnitSelectionUI : MonoBehaviour
 
     public void SetSelectedUnit()
     {
-        List<UnitHero> selectedUnitList = selectedSlotUIs.ConvertAll(item => item.UnitData.UnitHero);
+        // Convert selectedSlotUIs to UnitHero list, using UnitHero.None for null UnitData
+        List<UnitHero> selectedUnitList = selectedSlotUIs
+            .Select(slot => slot.UnitData != null && slot.UnitData.UnitHero != UnitHero.None
+                ? slot.UnitData.UnitHero // If UnitData and UnitHero are valid, use the UnitHero
+                : UnitHero.None) // Otherwise, assign UnitHero.None
+            .ToList();
+
+        // Save the selected units to the game manager
         GameDataManager.Instance.SetSelectedUnit(selectedUnitList);
     }
+
 
     public void Show()
     {
