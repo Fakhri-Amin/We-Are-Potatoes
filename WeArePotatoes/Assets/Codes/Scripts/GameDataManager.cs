@@ -9,6 +9,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 {
     public UnitDataSO unitDataSO;
     public event Action<int> OnCoinUpdated;
+    public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public List<UnitHero> SelectedUnitHeroList = new List<UnitHero>(3);
 
     public new void Awake()
@@ -19,6 +20,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         OnCoinUpdated?.Invoke(coin);
 
         SelectedUnitHeroList = Data.Get<GameData>().SelectedUnitList;
+        OnSelectedUnitListChanged?.Invoke(SelectedUnitHeroList);
     }
 
     public void Save()
@@ -50,6 +52,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     {
         SelectedUnitHeroList = selectedUnitList;
         Data.Get<GameData>().SelectedUnitList = selectedUnitList;
+        OnSelectedUnitListChanged?.Invoke(SelectedUnitHeroList);
         Save();
     }
 }

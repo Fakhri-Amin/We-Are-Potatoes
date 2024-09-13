@@ -22,12 +22,12 @@ public class UnitSelectionSlotUI : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
+        EventManager.Subscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
     }
 
     private void OnDisable()
     {
-        EventManager<UnitData>.UnSubscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnUnitSelected, HandleUnitSelection);
     }
 
     public void Initialize(UnitSelectionUI unitSelectionUI, UnitData unitData, Action onButtonClicked)
@@ -43,9 +43,9 @@ public class UnitSelectionSlotUI : MonoBehaviour
         draggableItemUI.Initialize(unitSelectionUI, unitData);
     }
 
-    private void HandleUnitSelection(UnitData unitData)
+    private void HandleUnitSelection()
     {
-        if (unitSelectionUI.IsUnitAlreadyInUse(this.unitData))
+        if (unitSelectionUI.IsUnitAlreadyInUse(unitData))
         {
             SelectUnitOnList();
         }

@@ -6,9 +6,15 @@ using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
+    [Header("Project References")]
+    [SerializeField] private UnitDataSO unitDataSO;
+
     [SerializeField] private Button battleButton;
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
+
+    [Header("Selected Potato UI")]
+    [SerializeField] private Image[] selectedPotatoImageArray;
 
     [Header("Potatoes UI")]
     [SerializeField] private UnitSelectionUI unitSelectionUI;
@@ -21,6 +27,21 @@ public class MainMenuUI : MonoBehaviour
     private void Awake()
     {
         potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
+    }
+
+    private void Start()
+    {
+        HandleSelectedUnitListChanged(GameDataManager.Instance.SelectedUnitHeroList);
+    }
+
+    private void OnEnable()
+    {
+        GameDataManager.Instance.OnSelectedUnitListChanged += HandleSelectedUnitListChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameDataManager.Instance.OnSelectedUnitListChanged -= HandleSelectedUnitListChanged;
     }
 
     private void TogglePotatoSelectionMenu()
@@ -52,6 +73,23 @@ public class MainMenuUI : MonoBehaviour
         potatoText.gameObject.SetActive(isSelectionClosed);
         potatoCloseIcon.gameObject.SetActive(!isSelectionClosed);
         potatoCloseText.gameObject.SetActive(!isSelectionClosed);
+    }
+
+    private void HandleSelectedUnitListChanged(List<UnitHero> unitHeroes)
+    {
+        for (int i = 0; i < unitHeroes.Count; i++)
+        {
+            if (unitHeroes[i] == UnitHero.None)
+            {
+                selectedPotatoImageArray[i].gameObject.SetActive(false);
+                continue;
+            }
+            else
+            {
+                selectedPotatoImageArray[i].gameObject.SetActive(true);
+            }
+            selectedPotatoImageArray[i].sprite = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == unitHeroes[i]).Sprite;
+        }
     }
 }
 

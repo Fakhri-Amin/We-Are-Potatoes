@@ -44,12 +44,7 @@ public class UnitSelectionUI : MonoBehaviour
 
         InitializeUnitSlots();
 
-        for (int i = 0; i < selectedUnitList.Count; i++)
-        {
-            // if (selectedUnitList[i] == UnitHero.None) continue;
-            UnitData unitData = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == selectedUnitList[i]);
-            selectedSlotUIs[i].Initialize(this, unitData);
-        }
+        InitializeUnitSelectedSlots(selectedUnitList);
 
         unitRemoveAreaUI.Initialize(this);
     }
@@ -71,6 +66,15 @@ public class UnitSelectionUI : MonoBehaviour
         }
     }
 
+    public void InitializeUnitSelectedSlots(List<UnitHero> selectedUnitList)
+    {
+        for (int i = 0; i < selectedUnitList.Count; i++)
+        {
+            UnitData unitData = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == selectedUnitList[i]);
+            selectedSlotUIs[i].Initialize(this, unitData);
+        }
+    }
+
     public bool IsUnitAlreadyInUse(UnitData unitData)
     {
         if (unitData == null) return false;
@@ -85,6 +89,11 @@ public class UnitSelectionUI : MonoBehaviour
         {
             selectedSlot.RemoveUnit();
         }
+    }
+
+    public UnitSelectedSlotUI GetSelectedSlotWithUnit(UnitData unitData)
+    {
+        return selectedSlotUIs.Find(slot => slot.UnitData == unitData);
     }
 
     public void SetSelectedUnit()
