@@ -45,7 +45,7 @@ MonoBehaviour:
     Name: Sword
     SeedCost: 3
     Health: 100
-    DamageAmount: 10
+    DamageAmount: 20
     MoveSpeedType: 2
     AttackSpeedType: 2
     DetectRadius: 4
@@ -60,7 +60,7 @@ MonoBehaviour:
     Name: Bow
     SeedCost: 5
     Health: 60
-    DamageAmount: 20
+    DamageAmount: 25
     MoveSpeedType: 2
     AttackSpeedType: 3
     DetectRadius: 9
@@ -75,7 +75,7 @@ MonoBehaviour:
     Name: Catapult
     SeedCost: 8
     Health: 40
-    DamageAmount: 10
+    DamageAmount: 30
     MoveSpeedType: 0
     AttackSpeedType: 1
     DetectRadius: 12

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   LevelIndex: 2
-  UnitReward: 2
+  UnitReward: 3
   DelayAtStart: 3
-  DelayBetweenWaves: 3.75
+  DelayBetweenWaves: 5
   WaveDatas:
   - WaveHeroDatas:
     - UnitType: 1

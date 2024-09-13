@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 9
   m_EditorClassIdentifier: 
   LevelIndex: 9
-  UnitReward: 0
+  UnitReward: 7
   DelayAtStart: 3
   DelayBetweenWaves: 4
   WaveDatas:
