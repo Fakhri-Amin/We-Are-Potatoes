@@ -9,6 +9,7 @@ using Farou.Utility;
 public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
 {
     [SerializeField] private Image image;
+    [SerializeField] private Image seedImage;
     [SerializeField] private TMP_Text seedCost;
     [SerializeField] private DraggableItemUI draggableItemUI;
 
@@ -36,19 +37,21 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
     {
         var draggableItem = eventData.pointerDrag.GetComponent<DraggableItemUI>();
 
-        if (unitSelectionUI.IsUnitAlreadyInUse(draggableItem.UnitData)) return;
+        if (draggableItem == null || unitSelectionUI.IsUnitAlreadyInUse(draggableItem.UnitData)) return;
 
         SelectUnit(draggableItem.UnitData);
         unitSelectionUI.SetSelectedUnit();
-        EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
     }
 
     public void SelectUnit(UnitData unitData)
     {
         this.unitData = unitData;
         draggableItemUI.Initialize(unitSelectionUI, unitData);
+        EventManager<UnitData>.Publish(Farou.Utility.EventType.OnUnitSelected, unitData);
 
         image.gameObject.SetActive(true);
+        seedImage.gameObject.SetActive(true);
+        seedCost.gameObject.SetActive(true);
         image.sprite = unitData.Sprite;
         seedCost.text = unitData.SeedCost.ToString();
     }
@@ -57,7 +60,11 @@ public class UnitSelectedSlotUI : MonoBehaviour, IDropHandler
     {
         unitData = new UnitData();
         image.gameObject.SetActive(false);
+        seedImage.gameObject.SetActive(false);
+        seedCost.gameObject.SetActive(false);
+
         seedCost.text = "-";
+        EventManager<UnitData>.Publish(Farou.Utility.EventType.OnUnitSelected, unitData);
     }
 }
 

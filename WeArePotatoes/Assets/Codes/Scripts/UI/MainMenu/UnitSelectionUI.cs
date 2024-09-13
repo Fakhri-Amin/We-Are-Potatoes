@@ -42,13 +42,15 @@ public class UnitSelectionUI : MonoBehaviour
         unitSlotTemplate.gameObject.SetActive(false);
         HideRemoveArea();
 
+        InitializeUnitSlots();
+
         for (int i = 0; i < selectedUnitList.Count; i++)
         {
+            // if (selectedUnitList[i] == UnitHero.None) continue;
             UnitData unitData = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == selectedUnitList[i]);
             selectedSlotUIs[i].Initialize(this, unitData);
         }
 
-        InitializeUnitSlots();
         unitRemoveAreaUI.Initialize(this);
     }
 
@@ -71,6 +73,8 @@ public class UnitSelectionUI : MonoBehaviour
 
     public bool IsUnitAlreadyInUse(UnitData unitData)
     {
+        if (unitData == null) return false;
+
         return selectedSlotUIs.Exists(i => i.UnitData == unitData);
     }
 
@@ -86,10 +90,6 @@ public class UnitSelectionUI : MonoBehaviour
     public void SetSelectedUnit()
     {
         List<UnitHero> selectedUnitList = selectedSlotUIs.ConvertAll(item => item.UnitData.UnitHero);
-        foreach (var item in selectedUnitList)
-        {
-            Debug.Log(item);
-        }
         GameDataManager.Instance.SetSelectedUnit(selectedUnitList);
     }
 

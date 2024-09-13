@@ -23,7 +23,7 @@ public class UnitRemoveAreaUI : MonoBehaviour, IDropHandler
             unitSelectionUI.RemoveUnitFromSelectedUnitSlot(draggableItem.UnitData);
             unitSelectionUI.SetSelectedUnit();
             unitSelectionUI.HideRemoveArea();
-            EventManager.Publish(Farou.Utility.EventType.OnUnitSelected);
+            EventManager<UnitData>.Publish(Farou.Utility.EventType.OnUnitSelected, null);
         }
     }
 }
