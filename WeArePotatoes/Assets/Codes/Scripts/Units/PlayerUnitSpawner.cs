@@ -29,6 +29,8 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += PlayerUnit_OnAnyPlayerUnitDead;
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
     private void OnDisable()
@@ -40,6 +42,11 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     {
         this.selectedUnitHeroList = selectedUnitHerolist;
         this.seedProductionRate = seedProductionRate;
+    }
+
+    private void HandleLevelEnd()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator ProduceSeedRoutine()

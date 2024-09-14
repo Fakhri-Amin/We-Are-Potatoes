@@ -26,11 +26,20 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     private void OnEnable()
     {
         Unit.OnAnyUnitDead += EnemyUnit_OnAnyEnemyUnitDead;
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= EnemyUnit_OnAnyEnemyUnitDead;
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
+    }
+
+    private void HandleLevelEnd()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator SpawnUnitWaveRoutine()

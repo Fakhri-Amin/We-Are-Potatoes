@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     [Header("Base Buildings")]
     [SerializeField] private BaseBuilding playerBase;
     [SerializeField] private BaseBuilding enemyBase;
+    [SerializeField] private float waitTimeBeforeShowingUI = 3f;
 
     [Header("Other Reference")]
     [SerializeField] private CanvasGroup fader;
@@ -52,9 +53,11 @@ public class LevelManager : MonoBehaviour
         unitLevelRewardUI.Hide();
     }
 
-    public void HandleLevelWin()
+    public IEnumerator HandleLevelWin()
     {
-        if (currentLevelWave.UnitReward == UnitHero.None)
+        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
+
+        if (currentLevelWave.UnitReward == UnitHero.None || GameDataManager.Instance.IsUnitAlreadyUnlocked(currentLevelWave.UnitReward))
         {
             ShowWinUI();
         }
@@ -68,8 +71,10 @@ public class LevelManager : MonoBehaviour
         GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
     }
 
-    public void HandleLevelLose()
+    public IEnumerator HandleLevelLose()
     {
+        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
+
         loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }

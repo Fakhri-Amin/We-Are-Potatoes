@@ -13,6 +13,8 @@ public class PauseUI : MonoBehaviour
 
     public void InitializeButtonFunction(Action onResumeButtonClicked, Action onGiveUpButtonClicked)
     {
+        resumeButton.onClick.RemoveAllListeners();
+        giveUpButton.onClick.RemoveAllListeners();
         resumeButton.onClick.AddListener(() => onResumeButtonClicked());
         giveUpButton.onClick.AddListener(() => onGiveUpButtonClicked());
     }

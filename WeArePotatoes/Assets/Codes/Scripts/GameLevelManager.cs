@@ -33,15 +33,15 @@ public class GameLevelManager : Singleton<GameLevelManager>
 
     private void OnEnable()
     {
-        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, levelManager.HandleLevelWin);
-        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, levelManager.HandleLevelLose);
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, () => StartCoroutine(levelManager.HandleLevelWin()));
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, () => StartCoroutine(levelManager.HandleLevelLose()));
         EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
     }
 
     private void OnDisable()
     {
-        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, levelManager.HandleLevelWin);
-        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, levelManager.HandleLevelLose);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, () => StartCoroutine(levelManager.HandleLevelWin()));
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, () => StartCoroutine(levelManager.HandleLevelLose()));
         EventManager<UnitData>.UnSubscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
     }
 

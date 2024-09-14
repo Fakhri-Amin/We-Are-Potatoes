@@ -4,23 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class LoseUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinCollectedText;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Transform popup;
+    [SerializeField] private CanvasGroup popup;
 
     public void Show(int coinCollectedAmount, Action onContinueButtonClicked)
     {
         popup.gameObject.SetActive(true);
+        popup.DOFade(1, 0.1f);
 
         coinCollectedText.text = "+" + coinCollectedAmount;
+        continueButton.onClick.RemoveAllListeners();
         continueButton.onClick.AddListener(() => { onContinueButtonClicked?.Invoke(); });
     }
 
     public void Hide()
     {
-        popup.gameObject.SetActive(false);
+        popup.DOFade(0, 0.1f).OnComplete(() =>
+        {
+            popup.gameObject.SetActive(false);
+        });
     }
 }

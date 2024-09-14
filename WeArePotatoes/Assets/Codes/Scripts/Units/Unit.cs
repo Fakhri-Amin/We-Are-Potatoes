@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Farou.Utility;
 using MoreMountains.Feedbacks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private SpriteRenderer bodySprite;
     [SerializeField] private SpriteRenderer weaponSprite;
 
+    private bool isIdle;
     private bool canMove = true;
     private float moveSpeed;
     private float attackSpeed;
@@ -52,11 +54,15 @@ public class Unit : MonoBehaviour, IAttackable
     private void OnEnable()
     {
         healthSystem.OnDead += HandleOnDead;
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
     private void OnDisable()
     {
         healthSystem.OnDead -= HandleOnDead;
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
     private void HandleOnDead()
@@ -68,8 +74,15 @@ public class Unit : MonoBehaviour, IAttackable
         OnAnyUnitDead?.Invoke(this);
     }
 
+    private void HandleLevelEnd()
+    {
+        isIdle = true;
+    }
+
     private void Update()
     {
+        if (isIdle) return;
+
         // Handle attack cooldown
         if (!canAttack)
         {

@@ -15,7 +15,7 @@ MonoBehaviour:
   LevelIndex: 1
   UnitReward: 2
   DelayAtStart: 3
-  DelayBetweenWaves: 7
+  DelayBetweenWaves: 9
   BaseHealth: 30
   WaveDatas:
   - WaveHeroDatas:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour, IAttackable
@@ -11,6 +12,9 @@ public class BaseBuilding : MonoBehaviour, IAttackable
 
     [SerializeField] private UnitType unitType;
     [SerializeField] private GameObject spawnPosition;
+    [SerializeField] private SpriteRenderer baseSprite;
+    [SerializeField] private Sprite destroyedBaseSprite;
+    [SerializeField] private MMFeedbacks destroyedFeedbacks;
 
     private HealthSystem healthSystem;
 
@@ -36,6 +40,9 @@ public class BaseBuilding : MonoBehaviour, IAttackable
 
     private void OnBaseDestroyed()
     {
+        destroyedFeedbacks.PlayFeedbacks();
+
+
         if (unitType == UnitType.Player)
         {
             EventManager.Publish(Farou.Utility.EventType.OnLevelLose);
@@ -82,5 +89,10 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         PlayHitSound();
 
         healthSystem.Damage(damageAmount);
+    }
+
+    public void ChangeToDestroyedSprite()
+    {
+        baseSprite.sprite = destroyedBaseSprite;
     }
 }

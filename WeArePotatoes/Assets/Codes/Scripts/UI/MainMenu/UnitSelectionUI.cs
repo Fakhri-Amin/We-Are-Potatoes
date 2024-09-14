@@ -36,7 +36,8 @@ public class UnitSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        Hide();
+        // Hide();
+        panel.gameObject.SetActive(false);
     }
 
     public void Initialize(List<UnitHero> selectedUnitList, List<UnitHero> unlockedUnitList)

@@ -90,6 +90,15 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
+    public bool IsUnitAlreadyUnlocked(UnitHero unitHero)
+    {
+        if (UnlockedUnitList.Contains(unitHero))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SetSelectedUnit(List<UnitHero> selectedUnitList)
     {
         SelectedUnitList = selectedUnitList;

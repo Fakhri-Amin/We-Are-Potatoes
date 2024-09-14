@@ -26,7 +26,8 @@ public class UnitDetailInfoUI : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
-        Hide();
+        // Hide();
+        panel.gameObject.SetActive(false);
     }
 
     public void Select(UnitData unitData)

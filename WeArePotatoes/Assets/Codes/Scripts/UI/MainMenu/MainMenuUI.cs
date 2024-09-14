@@ -48,6 +48,7 @@ public class MainMenuUI : MonoBehaviour
     private void OnEnable()
     {
         GameDataManager.Instance.OnSelectedUnitListChanged += HandleSelectedUnitListChanged;
+        HandleSelectedUnitListChanged(GameDataManager.Instance.SelectedUnitList);
     }
 
     private void OnDisable()
@@ -57,18 +58,22 @@ public class MainMenuUI : MonoBehaviour
 
     private void HandleSelectedUnitListChanged(List<UnitHero> unitHeroes)
     {
+        foreach (var item in selectedPotatoImageArray)
+        {
+            item.gameObject.SetActive(false);
+        }
+
         for (int i = 0; i < unitHeroes.Count; i++)
         {
             if (unitHeroes[i] == UnitHero.None)
             {
-                selectedPotatoImageArray[i].gameObject.SetActive(false);
                 continue;
             }
             else
             {
                 selectedPotatoImageArray[i].gameObject.SetActive(true);
+                selectedPotatoImageArray[i].sprite = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == unitHeroes[i]).Sprite;
             }
-            selectedPotatoImageArray[i].sprite = unitDataSO.UnitStatDataList.Find(x => x.UnitHero == unitHeroes[i]).Sprite;
         }
     }
 

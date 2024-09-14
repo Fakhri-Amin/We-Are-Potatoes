@@ -137,6 +137,9 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OpenLevelSelectionMenu()
     {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             mainMenuUI.Hide();
@@ -149,6 +152,9 @@ public class MainHUD : Singleton<MainHUD>
 
     private void CloseLevelSelectionMenu()
     {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             levelSelectionUI.Hide();

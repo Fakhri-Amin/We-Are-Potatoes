@@ -34,7 +34,8 @@ public class UpgradeUI : MonoBehaviour
         HandleUpdateSeedUI(gameDataManager.SeedProductionRate, gameDataManager.UpgradeSeedProductionRatePrice);
         HandleUpdateBaseHealth(gameDataManager.BaseHealth, gameDataManager.UpgradeBaseHealthPrice);
 
-        Hide();
+        // Hide();
+        panel.gameObject.SetActive(false);
     }
 
     private void OnEnable()

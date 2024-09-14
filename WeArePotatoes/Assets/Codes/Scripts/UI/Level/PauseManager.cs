@@ -29,8 +29,8 @@ public class PauseManager : MonoBehaviour
 
     private void ResumeGame()
     {
-        pauseUI.Hide();
         Time.timeScale = 1;
+        pauseUI.Hide();
     }
 
     private void GiveUpGame()
