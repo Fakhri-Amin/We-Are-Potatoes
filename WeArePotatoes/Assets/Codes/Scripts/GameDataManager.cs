@@ -72,11 +72,12 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void ModifyMoney(int amount)
+    public void ModifyMoney(float amount)
     {
         var coin = Data.Get<GameData>().Coin;
-        coin += amount;
+        coin += (int)amount;
         Coin = coin;
+        Data.Get<GameData>().Coin = coin;
         OnCoinUpdated?.Invoke(coin);
         Save();
     }
