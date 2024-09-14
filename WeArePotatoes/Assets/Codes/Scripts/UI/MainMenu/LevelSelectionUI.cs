@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Feedbacks;
+using Sirenix.Utilities;
 
 public class LevelSelectionUI : MonoBehaviour
 {
@@ -67,6 +68,11 @@ public class LevelSelectionUI : MonoBehaviour
                     item.interactable = true;
                 }
             }
+        }
+
+        if (completedLevelList.Count <= 0 || completedLevelList.IsNullOrEmpty())
+        {
+            levelButtonDatas[0].LevelButton.interactable = true;
         }
 
         Hide(); // Initially hide the level selection panel

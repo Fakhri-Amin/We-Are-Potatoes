@@ -39,6 +39,9 @@ public class GameUnitCardUI : MonoBehaviour
         foreach (var item in selectedUnitHeroList)
         {
             UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == item);
+
+            if (unitData == null) continue;
+
             if (normalUnitCardSize.Contains(unitData.UnitHero))
             {
                 UnitCardUI unitCardUI = Instantiate(normalUnitCardTemplate, buttonParent);

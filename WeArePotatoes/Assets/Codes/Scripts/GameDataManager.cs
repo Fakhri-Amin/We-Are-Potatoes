@@ -46,8 +46,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     private void Start()
     {
         // Set default data
-        AddNewCompletedLevel(0);
-
         AddUnlockedUnit(UnitHero.Sword);
 
         if (SelectedUnitList.Count <= 1)

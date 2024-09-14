@@ -16,6 +16,7 @@ public class WinUI : MonoBehaviour
         popup.gameObject.SetActive(true);
 
         coinCollectedText.text = "+" + coinCollectedAmount;
+        continueButton.onClick.RemoveAllListeners();
         continueButton.onClick.AddListener(() => { onContinueButtonClicked?.Invoke(); });
     }
 

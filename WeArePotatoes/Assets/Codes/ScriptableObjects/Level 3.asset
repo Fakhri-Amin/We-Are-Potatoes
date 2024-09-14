@@ -40,6 +40,8 @@ MonoBehaviour:
     - UnitType: 1
       Count: 3
     - UnitType: 2
-      Count: 2
+      Count: 3
     - UnitType: 3
       Count: 3
+  TotalCoinReward: 300
+  UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

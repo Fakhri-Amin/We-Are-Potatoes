@@ -925,7 +925,7 @@ MonoBehaviour:
     AttackRadius: 0
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinRewardAmount: 0
+    CoinReward: 0
 --- !u!114 &90483207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,7 +1939,7 @@ MonoBehaviour:
     AttackRadius: 0
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinRewardAmount: 0
+    CoinReward: 0
 --- !u!1 &173186619
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,6 +4182,8 @@ MonoBehaviour:
   SelectedLevelIndex: 0
   SeedProductionRate: 0
   BaseHealth: 0
+  UpgradeSeedProductionRatePrice: 0
+  UpgradeBaseHealthPrice: 0
 --- !u!1 &501218778
 GameObject:
   m_ObjectHideFlags: 0
@@ -7702,7 +7704,7 @@ MonoBehaviour:
     AttackRadius: 0
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinRewardAmount: 0
+    CoinReward: 0
 --- !u!114 &693848233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9917,7 +9919,7 @@ MonoBehaviour:
     AttackRadius: 0
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinRewardAmount: 0
+    CoinReward: 0
 --- !u!1 &943308842
 GameObject:
   m_ObjectHideFlags: 0
