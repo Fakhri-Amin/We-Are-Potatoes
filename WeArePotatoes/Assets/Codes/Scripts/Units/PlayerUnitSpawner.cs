@@ -15,6 +15,7 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private List<UnitHero> selectedUnitHeroList = new List<UnitHero>();
+    private float seedProductionRate;
 
     public List<UnitHero> SelectedUnitTypeList => selectedUnitHeroList;
 
@@ -35,16 +36,17 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
         Unit.OnAnyUnitDead -= PlayerUnit_OnAnyPlayerUnitDead;
     }
 
-    public void Initialize(List<UnitHero> selectedUnitHerolist)
+    public void Initialize(List<UnitHero> selectedUnitHerolist, float seedProductionRate)
     {
         this.selectedUnitHeroList = selectedUnitHerolist;
+        this.seedProductionRate = seedProductionRate;
     }
 
     private IEnumerator ProduceSeedRoutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1 / seedProductionRate);
 
             ModifySeedCount(1);
         }

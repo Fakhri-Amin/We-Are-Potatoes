@@ -27,26 +27,26 @@ public class GameLevelManager : Singleton<GameLevelManager>
     {
 
         enemyUnitSpawner.Initialize(levelManager.CurrentLevelWave);
-        playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitList);
+        playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.SeedProductionRate);
     }
 
     private void OnEnable()
     {
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, levelManager.HandleLevelWin);
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, levelManager.HandleLevelLose);
-        EventManager.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+        EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
     }
 
     private void OnDisable()
     {
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, levelManager.HandleLevelWin);
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, levelManager.HandleLevelLose);
-        EventManager.UnSubscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+        EventManager<UnitData>.UnSubscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
     }
 
-    private void HandleEnemyCoinDropped()
+    private void HandleEnemyCoinDropped(UnitData unitData)
     {
-        coinManager.AddCoins(100);
+        coinManager.AddCoins(unitData.CoinReward);
     }
 }
 

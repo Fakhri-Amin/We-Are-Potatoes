@@ -30,7 +30,7 @@ MonoBehaviour:
     - UnitType: 1
       Count: 2
     - UnitType: 2
-      Count: 1
+      Count: 2
   - WaveHeroDatas:
     - UnitType: 2
       Count: 3

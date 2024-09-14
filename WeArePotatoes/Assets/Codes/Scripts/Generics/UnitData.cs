@@ -42,4 +42,6 @@ public class UnitData
     [HideIf("UnitRangeType", UnitRangeType.Melee)] public float ProjectileSpeed;
     [TabGroup("Stat")]
     [ShowIf("UnitAttackType", UnitAttackType.Area)] public float AreaOfEffectRadius;
+    [TabGroup("Stat")]
+    public int CoinReward;
 }

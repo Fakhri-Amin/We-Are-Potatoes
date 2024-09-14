@@ -13,10 +13,13 @@ public class UpgradeUI : MonoBehaviour
     [SerializeField] private TMP_Text upgradeSeedRatePriceText;
     [SerializeField] private TMP_Text upgradeBaseHealthPriceText;
 
+    private GameDataManager gameDataManager;
+
     private void Start()
     {
-        HandleUpdateSeedUI(GameDataManager.Instance.SeedProductionRate);
-        HandleUpdateBaseHealth(GameDataManager.Instance.BaseHealth);
+        gameDataManager = GameDataManager.Instance;
+        HandleUpdateSeedUI(gameDataManager.SeedProductionRate, gameDataManager.UpgradeSeedProductionRatePrice);
+        HandleUpdateBaseHealth(gameDataManager.BaseHealth, gameDataManager.UpgradeBaseHealthPrice);
 
         Hide();
     }
@@ -33,14 +36,16 @@ public class UpgradeUI : MonoBehaviour
         GameDataManager.Instance.OnBaseHealthChanged -= HandleUpdateBaseHealth;
     }
 
-    public void HandleUpdateSeedUI(float rate)
+    public void HandleUpdateSeedUI(float rate, float price)
     {
         currentSeedRateText.text = rate + "/s";
+        upgradeSeedRatePriceText.text = price.ToString();
     }
 
-    public void HandleUpdateBaseHealth(int health)
+    public void HandleUpdateBaseHealth(float health, float price)
     {
         currentBaseHealthText.text = health.ToString();
+        upgradeBaseHealthPriceText.text = price.ToString();
     }
 
     public void Show()

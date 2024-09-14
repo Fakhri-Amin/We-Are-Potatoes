@@ -77,9 +77,9 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     {
         if (unit && unit.UnitType == UnitType.Enemy)
         {
+            EventManager<UnitData>.Publish(Farou.Utility.EventType.OnEnemyCoinDropped, unit.UnitData);
             spawnedUnits.Remove(unit);
             UnitObjectPool.Instance.ReturnToPool(unit.UnitData.UnitHero, unit);
-            EventManager.Publish(Farou.Utility.EventType.OnEnemyCoinDropped);
         }
     }
 

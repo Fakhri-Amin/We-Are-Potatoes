@@ -9,8 +9,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 {
     public event Action<int> OnCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
-    public event Action<float> OnSeedProductionRateChanged;
-    public event Action<int> OnBaseHealthChanged;
+    public event Action<float, float> OnSeedProductionRateChanged;
+    public event Action<float, float> OnBaseHealthChanged;
 
     public UnitDataSO UnitDataSO;
     public LevelWaveDatabaseSO LevelWaveDatabaseSO;
@@ -20,26 +20,27 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public List<int> CompletedLevelList = new List<int>();
     public int SelectedLevelIndex = 0;
     public float SeedProductionRate;
-    public int BaseHealth;
+    public float BaseHealth;
+    public float UpgradeSeedProductionRatePrice;
+    public float UpgradeBaseHealthPrice;
 
     public new void Awake()
     {
         base.Awake();
 
-        int coin = Data.Get<GameData>().Coin;
+        var gameData = Data.Get<GameData>();
+
+        int coin = gameData.Coin;
         OnCoinUpdated?.Invoke(coin);
 
-        SelectedUnitList = Data.Get<GameData>().SelectedUnitList;
+        SelectedUnitList = gameData.SelectedUnitList;
         OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
 
-        UnlockedUnitList = Data.Get<GameData>().UnlockedUnitList;
-        CompletedLevelList = Data.Get<GameData>().CompletedLevelList;
+        UnlockedUnitList = gameData.UnlockedUnitList;
+        CompletedLevelList = gameData.CompletedLevelList;
 
-        SeedProductionRate = Data.Get<GameData>().SeedProductionRate;
-        OnSeedProductionRateChanged?.Invoke(SeedProductionRate);
-
-        BaseHealth = Data.Get<GameData>().BaseHealth;
-        OnBaseHealthChanged?.Invoke(BaseHealth);
+        UpdateSeedProductionRate();
+        UpdateBaseHealth();
     }
 
     private void Start()
@@ -58,16 +59,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
                 UnitHero.None
             };
             SetSelectedUnit(unitHeroes);
-        }
-
-        if (SeedProductionRate == 0)
-        {
-            SetNewSeedProductionRate(BaseBuildingSO.SeedProductionRate);
-        }
-
-        if (BaseHealth == 0)
-        {
-            SetNewBaseHealth(BaseBuildingSO.BaseHealth);
         }
     }
 
@@ -119,21 +110,39 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void SetNewSeedProductionRate(float rate)
+    public void UpdateSeedProductionRate()
     {
-        SeedProductionRate = rate;
-        Data.Get<GameData>().SeedProductionRate = rate;
-        Save();
+        var gameData = Data.Get<GameData>();
+        SeedProductionRate = BaseBuildingSO.SeedProductionRate + (gameData.SeedProductionLevel - 1) * BaseBuildingSO.SeedProductionRateUpgradeAmount;
+        UpgradeSeedProductionRatePrice = BaseBuildingSO.UpgradeSeedProductionRatePriceList[gameData.SeedProductionLevel - 1];
+        OnSeedProductionRateChanged?.Invoke(SeedProductionRate, UpgradeSeedProductionRatePrice);
 
-        OnSeedProductionRateChanged?.Invoke(SeedProductionRate);
+        Save();
     }
 
-    public void SetNewBaseHealth(int health)
+    public void UpgradeSeedProductionRate()
     {
-        BaseHealth = health;
-        Data.Get<GameData>().BaseHealth = health;
-        Save();
+        var gameData = Data.Get<GameData>();
+        gameData.SeedProductionLevel++;
 
-        OnBaseHealthChanged?.Invoke(BaseHealth);
+        UpdateSeedProductionRate();
+    }
+
+    public void UpdateBaseHealth()
+    {
+        var gameData = Data.Get<GameData>();
+        BaseHealth = BaseBuildingSO.BaseHealth + (gameData.BaseHealthLevel - 1) * BaseBuildingSO.BaseHealthUpgradeAmount;
+        UpgradeBaseHealthPrice = BaseBuildingSO.UpgradeBaseHealthPriceList[gameData.BaseHealthLevel - 1];
+        OnBaseHealthChanged?.Invoke(BaseHealth, UpgradeBaseHealthPrice);
+
+        Save();
+    }
+
+    public void UpgradeBaseHealth()
+    {
+        var gameData = Data.Get<GameData>();
+        gameData.BaseHealthLevel++;
+
+        UpdateBaseHealth();
     }
 }
