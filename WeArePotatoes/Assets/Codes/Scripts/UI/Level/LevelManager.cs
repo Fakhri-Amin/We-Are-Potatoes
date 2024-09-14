@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class LevelManager : MonoBehaviour
     [Header("Base Buildings")]
     [SerializeField] private BaseBuilding playerBase;
     [SerializeField] private BaseBuilding enemyBase;
+
+    [Header("Other Reference")]
+    [SerializeField] private CanvasGroup fader;
 
     private int currentLevelIndex;
     private LevelWaveSO currentLevelWave;
@@ -79,9 +83,15 @@ public class LevelManager : MonoBehaviour
     {
         winUI.Show(coinManager.CoinCollected, () =>
         {
-            winUI.Hide();
-            UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentLevelWave.UnitReward);
-            unitLevelRewardUI.Show(unitData, LoadMainMenu);
+            fader.DOFade(1, 0.1f).OnComplete(() =>
+            {
+                winUI.Hide();
+                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentLevelWave.UnitReward);
+                unitLevelRewardUI.Show(unitData, LoadMainMenu);
+
+                fader.DOFade(0, 0.1f);
+            });
+
         });
     }
 

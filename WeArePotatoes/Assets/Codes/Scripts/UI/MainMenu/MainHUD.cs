@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using Farou.Utility;
 using Sirenix.OdinInspector;
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using DG.Tweening;
 
 public class MainHUD : Singleton<MainHUD>
 {
@@ -41,6 +44,8 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private Image baseIcon;
     [SerializeField] private TMP_Text baseText;
     public bool isLevelSelectionMenuOpen;
+
+    [SerializeField] private CanvasGroup fader;
 
     public new void Awake()
     {
@@ -132,16 +137,26 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OpenLevelSelectionMenu()
     {
-        mainMenuUI.Hide();
-        levelSelectionUI.Show();
-        SetLevelUIState(false);
+        fader.DOFade(1, 0.1f).OnComplete(() =>
+        {
+            mainMenuUI.Hide();
+            levelSelectionUI.Show();
+            SetLevelUIState(false);
+
+            fader.DOFade(0, 0.1f);
+        });
     }
 
     private void CloseLevelSelectionMenu()
     {
-        levelSelectionUI.Hide();
-        mainMenuUI.Show();
-        SetLevelUIState(true);
+        fader.DOFade(1, 0.1f).OnComplete(() =>
+        {
+            levelSelectionUI.Hide();
+            mainMenuUI.Show();
+            SetLevelUIState(true);
+
+            fader.DOFade(0, 0.1f);
+        });
     }
 
     private void SetUpgradeUIState(bool isSelectionClosed)

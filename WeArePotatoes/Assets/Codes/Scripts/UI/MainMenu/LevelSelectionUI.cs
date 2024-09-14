@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Feedbacks;
 using Sirenix.Utilities;
+using MoreMountains.Tools;
+using DG.Tweening;
 
 public class LevelSelectionUI : MonoBehaviour
 {
@@ -21,8 +23,6 @@ public class LevelSelectionUI : MonoBehaviour
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
 
     [Header("Level Button Config")]
-    [SerializeField] private Color unlockedColor;
-    [SerializeField] private Color lockedColor;
     [SerializeField] private List<LevelButtonData> levelButtonDatas = new List<LevelButtonData>();
 
     private LevelWaveDatabaseSO levelWaveDatabaseSO;
