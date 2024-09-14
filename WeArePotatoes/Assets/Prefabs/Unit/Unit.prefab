@@ -197,7 +197,7 @@ SpriteRenderer:
   m_Size: {x: 2.58, y: 1.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &734507223511546562
@@ -4715,7 +4715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3665d4b5c9a8c14fb1175bdda5a7e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitStatSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
   unitType: 0
   unitHero: 0
   targetMask:
@@ -4725,6 +4724,8 @@ MonoBehaviour:
   resetFeedbacks: {fileID: 6618608347987325842}
   bodySprite: {fileID: 7407876514876931392}
   weaponSprite: {fileID: 2272017547782301160}
+  healthBar: {fileID: 318394900213204549}
+  initialHealthBarColor: {r: 1, g: 0.32156864, b: 0.3137255, a: 1}
 --- !u!114 &3227390528768859159
 MonoBehaviour:
   m_ObjectHideFlags: 0

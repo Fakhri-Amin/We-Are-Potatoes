@@ -5,6 +5,7 @@ using Farou.Utility;
 using MoreMountains.Feedbacks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour, IAttackable
 {
@@ -18,6 +19,8 @@ public class Unit : MonoBehaviour, IAttackable
     [SerializeField] private MMFeedbacks resetFeedbacks;
     [SerializeField] private SpriteRenderer bodySprite;
     [SerializeField] private SpriteRenderer weaponSprite;
+    [SerializeField] private Image healthBar;
+    [SerializeField] private Color initialHealthBarColor;
 
     private bool isIdle;
     private bool canMove = true;
@@ -130,7 +133,6 @@ public class Unit : MonoBehaviour, IAttackable
 
         // Reset state
         healthSystem.ResetHealth(this.unitData.Health);
-        // ResetState();
 
         // Set the move direction
         moveDirection = unitType == UnitType.Player ? Vector3.right : Vector3.left;
@@ -151,6 +153,7 @@ public class Unit : MonoBehaviour, IAttackable
     {
         bodySprite.material.SetFloat("_HitEffectBlend", 0);
         weaponSprite.material.SetFloat("_HitEffectBlend", 0);
+        healthBar.color = initialHealthBarColor;
     }
 
     private void Move()

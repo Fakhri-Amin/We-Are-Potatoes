@@ -138,14 +138,14 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 7fb4a490f4cd0ee458a5d2b255b5610e, type: 3}
     Name: Great Sword
     SeedCost: 12
-    Health: 150
+    Health: 200
     DamageAmount: 25
     MoveSpeedType: 0
     AttackSpeedType: 0
     DetectRadius: 4
     AttackRadius: 1.3
     ProjectileSpeed: 0
-    AreaOfEffectRadius: 0.8
+    AreaOfEffectRadius: 1
     CoinReward: 50
   - UnitHero: 8
     UnitRangeType: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 1811b95863784de45aa3872614f73828, type: 3}
     Name: Lance
     SeedCost: 10
-    Health: 200
+    Health: 250
     DamageAmount: 40
     MoveSpeedType: 4
     AttackSpeedType: 3
@@ -171,7 +171,7 @@ MonoBehaviour:
     Name: Dagger
     SeedCost: 2
     Health: 50
-    DamageAmount: 10
+    DamageAmount: 25
     MoveSpeedType: 4
     AttackSpeedType: 4
     DetectRadius: 4

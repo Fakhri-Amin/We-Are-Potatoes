@@ -6,8 +6,9 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
+public class EnemyUnitSpawner : MonoBehaviour
 {
+    public static EnemyUnitSpawner Instance { get; private set; }
     [SerializeField] private string levelID;
     [SerializeField] private UnitDataSO unitDataSO;
 
@@ -16,6 +17,11 @@ public class EnemyUnitSpawner : Singleton<EnemyUnitSpawner>
     [SerializeField] private List<Unit> spawnedUnits = new List<Unit>();
 
     private LevelWaveSO levelWaveSO;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void Initialize(LevelWaveSO levelWaveSO)
     {

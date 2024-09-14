@@ -5,8 +5,9 @@ using UnityEngine;
 using Farou.Utility;
 
 [DefaultExecutionOrder(-99999999)]
-public class GameDataManager : PersistentSingleton<GameDataManager>
+public class GameDataManager : MonoBehaviour
 {
+    public static GameDataManager Instance { get; private set; }
     public event Action<int> OnCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public event Action<float, float> OnSeedProductionRateChanged;
@@ -25,9 +26,10 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public float UpgradeSeedProductionRatePrice;
     public float UpgradeBaseHealthPrice;
 
-    public new void Awake()
+    private void Awake()
     {
-        base.Awake();
+        Instance = this;
+        DontDestroyOnLoad(this);
 
         var gameData = Data.Get<GameData>();
 

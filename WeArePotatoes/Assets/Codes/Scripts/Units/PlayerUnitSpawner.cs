@@ -5,8 +5,9 @@ using Farou.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
+public class PlayerUnitSpawner : MonoBehaviour
 {
+    public static PlayerUnitSpawner Instance { get; private set; }
     public event Action<float> OnSeedCountChanged;
     public float SeedCount = 0;
     [SerializeField] private UnitDataSO unitDataSO;
@@ -18,6 +19,11 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private float seedProductionRate;
 
     public List<UnitHero> SelectedUnitTypeList => selectedUnitHeroList;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -36,6 +42,8 @@ public class PlayerUnitSpawner : Singleton<PlayerUnitSpawner>
     private void OnDisable()
     {
         Unit.OnAnyUnitDead -= PlayerUnit_OnAnyPlayerUnitDead;
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
     public void Initialize(List<UnitHero> selectedUnitHerolist, float seedProductionRate)
