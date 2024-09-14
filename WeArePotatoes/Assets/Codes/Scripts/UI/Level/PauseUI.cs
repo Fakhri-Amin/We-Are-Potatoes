@@ -11,9 +11,10 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Button settingButton;
     [SerializeField] private Button giveUpButton;
 
-    public void InitializeButtonFunction(Action onResumeButtonClicked)
+    public void InitializeButtonFunction(Action onResumeButtonClicked, Action onGiveUpButtonClicked)
     {
         resumeButton.onClick.AddListener(() => onResumeButtonClicked());
+        giveUpButton.onClick.AddListener(() => onGiveUpButtonClicked());
     }
 
     public void Show()

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.XR;
+using DG.Tweening;
 
 public class UpgradeUI : MonoBehaviour
 {
-    [SerializeField] private Transform panel;
+    [SerializeField] private CanvasGroup panel;
 
     [Header("Seed Production Rate")]
     [SerializeField] private TMP_Text currentSeedRateText;
@@ -83,10 +84,16 @@ public class UpgradeUI : MonoBehaviour
     public void Show()
     {
         panel.gameObject.SetActive(true);
+        panel.alpha = 0;
+        panel.DOFade(1, 0.1f);
     }
 
     public void Hide()
     {
-        panel.gameObject.SetActive(false);
+        panel.alpha = 1;
+        panel.DOFade(0, 0.1f).OnComplete(() =>
+        {
+            panel.gameObject.SetActive(false);
+        });
     }
 }

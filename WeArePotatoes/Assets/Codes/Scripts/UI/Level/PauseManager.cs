@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,12 @@ public class PauseManager : MonoBehaviour
 {
     [SerializeField] private PauseUI pauseUI;
     [SerializeField] private Button pauseButton;
+    [SerializeField] private MMFeedbacks loadMainMenuSceneFeedbacks;
 
     private void Awake()
     {
         pauseButton.onClick.AddListener(PauseGame);
-        pauseUI.InitializeButtonFunction(ResumeGame);
+        pauseUI.InitializeButtonFunction(ResumeGame, GiveUpGame);
     }
 
     private void Start()
@@ -29,6 +31,12 @@ public class PauseManager : MonoBehaviour
     {
         pauseUI.Hide();
         Time.timeScale = 1;
+    }
+
+    private void GiveUpGame()
+    {
+        Time.timeScale = 1;
+        loadMainMenuSceneFeedbacks.PlayFeedbacks();
     }
 }
 

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class UnitDetailInfoUI : MonoBehaviour
 {
-    [SerializeField] private Transform panel;
+    [SerializeField] private CanvasGroup panel;
     [SerializeField] private Button closeButton;
     [SerializeField] private Image unitIcon;
     [SerializeField] private TMP_Text unitName;
@@ -30,8 +31,8 @@ public class UnitDetailInfoUI : MonoBehaviour
 
     public void Select(UnitData unitData)
     {
-        panel.gameObject.SetActive(true);
-        closeButton.gameObject.SetActive(true);
+        // panel.gameObject.SetActive(true);
+        Show();
 
         foreach (var item in unitRangeAttackTypeLabels)
         {
@@ -91,11 +92,17 @@ public class UnitDetailInfoUI : MonoBehaviour
     public void Show()
     {
         panel.gameObject.SetActive(true);
+        panel.alpha = 0;
+        panel.DOFade(1, 0.1f);
     }
 
     public void Hide()
     {
-        panel.gameObject.SetActive(false);
+        panel.alpha = 1;
+        panel.DOFade(0, 0.1f).OnComplete(() =>
+        {
+            panel.gameObject.SetActive(false);
+        });
     }
 
 }
