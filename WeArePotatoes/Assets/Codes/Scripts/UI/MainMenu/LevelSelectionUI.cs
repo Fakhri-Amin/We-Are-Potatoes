@@ -55,17 +55,18 @@ public class LevelSelectionUI : MonoBehaviour
             levelButtons[i].interactable = false; // Initially set all buttons to non-interactable
         }
 
-        // Iterate through the unlocked levels and enable interaction for the unlocked levels
-        for (int i = 0; i < Mathf.Min(levelButtonDatas.Count, completedLevelList.Count); i++)
+        // Iterate through all levelButtonDatas and check if their LevelIndex is in the completedLevelList
+        foreach (var levelButtonData in levelButtonDatas)
         {
-            if (levelButtonDatas[i].LevelIndex == completedLevelList[i])
+            if (completedLevelList.Contains(levelButtonData.LevelIndex))
             {
-                levelButtonDatas[i].LevelButton.interactable = true;
+                // Set the level button to be interactable
+                levelButtonData.LevelButton.interactable = true;
 
                 // Enable any additional buttons related to the unlocked level
-                foreach (var item in levelButtonDatas[i].UnlockedLevelButtons)
+                foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
                 {
-                    item.interactable = true;
+                    unlockedButton.interactable = true;
                 }
             }
         }

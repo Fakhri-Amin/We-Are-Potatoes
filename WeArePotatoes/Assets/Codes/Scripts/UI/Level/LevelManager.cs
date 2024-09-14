@@ -26,14 +26,13 @@ public class LevelManager : MonoBehaviour
     private int currentLevelIndex;
     private LevelWaveSO currentLevelWave;
     private CoinManager coinManager;
+    private int rewardIndex = 0; // Track the current reward index
 
     public LevelWaveSO CurrentLevelWave => currentLevelWave;
 
     private void Awake()
     {
-        // Assuming CoinManager is a component on the same GameObject
         coinManager = GetComponent<CoinManager>();
-
         currentLevelIndex = GameDataManager.Instance.SelectedLevelIndex;
         currentLevelWave = levelWaveDatabaseSO.LevelWaveSOs.Find(l => l.LevelIndex == currentLevelIndex);
     }
@@ -42,7 +41,6 @@ public class LevelManager : MonoBehaviour
     {
         playerBase.Initialize(baseBuildingSO.BaseHealth);
         enemyBase.Initialize(CurrentLevelWave.BaseHealth);
-
         HideAllUI();
     }
 
@@ -57,18 +55,59 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTimeBeforeShowingUI);
 
-        if (currentLevelWave.UnitReward == UnitHero.None || GameDataManager.Instance.IsUnitAlreadyUnlocked(currentLevelWave.UnitReward))
+        // Step 1: Show Win UI first, no matter what
+        ShowWinUI();
+
+        GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
+    }
+
+    private void ShowWinUI()
+    {
+        winUI.Show(coinManager.CoinCollected, OnWinUIContinue);
+    }
+
+    private void OnWinUIContinue()
+    {
+        // After clicking continue in the Win UI, start processing rewards
+        rewardIndex = 0;
+        ShowNextUnitReward();
+    }
+
+    private void ShowNextUnitReward()
+    {
+        if (rewardIndex >= currentLevelWave.UnitRewardList.Count)
         {
-            ShowWinUI();
+            // If we've shown all rewards, proceed to the Main Menu
+            LoadMainMenu();
+            return;
+        }
+
+        var currentReward = currentLevelWave.UnitRewardList[rewardIndex];
+
+        if (GameDataManager.Instance.IsUnitAlreadyUnlocked(currentReward))
+        {
+            // Skip if already unlocked and check the next reward
+            rewardIndex++;
+            ShowNextUnitReward();
         }
         else
         {
-            ShowUnitRewardUI();
-            GameDataManager.Instance.AddUnlockedUnit(currentLevelWave.UnitReward);
-        }
+            // If the reward is not unlocked, show the reward UI
+            GameDataManager.Instance.AddUnlockedUnit(currentReward);  // Unlock it
 
-        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
-        GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
+            fader.DOFade(1, 0.1f).OnComplete(() =>
+            {
+                winUI.Hide();
+                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentReward);
+                unitLevelRewardUI.Show(unitData, () =>
+                {
+                    // After showing the reward, move to the next
+                    rewardIndex++;
+                    ShowNextUnitReward();
+                });
+                fader.DOFade(0, 0.1f);
+            });
+        }
     }
 
     public IEnumerator HandleLevelLose()
@@ -79,31 +118,9 @@ public class LevelManager : MonoBehaviour
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 
-    private void ShowWinUI()
-    {
-        winUI.Show(coinManager.CoinCollected, LoadMainMenu);
-    }
-
-    private void ShowUnitRewardUI()
-    {
-        winUI.Show(coinManager.CoinCollected, () =>
-        {
-            fader.DOFade(1, 0.1f).OnComplete(() =>
-            {
-                winUI.Hide();
-                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentLevelWave.UnitReward);
-                unitLevelRewardUI.Show(unitData, LoadMainMenu);
-
-                fader.DOFade(0, 0.1f);
-            });
-
-        });
-    }
-
     private void LoadMainMenu()
     {
         // SceneManager.LoadScene("MainMenu");
         loadMainMenuFeedbacks.PlayFeedbacks();
     }
 }
-

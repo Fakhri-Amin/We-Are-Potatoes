@@ -7,7 +7,7 @@ using UnityEngine;
 public class LevelWaveSO : ScriptableObject
 {
     public int LevelIndex;
-    public UnitHero UnitReward;
+    public List<UnitHero> UnitRewardList;
     public float DelayAtStart;
     public float DelayBetweenWaves;
     public int BaseHealth;

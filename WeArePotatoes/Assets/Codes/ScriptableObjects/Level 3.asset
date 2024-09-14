@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   LevelIndex: 2
-  UnitReward: 3
+  UnitRewardList: 0200000003000000
   DelayAtStart: 3
   DelayBetweenWaves: 8
   BaseHealth: 30
