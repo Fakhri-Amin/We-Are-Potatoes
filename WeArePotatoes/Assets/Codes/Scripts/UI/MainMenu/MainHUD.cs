@@ -15,6 +15,9 @@ public class MainHUD : Singleton<MainHUD>
     [Header("Main Menu")]
     [SerializeField] private MainMenuUI mainMenuUI;
 
+    [Header("Main Menu")]
+    [SerializeField] private TMP_Text coinText;
+
     [Header("Upgrade UI")]
     [SerializeField] private UpgradeUI upgradeUI;
     [SerializeField] private Image upgradeIcon;
@@ -46,6 +49,26 @@ public class MainHUD : Singleton<MainHUD>
         upgradeButton.onClick.AddListener(ToggleUpgradeMenu);
         potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
         battleButton.onClick.AddListener(ToggleLevelSelectionMenu);
+    }
+
+    private void Start()
+    {
+        HandleCoinUpdate(GameDataManager.Instance.Coin);
+    }
+
+    private void OnEnable()
+    {
+        GameDataManager.Instance.OnCoinUpdated += HandleCoinUpdate;
+    }
+
+    private void OnDisable()
+    {
+        GameDataManager.Instance.OnCoinUpdated -= HandleCoinUpdate;
+    }
+
+    private void HandleCoinUpdate(int coin)
+    {
+        coinText.text = coin.ToString();
     }
 
     private void ToggleUpgradeMenu()

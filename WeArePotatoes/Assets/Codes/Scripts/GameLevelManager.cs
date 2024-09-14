@@ -25,9 +25,10 @@ public class GameLevelManager : Singleton<GameLevelManager>
 
     private void Start()
     {
-
         enemyUnitSpawner.Initialize(levelManager.CurrentLevelWave);
         playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.SeedProductionRate);
+
+        coinManager.UpdateCoinUI();
     }
 
     private void OnEnable()

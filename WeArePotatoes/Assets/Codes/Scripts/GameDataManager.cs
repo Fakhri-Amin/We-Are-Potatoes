@@ -18,6 +18,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();
+    public int Coin;
     public int SelectedLevelIndex = 0;
     public float SeedProductionRate;
     public float BaseHealth;
@@ -30,8 +31,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         var gameData = Data.Get<GameData>();
 
-        int coin = gameData.Coin;
-        OnCoinUpdated?.Invoke(coin);
+        Coin = gameData.Coin;
+        OnCoinUpdated?.Invoke(Coin);
 
         SelectedUnitList = gameData.SelectedUnitList;
         OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
@@ -73,8 +74,10 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public void ModifyMoney(int amount)
     {
-        Data.Get<GameData>().Coin += amount;
-        OnCoinUpdated?.Invoke(Data.Get<GameData>().Coin);
+        var coin = Data.Get<GameData>().Coin;
+        coin += amount;
+        Coin = coin;
+        OnCoinUpdated?.Invoke(coin);
         Save();
     }
 
