@@ -19,6 +19,11 @@ public class UnitDetailInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text moveSpeedText;
     [SerializeField] private TMP_Text attackSpeedText;
 
+    private void Awake()
+    {
+        closeButton.onClick.AddListener(Hide);
+    }
+
     private void Start()
     {
         foreach (var item in unitRangeAttackTypeLabels)
@@ -39,8 +44,6 @@ public class UnitDetailInfoUI : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-
-        closeButton.onClick.AddListener(Hide);
 
         unitIcon.sprite = unitData.Sprite;
         unitName.text = unitData.Name;

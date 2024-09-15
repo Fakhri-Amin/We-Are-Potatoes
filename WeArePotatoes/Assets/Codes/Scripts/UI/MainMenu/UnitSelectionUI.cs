@@ -26,12 +26,19 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private UnitSelectionSlotUI unitSlotTemplate;
     [SerializeField] private Transform parent;
     [SerializeField] private UnitRemoveAreaUI unitRemoveAreaUI;
+    [SerializeField] private UnitSelectionGuideUI unitSelectionGuideUI;
+    [SerializeField] private Button unitSelectionGuideButton;
 
     private UnitDetailInfoUI unitDetailInfoUI;
 
     private void Awake()
     {
         unitDetailInfoUI = GetComponent<UnitDetailInfoUI>();
+
+        unitSelectionGuideButton.onClick.AddListener(() =>
+        {
+            unitSelectionGuideUI.Show();
+        });
     }
 
     private void Start()
