@@ -19,6 +19,8 @@ public class LevelSelectionUI : MonoBehaviour
     }
 
     [SerializeField] private Transform panel;
+    [SerializeField] private Color completedColor;
+    [SerializeField] private Color unlockedColor;
     [SerializeField] private Button[] levelButtons;
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
 
@@ -62,11 +64,13 @@ public class LevelSelectionUI : MonoBehaviour
             {
                 // Set the level button to be interactable
                 levelButtonData.LevelButton.interactable = true;
+                levelButtonData.LevelButton.GetComponent<Image>().color = completedColor;
 
                 // Enable any additional buttons related to the unlocked level
                 foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
                 {
                     unlockedButton.interactable = true;
+                    unlockedButton.GetComponent<Image>().color = unlockedColor;
                 }
             }
         }

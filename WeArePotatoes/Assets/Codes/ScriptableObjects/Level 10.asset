@@ -15,24 +15,33 @@ MonoBehaviour:
   LevelIndex: 9
   UnitRewardList: 
   DelayAtStart: 3
-  DelayBetweenWaves: 4
+  DelayBetweenWaves: 7
   BaseHealth: 30
   WaveDatas:
   - WaveHeroDatas:
+    - UnitType: 9
+      Count: 7
     - UnitType: 1
       Count: 3
   - WaveHeroDatas:
+    - UnitType: 9
+      Count: 11
     - UnitType: 1
       Count: 6
-  - WaveHeroDatas: []
   - WaveHeroDatas:
+    - UnitType: 9
+      Count: 16
     - UnitType: 1
       Count: 9
   - WaveHeroDatas:
+    - UnitType: 9
+      Count: 22
     - UnitType: 1
       Count: 12
   - WaveHeroDatas:
+    - UnitType: 9
+      Count: 27
     - UnitType: 1
       Count: 15
-  TotalCoinReward: 450
+  TotalCoinReward: 1280
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

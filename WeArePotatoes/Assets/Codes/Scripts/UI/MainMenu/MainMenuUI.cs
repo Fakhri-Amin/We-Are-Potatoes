@@ -36,9 +36,9 @@ public class MainMenuUI : MonoBehaviour
             item.Weapon.gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < unlockedUnitList.Count; i++)
+        for (int i = 0; i < weaponDecorationReferences.Count; i++)
         {
-            if (unlockedUnitList[i] == weaponDecorationReferences[i].UnitHero)
+            if (unlockedUnitList.Contains(weaponDecorationReferences[i].UnitHero))
             {
                 weaponDecorationReferences[i].Weapon.gameObject.SetActive(true);
             }
