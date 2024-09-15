@@ -13,26 +13,40 @@ MonoBehaviour:
   m_Name: Level 14
   m_EditorClassIdentifier: 
   LevelIndex: 13
-  UnitRewardList: 
+  UnitRewardList: 08000000
   DelayAtStart: 3
-  DelayBetweenWaves: 4
-  BaseHealth: 30
+  DelayBetweenWaves: 5
+  BaseHealth: 500
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 1
+    - UnitType: 8
+      Count: 1
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 1
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 2
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 2
+  - WaveHeroDatas:
+    - UnitType: 8
       Count: 3
   - WaveHeroDatas:
-    - UnitType: 1
-      Count: 6
-  - WaveHeroDatas: []
+    - UnitType: 8
+      Count: 3
   - WaveHeroDatas:
-    - UnitType: 1
-      Count: 9
+    - UnitType: 8
+      Count: 2
   - WaveHeroDatas:
-    - UnitType: 1
-      Count: 12
+    - UnitType: 8
+      Count: 5
   - WaveHeroDatas:
-    - UnitType: 1
-      Count: 15
-  TotalCoinReward: 450
+    - UnitType: 8
+      Count: 3
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 5
+  TotalCoinReward: 1350
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

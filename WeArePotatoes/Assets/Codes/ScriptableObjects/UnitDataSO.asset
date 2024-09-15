@@ -81,7 +81,7 @@ MonoBehaviour:
     DetectRadius: 12
     AttackRadius: 8.5
     ProjectileSpeed: 2
-    AreaOfEffectRadius: 0.8
+    AreaOfEffectRadius: 0.7
     CoinReward: 20
   - UnitHero: 4
     UnitRangeType: 0

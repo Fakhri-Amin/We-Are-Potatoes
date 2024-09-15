@@ -16,7 +16,7 @@ MonoBehaviour:
   UnitRewardList: 0300000009000000
   DelayAtStart: 3
   DelayBetweenWaves: 7.8
-  BaseHealth: 30
+  BaseHealth: 200
   WaveDatas:
   - WaveHeroDatas:
     - UnitType: 2
