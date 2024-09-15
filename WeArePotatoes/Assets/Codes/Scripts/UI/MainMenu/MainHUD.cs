@@ -51,9 +51,21 @@ public class MainHUD : Singleton<MainHUD>
     {
         base.Awake();
 
-        upgradeButton.onClick.AddListener(ToggleUpgradeMenu);
-        potatoSelectionButton.onClick.AddListener(TogglePotatoSelectionMenu);
-        battleButton.onClick.AddListener(ToggleLevelSelectionMenu);
+        upgradeButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            ToggleUpgradeMenu();
+        });
+        potatoSelectionButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            TogglePotatoSelectionMenu();
+        });
+        battleButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            ToggleLevelSelectionMenu();
+        });
     }
 
     private void Start()

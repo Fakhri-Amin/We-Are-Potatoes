@@ -22,7 +22,11 @@ public class UnitLevelRewardUI : MonoBehaviour
         unitNameText.text = unitData.Name;
         unitImage.sprite = unitData.Sprite;
         continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() => { onContinueButtonClicked?.Invoke(); });
+        continueButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            onContinueButtonClicked?.Invoke();
+        });
     }
 
     public void Hide()

@@ -4,16 +4,19 @@ using UnityEngine;
 using MoreMountains.Feedbacks;
 using Farou.Utility;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance;
+
     [SerializeField] private MMFeedbacks clickFeedbacks;
     [SerializeField] private MMFeedbacks unitHitFeedbacks;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
-    [SerializeField] private MMFeedbacks particleImageFeedbacks;
+    [SerializeField] private MMFeedbacks uiClickFeedbacks;
 
-    public void PlayClickFeedbacks()
+    private void Awake()
     {
-        clickFeedbacks.PlayFeedbacks();
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayUnitHitFeedbacks()
@@ -26,8 +29,8 @@ public class AudioManager : Singleton<AudioManager>
         unitDeadFeedbacks.PlayFeedbacks();
     }
 
-    public void PlayParticleImageFeedbacks()
+    public void PlayClickFeedbacks()
     {
-        particleImageFeedbacks.PlayFeedbacks();
+        clickFeedbacks.PlayFeedbacks();
     }
 }

@@ -65,7 +65,11 @@ public class UnitSelectionUI : MonoBehaviour
             UnitData unitData = unitDataSO.UnitStatDataList.First(i => i.UnitHero == item);
             var slotUI = Instantiate(unitSlotTemplate, parent);
             slotUI.gameObject.SetActive(true);
-            slotUI.Initialize(this, unitData, () => unitDetailInfoUI.Select(unitData));
+            slotUI.Initialize(this, unitData, () =>
+            {
+                unitDetailInfoUI.Select(unitData);
+                AudioManager.Instance.PlayClickFeedbacks();
+            });
         }
     }
 

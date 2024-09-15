@@ -27,6 +27,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        AudioManager.Instance.PlayClickFeedbacks();
+
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
@@ -51,6 +53,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             unitSelectionUI.HideRemoveArea();
         }
+
+        AudioManager.Instance.PlayClickFeedbacks();
     }
 
     public void Reset()

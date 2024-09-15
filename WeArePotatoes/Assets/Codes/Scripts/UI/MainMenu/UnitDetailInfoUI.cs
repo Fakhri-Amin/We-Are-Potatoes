@@ -104,6 +104,8 @@ public class UnitDetailInfoUI : MonoBehaviour
         {
             panel.gameObject.SetActive(false);
         });
+
+        AudioManager.Instance.PlayClickFeedbacks();
     }
 
 }

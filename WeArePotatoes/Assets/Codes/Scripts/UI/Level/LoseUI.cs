@@ -19,7 +19,11 @@ public class LoseUI : MonoBehaviour
 
         coinCollectedText.text = "+" + coinCollectedAmount;
         continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() => { onContinueButtonClicked?.Invoke(); });
+        continueButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            onContinueButtonClicked?.Invoke();
+        });
     }
 
     public void Hide()

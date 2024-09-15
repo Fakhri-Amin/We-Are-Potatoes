@@ -23,6 +23,8 @@ public class PauseManager : MonoBehaviour
 
     private void PauseGame()
     {
+        AudioManager.Instance.PlayClickFeedbacks();
+
         pauseUI.Show();
         Time.timeScale = 0;
     }

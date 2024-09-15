@@ -26,6 +26,7 @@ public class UnitCardUI : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             PlayerUnitSpawner.Instance.OnUnitSpawn(unitData.UnitHero);
+            AudioManager.Instance.PlayClickFeedbacks();
         });
 
         Disable();

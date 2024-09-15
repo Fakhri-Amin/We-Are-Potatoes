@@ -50,6 +50,8 @@ public class LevelSelectionUI : MonoBehaviour
             // Assign button click listeners for all levels
             levelButtons[i].onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayClickFeedbacks();
+
                 GameDataManager.Instance.SetSelectedLevel(levelWaveDatabaseSO.LevelWaveSOs[index].LevelIndex);
                 loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
             });
