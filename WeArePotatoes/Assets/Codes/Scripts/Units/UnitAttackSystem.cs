@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class UnitAttackSystem : MonoBehaviour
     [SerializeField] protected Transform shootingTransform;
     [HideIf("unitRangeType", UnitRangeType.Melee)]
     [SerializeField] protected ProjectileType projectileType;
+    [ShowIf("unitRangeType", UnitRangeType.Melee)]
+    [SerializeField] private MMFeedbacks cameraShakeFeedbacks;
 
     private Unit unit;
 
@@ -62,6 +65,8 @@ public class UnitAttackSystem : MonoBehaviour
                 targetUnit.Damage(unit.UnitData.DamageAmount);
             }
         }
+
+        cameraShakeFeedbacks.PlayFeedbacks();
     }
 
     private void HandleRangedAttack()

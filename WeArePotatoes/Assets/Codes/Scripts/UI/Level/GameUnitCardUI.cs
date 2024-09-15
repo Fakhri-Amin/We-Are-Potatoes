@@ -51,7 +51,6 @@ public class GameUnitCardUI : MonoBehaviour
                 UnitCardUI unitCardUI = Instantiate(normalUnitCardTemplate, buttonParent);
                 unitCardUI.Initialize(unitData);
                 unitCardUI.gameObject.SetActive(true);
-                unitCardUI.Disable();
                 unitCardUIList.Add(unitCardUI);
             }
             else if (longUnitCardSize.Contains(unitData.UnitHero))
@@ -59,7 +58,6 @@ public class GameUnitCardUI : MonoBehaviour
                 UnitCardUI unitCardUI = Instantiate(longUnitCardTemplate, buttonParent);
                 unitCardUI.Initialize(unitData);
                 unitCardUI.gameObject.SetActive(true);
-                unitCardUI.Disable();
                 unitCardUIList.Add(unitCardUI);
             }
         }

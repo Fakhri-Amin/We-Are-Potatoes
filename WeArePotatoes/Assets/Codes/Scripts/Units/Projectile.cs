@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,6 +11,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private float heightY = 2f;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private MMFeedbacks cameraShakeFeedbacks;
     private Unit sourceUnit;
     private IAttackable targetUnit;
     private ProjectileType projectileType;
@@ -159,5 +161,7 @@ public class Projectile : MonoBehaviour
                 unit.Damage(sourceUnit.UnitData.DamageAmount);
             }
         }
+
+        cameraShakeFeedbacks.PlayFeedbacks();
     }
 }

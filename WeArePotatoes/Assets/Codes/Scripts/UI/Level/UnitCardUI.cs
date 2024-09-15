@@ -27,6 +27,8 @@ public class UnitCardUI : MonoBehaviour
         {
             PlayerUnitSpawner.Instance.OnUnitSpawn(unitData.UnitHero);
         });
+
+        Disable();
     }
 
     public void Enable()
