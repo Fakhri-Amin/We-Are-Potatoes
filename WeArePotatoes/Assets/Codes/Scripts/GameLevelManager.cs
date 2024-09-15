@@ -32,20 +32,32 @@ public class GameLevelManager : MonoBehaviour
 
         coinManager.UpdateCoinUI();
 
-        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, () => StartCoroutine(levelManager.HandleLevelWin()));
-        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, () => StartCoroutine(levelManager.HandleLevelLose()));
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
+        EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
-    }
-
-    private void OnEnable()
-    {
     }
 
     private void OnDisable()
     {
-        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, () => StartCoroutine(levelManager.HandleLevelWin()));
-        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, () => StartCoroutine(levelManager.HandleLevelLose()));
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.UnSubscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+    }
+
+    private void OnLevelWin()
+    {
+        if (this != null && levelManager != null)
+        {
+            StartCoroutine(levelManager.HandleLevelWin());
+        }
+    }
+
+    private void OnLevelLose()
+    {
+        if (this != null && levelManager != null)
+        {
+            StartCoroutine(levelManager.HandleLevelLose());
+        }
     }
 
     private void HandleEnemyCoinDropped(UnitData unitData)

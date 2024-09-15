@@ -59,6 +59,7 @@ public class LevelManager : MonoBehaviour
         ShowWinUI();
 
         GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
+        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 
     private void ShowWinUI()

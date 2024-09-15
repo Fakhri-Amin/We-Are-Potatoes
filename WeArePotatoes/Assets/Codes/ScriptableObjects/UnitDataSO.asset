@@ -106,7 +106,7 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: c7e7a56bb34be9a4e963e633ea91cd8d, type: 3}
     Name: Axe
     SeedCost: 7
-    Health: 120
+    Health: 150
     DamageAmount: 40
     MoveSpeedType: 1
     AttackSpeedType: 3
@@ -138,8 +138,8 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 7fb4a490f4cd0ee458a5d2b255b5610e, type: 3}
     Name: Great Sword
     SeedCost: 12
-    Health: 200
-    DamageAmount: 25
+    Health: 350
+    DamageAmount: 60
     MoveSpeedType: 0
     AttackSpeedType: 0
     DetectRadius: 4

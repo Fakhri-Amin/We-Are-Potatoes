@@ -1893,7 +1893,7 @@ MonoBehaviour:
   spawnPosition: {fileID: 1287816822677170063}
   baseSprite: {fileID: 152632560876172289}
   destroyedBaseSprite: {fileID: 21300000, guid: 814646d06cd0bf14f937580396ffbee3, type: 3}
-  destroyedFeedbacks: {fileID: 0}
+  destroyedFeedbacks: {fileID: 5384952608818024046}
 --- !u!114 &7838137422868398493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5339,7 +5339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6716933543107358037, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.7200003
+      value: 7.95
       objectReference: {fileID: 0}
     - target: {fileID: 6716933543107358037, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
       propertyPath: m_LocalPosition.z

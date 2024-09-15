@@ -15,6 +15,7 @@ public class Projectile : MonoBehaviour
     private ProjectileType projectileType;
     private SpriteRenderer spriteRenderer;
     private Vector3 targetPosition;
+    private bool hasCurveProjectileHit;
 
     private void Awake()
     {
@@ -37,9 +38,18 @@ public class Projectile : MonoBehaviour
             ReturnToPool();
             return;
         }
-        else if (Vector2.Distance(rb.position, targetPosition) <= .2f) // Increase tolerance
+
+        if (sourceUnit.UnitData.UnitRangeType == UnitRangeType.RangeStraight)
         {
-            ReturnToPool();
+            // Move towards the target position
+            rb.position = Vector2.MoveTowards(rb.position, targetPosition, sourceUnit.UnitData.ProjectileSpeed * Time.deltaTime);
+
+            // Check if the projectile has reached the target position
+            if (Vector2.Distance(rb.position, targetPosition) <= 0.02f) // Adjust tolerance as needed
+            {
+                // ApplySingleTargetDamage();
+                ReturnToPool();
+            }
         }
     }
 
@@ -67,6 +77,7 @@ public class Projectile : MonoBehaviour
             yield return null;
         }
 
+        ApplyAreaOfEffectDamage();
         ReturnToPool();
     }
 
@@ -94,11 +105,21 @@ public class Projectile : MonoBehaviour
     {
         targetPosition = targetUnit.GameObject.transform.position;
 
-        Vector2 direction = (Vector2)(targetUnit.GameObject.transform.position - transform.position);
-        rb.velocity = direction.normalized * sourceUnit.UnitData.ProjectileSpeed;
+        // Calculate the direction toward the target
+        Vector2 direction = (Vector2)(targetPosition - transform.position);
 
+        // Rotate the projectile to face the target
         float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotation);
+    }
+
+    private void ApplySingleTargetDamage()
+    {
+        // Ensure the target unit is still valid before applying damage
+        if (targetUnit != null && sourceUnit.UnitData.UnitAttackType == UnitAttackType.Single)
+        {
+            targetUnit.Damage(sourceUnit.UnitData.DamageAmount);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -120,6 +141,7 @@ public class Projectile : MonoBehaviour
         else if (sourceUnit.UnitData.UnitAttackType == UnitAttackType.Area)
         {
             ApplyAreaOfEffectDamage();
+            StopAllCoroutines();
         }
 
         ReturnToPool();
@@ -138,5 +160,4 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-
 }

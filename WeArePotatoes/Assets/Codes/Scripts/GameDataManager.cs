@@ -76,11 +76,9 @@ public class GameDataManager : MonoBehaviour
 
     public void ModifyMoney(float amount)
     {
-        var coin = Data.Get<GameData>().Coin;
-        coin += (int)amount;
-        Coin = coin;
-        Data.Get<GameData>().Coin = coin;
-        OnCoinUpdated?.Invoke(coin);
+        Data.Get<GameData>().Coin += (int)amount;
+        Coin = Data.Get<GameData>().Coin;
+        OnCoinUpdated?.Invoke(Coin);
         Save();
     }
 

@@ -20,19 +20,19 @@ MonoBehaviour:
   WaveDatas:
   - WaveHeroDatas:
     - UnitType: 1
-      Count: 1
+      Count: 2
     - UnitType: 9
       Count: 1
   - WaveHeroDatas:
     - UnitType: 1
       Count: 2
     - UnitType: 9
-      Count: 2
+      Count: 3
   - WaveHeroDatas:
     - UnitType: 1
       Count: 3
     - UnitType: 9
-      Count: 3
+      Count: 2
     - UnitType: 3
       Count: 1
   - WaveHeroDatas:
@@ -46,7 +46,7 @@ MonoBehaviour:
     - UnitType: 1
       Count: 5
     - UnitType: 9
-      Count: 5
+      Count: 4
     - UnitType: 3
       Count: 3
   TotalCoinReward: 420

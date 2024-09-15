@@ -17,6 +17,7 @@ public class BaseBuilding : MonoBehaviour, IAttackable
     [SerializeField] private MMFeedbacks destroyedFeedbacks;
 
     private HealthSystem healthSystem;
+    private bool isDead;
 
     private void Awake()
     {
@@ -40,6 +41,8 @@ public class BaseBuilding : MonoBehaviour, IAttackable
 
     private void OnBaseDestroyed()
     {
+        if (isDead) return;
+
         destroyedFeedbacks.PlayFeedbacks();
 
 
@@ -51,6 +54,8 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         {
             EventManager.Publish(Farou.Utility.EventType.OnLevelWin);
         }
+
+        isDead = true;
     }
 
     public void PlayHitParticle()
