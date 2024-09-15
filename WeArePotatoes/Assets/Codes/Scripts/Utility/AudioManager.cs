@@ -9,9 +9,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [SerializeField] private MMFeedbacks clickFeedbacks;
+    [SerializeField] private MMFeedbacks levelStartFeedbacks;
+    [SerializeField] private MMFeedbacks coinFeedbacks;
     [SerializeField] private MMFeedbacks unitHitFeedbacks;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
-    [SerializeField] private MMFeedbacks uiClickFeedbacks;
 
     private void Awake()
     {
@@ -22,6 +23,16 @@ public class AudioManager : MonoBehaviour
     public void PlayUnitHitFeedbacks()
     {
         unitHitFeedbacks.PlayFeedbacks();
+    }
+
+    public void PlayLevelStartFeedbacks()
+    {
+        levelStartFeedbacks.PlayFeedbacks();
+    }
+
+    public void PlayCoinFeedbacks()
+    {
+        coinFeedbacks.PlayFeedbacks();
     }
 
     public void PlayUnitDeadFeedbacks()

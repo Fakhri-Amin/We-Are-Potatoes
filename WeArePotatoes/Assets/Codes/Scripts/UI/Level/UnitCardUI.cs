@@ -14,8 +14,6 @@ public class UnitCardUI : MonoBehaviour
     [SerializeField] private Image frame;
     [SerializeField] private Color activeColor;
     [SerializeField] private Color inActiveColor;
-    [SerializeField] private float unitImageTransparentAmount = 50;
-
 
     public void Initialize(UnitData unitData)
     {

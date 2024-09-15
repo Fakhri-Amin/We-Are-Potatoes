@@ -64,7 +64,7 @@ public class UpgradeUI : MonoBehaviour
 
     private void UpgradeSeedProductionRate()
     {
-        AudioManager.Instance.PlayClickFeedbacks();
+        AudioManager.Instance.PlayCoinFeedbacks();
 
         var gameDataManager = GameDataManager.Instance;
         if (gameDataManager.Coin >= gameDataManager.UpgradeSeedProductionRatePrice)
@@ -76,7 +76,7 @@ public class UpgradeUI : MonoBehaviour
 
     private void UpgradeBaseHealth()
     {
-        AudioManager.Instance.PlayClickFeedbacks();
+        AudioManager.Instance.PlayCoinFeedbacks();
 
         var gameDataManager = GameDataManager.Instance;
         if (gameDataManager.Coin >= gameDataManager.UpgradeBaseHealthPrice)

@@ -35,6 +35,8 @@ public class GameLevelManager : MonoBehaviour
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+
+        AudioManager.Instance.PlayLevelStartFeedbacks();
     }
 
     private void OnDisable()

@@ -14,6 +14,8 @@ public class WinUI : MonoBehaviour
 
     public void Show(int coinCollectedAmount, Action onContinueButtonClicked)
     {
+        AudioManager.Instance.PlayCoinFeedbacks();
+
         // popup.alpha = 0;
         popup.gameObject.SetActive(true);
         popup.DOFade(1, 0.1f);
