@@ -6551,9 +6551,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2879f8693a0b04db86c84572444918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitData:
+    UnitHero: 0
+    UnitRangeType: 0
+    UnitAttackType: 0
+    Prefab: {fileID: 0}
+    Sprite: {fileID: 0}
+    Name: 
+    SeedCost: 0
+    Health: 0
+    DamageAmount: 0
+    MoveSpeedType: 0
+    AttackSpeedType: 0
+    DetectRadius: 0
+    AttackRadius: 0
+    ProjectileSpeed: 0
+    AreaOfEffectRadius: 0
+    CoinReward: 0
   button: {fileID: 814707520}
   unitImage: {fileID: 1054246411}
   seedAmountText: {fileID: 267424436}
+  frame: {fileID: 509682515}
+  activeColor: {r: 0.28235295, g: 0.30980393, b: 0.3764706, a: 1}
+  inActiveColor: {r: 0.25882354, g: 0.24313726, b: 0.23921569, a: 1}
+  unitImageTransparentAmount: 50
 --- !u!1 &814852543
 GameObject:
   m_ObjectHideFlags: 0
@@ -6705,9 +6726,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2879f8693a0b04db86c84572444918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitData:
+    UnitHero: 0
+    UnitRangeType: 0
+    UnitAttackType: 0
+    Prefab: {fileID: 0}
+    Sprite: {fileID: 0}
+    Name: 
+    SeedCost: 0
+    Health: 0
+    DamageAmount: 0
+    MoveSpeedType: 0
+    AttackSpeedType: 0
+    DetectRadius: 0
+    AttackRadius: 0
+    ProjectileSpeed: 0
+    AreaOfEffectRadius: 0
+    CoinReward: 0
   button: {fileID: 814852545}
   unitImage: {fileID: 996352750}
   seedAmountText: {fileID: 1623858698}
+  frame: {fileID: 481438935}
+  activeColor: {r: 0.28235295, g: 0.30980393, b: 0.3764706, a: 1}
+  inActiveColor: {r: 0.25882354, g: 0.24313726, b: 0.23921569, a: 1}
+  unitImageTransparentAmount: 50
 --- !u!4 &818332822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5739728077143666242, guid: 7b553c98b72332f4c9096a22a37572d1, type: 3}

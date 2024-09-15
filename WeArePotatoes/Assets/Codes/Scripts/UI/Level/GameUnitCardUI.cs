@@ -19,14 +19,18 @@ public class GameUnitCardUI : MonoBehaviour
     [Header("Reference To Other Gameobject")]
     [SerializeField] private PlayerUnitSpawner playerUnitSpawner;
 
+    private List<UnitCardUI> unitCardUIList = new List<UnitCardUI>();
+
     private void OnEnable()
     {
         playerUnitSpawner.OnSeedCountChanged += OnSeedProductionCountChanged;
+        playerUnitSpawner.OnSeedCountChanged += CheckForCardClickable;
     }
 
     private void OnDisable()
     {
         playerUnitSpawner.OnSeedCountChanged -= OnSeedProductionCountChanged;
+        playerUnitSpawner.OnSeedCountChanged -= CheckForCardClickable;
     }
 
     private void Start()
@@ -47,12 +51,16 @@ public class GameUnitCardUI : MonoBehaviour
                 UnitCardUI unitCardUI = Instantiate(normalUnitCardTemplate, buttonParent);
                 unitCardUI.Initialize(unitData);
                 unitCardUI.gameObject.SetActive(true);
+                unitCardUI.Disable();
+                unitCardUIList.Add(unitCardUI);
             }
             else if (longUnitCardSize.Contains(unitData.UnitHero))
             {
                 UnitCardUI unitCardUI = Instantiate(longUnitCardTemplate, buttonParent);
                 unitCardUI.Initialize(unitData);
                 unitCardUI.gameObject.SetActive(true);
+                unitCardUI.Disable();
+                unitCardUIList.Add(unitCardUI);
             }
         }
     }
@@ -60,6 +68,21 @@ public class GameUnitCardUI : MonoBehaviour
     private void OnSeedProductionCountChanged(float currentSeedCount)
     {
         seedCountText.text = currentSeedCount.ToString();
+    }
+
+    private void CheckForCardClickable(float currentSeedCount)
+    {
+        foreach (var item in unitCardUIList)
+        {
+            if (item.UnitData.SeedCost > currentSeedCount)
+            {
+                item.Disable();
+            }
+            else
+            {
+                item.Enable();
+            }
+        }
     }
 
 
