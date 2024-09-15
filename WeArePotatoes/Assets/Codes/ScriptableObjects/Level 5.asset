@@ -41,5 +41,6 @@ MonoBehaviour:
       Count: 2
     - UnitType: 3
       Count: 3
+  WorldSprite: {fileID: 21300000, guid: cf0137a0554d1a046aca977dfc862165, type: 3}
   TotalCoinReward: 325
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

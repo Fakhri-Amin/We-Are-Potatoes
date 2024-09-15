@@ -1385,9 +1385,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1619043670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 59.734627, y: -67.5}
   m_SizeDelta: {x: 76.137, y: 76.137}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &243112126
@@ -1662,9 +1662,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1200571756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 127.88462, y: -30}
   m_SizeDelta: {x: 63.4615, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267424436
@@ -2359,7 +2359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 359485492}
   - component: {fileID: 359485494}
-  - component: {fileID: 359485493}
+  - component: {fileID: 359485495}
   m_Layer: 5
   m_Name: Bar (1)
   m_TagString: Untagged
@@ -2386,36 +2386,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 196.263, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &359485493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359485491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.11764706}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 1282028943509491997, guid: 72f7a32ac9c7676409eb438757bc6b4a, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.5
 --- !u!222 &359485494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2424,6 +2394,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359485491}
   m_CullTransparentMesh: 1
+--- !u!114 &359485495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359485491}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.40784314}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: e7f7231915879b44db6920aadb3d70d8, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &382204676
 GameObject:
   m_ObjectHideFlags: 0
@@ -4315,6 +4312,7 @@ MonoBehaviour:
   loseUI: {fileID: 1297302555}
   unitLevelRewardUI: {fileID: 1573958434}
   loadMainMenuFeedbacks: {fileID: 1648574874}
+  worldRenderer: {fileID: 984960237}
   playerBase: {fileID: 5945191602967549419}
   enemyBase: {fileID: 7060464497313884282}
   waitTimeBeforeShowingUI: 2.5
@@ -5023,9 +5021,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1619043670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 132.86612, y: -67.5}
   m_SizeDelta: {x: 63.4615, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &617693556
@@ -6640,7 +6638,6 @@ MonoBehaviour:
   frame: {fileID: 509682515}
   activeColor: {r: 0.28235295, g: 0.30980393, b: 0.3764706, a: 1}
   inActiveColor: {r: 0.25882354, g: 0.24313726, b: 0.23921569, a: 1}
-  unitImageTransparentAmount: 50
 --- !u!1 &814852543
 GameObject:
   m_ObjectHideFlags: 0
@@ -6815,7 +6812,6 @@ MonoBehaviour:
   frame: {fileID: 481438935}
   activeColor: {r: 0.28235295, g: 0.30980393, b: 0.3764706, a: 1}
   inActiveColor: {r: 0.25882354, g: 0.24313726, b: 0.23921569, a: 1}
-  unitImageTransparentAmount: 50
 --- !u!4 &818332822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5739728077143666242, guid: 7b553c98b72332f4c9096a22a37572d1, type: 3}
@@ -7973,9 +7969,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 931669351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70.38463, y: -30}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1023857900
@@ -8259,9 +8255,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickFeedbacks: {fileID: 891438656}
+  levelStartFeedbacks: {fileID: 0}
+  coinFeedbacks: {fileID: 0}
   unitHitFeedbacks: {fileID: 1981256743}
   unitDeadFeedbacks: {fileID: 2088163853}
-  particleImageFeedbacks: {fileID: 0}
 --- !u!1 &1075327277
 GameObject:
   m_ObjectHideFlags: 0
@@ -10778,9 +10775,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1200571756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70.38463, y: -30}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579663226
@@ -11157,9 +11154,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 931669351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 127.88462, y: -30}
   m_SizeDelta: {x: 63.4615, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1623858698

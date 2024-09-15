@@ -12,6 +12,7 @@ public class LevelWaveSO : ScriptableObject
     public float DelayBetweenWaves;
     public int BaseHealth;
     [TableList(ShowIndexLabels = true)] public List<WaveData> WaveDatas = new();
+    public Sprite WorldSprite;
     public float TotalCoinReward;
     public UnitDataSO UnitDataSO;
 

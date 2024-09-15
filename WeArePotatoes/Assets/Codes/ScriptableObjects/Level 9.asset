@@ -39,5 +39,6 @@ MonoBehaviour:
   - WaveHeroDatas:
     - UnitType: 7
       Count: 4
+  WorldSprite: {fileID: 21300000, guid: e0f7d0ee848253e45b15bfda47249783, type: 3}
   TotalCoinReward: 595
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

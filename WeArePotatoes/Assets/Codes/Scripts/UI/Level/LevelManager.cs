@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LoseUI loseUI;
     [SerializeField] private UnitLevelRewardUI unitLevelRewardUI;
     [SerializeField] private MMFeedbacks loadMainMenuFeedbacks;
+    [SerializeField] private SpriteRenderer worldRenderer;
 
     [Header("Base Buildings")]
     [SerializeField] private BaseBuilding playerBase;
@@ -39,6 +40,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        worldRenderer.sprite = currentLevelWave.WorldSprite;
+
         playerBase.Initialize(baseBuildingSO.BaseHealth);
         enemyBase.Initialize(CurrentLevelWave.BaseHealth);
         HideAllUI();

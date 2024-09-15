@@ -80,6 +80,7 @@ public class LevelSelectionUI : MonoBehaviour
         if (completedLevelList.Count <= 0 || completedLevelList.IsNullOrEmpty())
         {
             levelButtonDatas[0].LevelButton.interactable = true;
+            levelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor; ;
         }
 
         Hide(); // Initially hide the level selection panel
