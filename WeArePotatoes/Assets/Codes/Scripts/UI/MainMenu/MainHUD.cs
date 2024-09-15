@@ -14,6 +14,7 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private Button battleButton;
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button quitButton;
 
     [Header("Main Menu")]
     [SerializeField] private MainMenuUI mainMenuUI;
@@ -66,6 +67,7 @@ public class MainHUD : Singleton<MainHUD>
             AudioManager.Instance.PlayClickFeedbacks();
             ToggleLevelSelectionMenu();
         });
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     private void Start()
@@ -199,5 +201,10 @@ public class MainHUD : Singleton<MainHUD>
         battleText.gameObject.SetActive(isSelectionClosed);
         baseIcon.gameObject.SetActive(!isSelectionClosed);
         baseText.gameObject.SetActive(!isSelectionClosed);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }
