@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Farou.Utility;
+using System.Linq;
 
 [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : MonoBehaviour
@@ -19,8 +20,9 @@ public class GameDataManager : MonoBehaviour
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();
+    public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
+    public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
     public int Coin;
-    public int SelectedLevelIndex = 0;
     public float SeedProductionRate;
     public float BaseHealth;
     public float UpgradeSeedProductionRatePrice;
@@ -40,7 +42,7 @@ public class GameDataManager : MonoBehaviour
         OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
 
         UnlockedUnitList = gameData.UnlockedUnitList;
-        CompletedLevelList = gameData.CompletedLevelList;
+        CompletedLevelMapList = gameData.CompletedLevelMapList;
 
         UpdateSeedProductionRate();
         UpdateBaseHealth();
@@ -68,9 +70,11 @@ public class GameDataManager : MonoBehaviour
         Data.Save();
     }
 
-    public void SelectLevel(int levelNumber)
+    public void SelectLevel(MapType mapType, int levelNumber)
     {
-        Data.Get<GameData>().SelectedLevel = levelNumber;
+        SelectedLevelMap = new SelectedLevelMap { MapType = mapType, SelectedLevelIndex = levelNumber };
+        Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
+        Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelNumber;
         Save();
     }
 
@@ -107,17 +111,23 @@ public class GameDataManager : MonoBehaviour
         Save();
     }
 
-    public void SetSelectedLevel(int levelIndex)
+    public void SetSelectedLevel(MapType mapType, int levelIndex)
     {
-        SelectedLevelIndex = levelIndex;
+        SelectedLevelMap = new SelectedLevelMap { MapType = mapType, SelectedLevelIndex = levelIndex };
+        Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
+        Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelIndex;
+        Save();
     }
 
-    public void AddNewCompletedLevel(int levelIndex)
+    public void AddNewCompletedLevel(MapType mapType, int levelIndex)
     {
-        if (CompletedLevelList.Contains(levelIndex)) return;
+        // if (CompletedLevelList.Contains(levelIndex)) return;
+        CompletedLevelMap completedLevelMap = CompletedLevelMapList.Find(i => i.MapType == mapType);
+        if (completedLevelMap != null && completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
 
-        CompletedLevelList.Add(levelIndex);
-        Data.Get<GameData>().CompletedLevelList = CompletedLevelList;
+        // CompletedLevelList.Add(levelIndex);
+        completedLevelMap.CompletedLevelList.Add(levelIndex);
+        Data.Get<GameData>().CompletedLevelMapList = CompletedLevelMapList;
         Save();
     }
 

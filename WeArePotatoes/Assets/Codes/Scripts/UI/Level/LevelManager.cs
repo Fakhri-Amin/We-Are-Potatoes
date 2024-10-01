@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private GameAssetSO gameAssetSO;
     [SerializeField] private LevelWaveDatabaseSO levelWaveDatabaseSO;
     [SerializeField] private UnitDataSO unitDataSO;
     [SerializeField] private BaseBuildingSO baseBuildingSO;
@@ -24,7 +25,7 @@ public class LevelManager : MonoBehaviour
     [Header("Other Reference")]
     [SerializeField] private CanvasGroup fader;
 
-    private int currentLevelIndex;
+    private SelectedLevelMap selectedLevelMap;
     private LevelWaveSO currentLevelWave;
     private CoinManager coinManager;
     private int rewardIndex = 0; // Track the current reward index
@@ -34,13 +35,13 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         coinManager = GetComponent<CoinManager>();
-        currentLevelIndex = GameDataManager.Instance.SelectedLevelIndex;
-        currentLevelWave = levelWaveDatabaseSO.LevelWaveSOs.Find(l => l.LevelIndex == currentLevelIndex);
+        selectedLevelMap = GameDataManager.Instance.SelectedLevelMap;
+        currentLevelWave = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels[selectedLevelMap.SelectedLevelIndex];
     }
 
     private void Start()
     {
-        worldRenderer.sprite = currentLevelWave.WorldSprite;
+        worldRenderer.sprite = gameAssetSO.WorldSpriteReferences.Find(i => i.MapType == currentLevelWave.MapType).LevelMapSprites[(int)currentLevelWave.LevelMapType];
 
         playerBase.Initialize(baseBuildingSO.BaseHealth);
         enemyBase.Initialize(CurrentLevelWave.BaseHealth);
@@ -61,7 +62,7 @@ public class LevelManager : MonoBehaviour
         // Step 1: Show Win UI first, no matter what
         ShowWinUI();
 
-        GameDataManager.Instance.AddNewCompletedLevel(currentLevelIndex);
+        GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex);
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 

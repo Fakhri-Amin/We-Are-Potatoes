@@ -11,7 +11,21 @@ public class GameData : BaseData
     public int BaseHealthLevel = 1;
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<UnitHero> SelectedUnitList = new List<UnitHero>();
-    public List<int> CompletedLevelList = new List<int>();
+    public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public int Coin = 0;
-    public int SelectedLevel;
+    public SelectedLevelMap SelectedLevelMap;
+}
+
+[System.Serializable]
+public class CompletedLevelMap
+{
+    public MapType MapType;
+    public List<int> CompletedLevelList = new List<int>();
+}
+
+[System.Serializable]
+public class SelectedLevelMap
+{
+    public MapType MapType;
+    public int SelectedLevelIndex;
 }

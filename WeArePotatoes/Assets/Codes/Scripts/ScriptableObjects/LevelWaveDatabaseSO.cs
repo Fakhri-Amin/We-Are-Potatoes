@@ -5,5 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelWaveDatabaseSO", menuName = "Farou/Level Wave Database")]
 public class LevelWaveDatabaseSO : ScriptableObject
 {
-    public List<LevelWaveSO> LevelWaveSOs = new List<LevelWaveSO>();
+    [System.Serializable]
+    public class MapLevelReference
+    {
+        public MapType MapType;
+        public List<LevelWaveSO> Levels = new();
+    }
+    public List<MapLevelReference> MapLevelReferences = new List<MapLevelReference>();
 }

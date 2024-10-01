@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using MoreMountains.Feedbacks;
-using Sirenix.Utilities;
 using MoreMountains.Tools;
-using DG.Tweening;
 
 public class LevelSelectionUI : MonoBehaviour
 {
@@ -21,66 +18,91 @@ public class LevelSelectionUI : MonoBehaviour
     [SerializeField] private Transform panel;
     [SerializeField] private Color completedColor;
     [SerializeField] private Color unlockedColor;
-    [SerializeField] private Button[] levelButtons;
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
 
-    [Header("Level Button Config")]
-    [SerializeField] private List<LevelButtonData> levelButtonDatas = new List<LevelButtonData>();
+    [Header("Map Level Button Config")]
+    // List of maps and their associated button data
+    [SerializeField] private List<MapLevelButtonConfig> mapLevelButtonConfigs = new List<MapLevelButtonConfig>();
 
     private LevelWaveDatabaseSO levelWaveDatabaseSO;
+
+    [System.Serializable]
+    public class MapLevelButtonConfig
+    {
+        public MapType MapType;
+        public List<LevelButtonData> LevelButtonDatas = new List<LevelButtonData>();
+    }
 
     private void Start()
     {
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
-        List<int> completedLevelList = GameDataManager.Instance?.CompletedLevelList;
 
-        if (levelWaveDatabaseSO == null || completedLevelList == null)
+        if (levelWaveDatabaseSO == null)
         {
-            Debug.LogError("LevelWaveDatabaseSO or UnlockedLevelList is not set!");
+            Debug.LogError("LevelWaveDatabaseSO is not set!");
             return;
         }
 
-        // Limit the iteration to the minimum size of levelButtons and LevelWaveSOs to avoid index out of bounds
-        int buttonCount = Mathf.Min(levelButtons.Length, levelWaveDatabaseSO.LevelWaveSOs.Count);
-
-        for (int i = 0; i < buttonCount; i++)
+        // Loop through each map configuration
+        foreach (var mapConfig in mapLevelButtonConfigs)
         {
-            int index = i; // Capture current index for the lambda
+            MapType currentMap = mapConfig.MapType;
 
-            // Assign button click listeners for all levels
-            levelButtons[i].onClick.AddListener(() =>
+            List<int> completedLevelList = GameDataManager.Instance?.CompletedLevelMapList
+                .Find(i => i.MapType == currentMap)?.CompletedLevelList;
+
+            if (completedLevelList == null)
             {
-                AudioManager.Instance.PlayClickFeedbacks();
+                Debug.LogWarning($"CompletedLevelList is null for map type: {currentMap}");
+                continue;
+            }
 
-                GameDataManager.Instance.SetSelectedLevel(levelWaveDatabaseSO.LevelWaveSOs[index].LevelIndex);
-                loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
-            });
-
-            levelButtons[i].interactable = false; // Initially set all buttons to non-interactable
-        }
-
-        // Iterate through all levelButtonDatas and check if their LevelIndex is in the completedLevelList
-        foreach (var levelButtonData in levelButtonDatas)
-        {
-            if (completedLevelList.Contains(levelButtonData.LevelIndex))
+            var levelReference = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == currentMap);
+            if (levelReference == null)
             {
-                // Set the level button to be interactable
-                levelButtonData.LevelButton.interactable = true;
-                levelButtonData.LevelButton.GetComponent<Image>().color = completedColor;
+                Debug.LogWarning($"No levels found for map type: {currentMap}");
+                continue;
+            }
 
-                // Enable any additional buttons related to the unlocked level
-                foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
+            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+            {
+                // Disable all buttons by default
+                levelButtonData.LevelButton.interactable = false;
+            }
+
+            // Iterate through each level button data for the current map
+            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+            {
+                // Assign button click listeners for the levels
+                levelButtonData.LevelButton.onClick.AddListener(() =>
                 {
-                    unlockedButton.interactable = true;
-                    unlockedButton.GetComponent<Image>().color = unlockedColor;
+                    AudioManager.Instance.PlayClickFeedbacks();
+
+                    // Set the selected level for this map
+                    GameDataManager.Instance.SetSelectedLevel(currentMap, levelButtonData.LevelIndex);
+                    loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
+                });
+
+                // Enable completed levels and unlock their additional buttons
+                if (completedLevelList.Contains(levelButtonData.LevelIndex))
+                {
+                    levelButtonData.LevelButton.interactable = true;
+                    levelButtonData.LevelButton.GetComponent<Image>().color = completedColor;
+
+                    foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
+                    {
+                        unlockedButton.interactable = true;
+                        unlockedButton.GetComponent<Image>().color = unlockedColor;
+                    }
                 }
             }
-        }
 
-        if (completedLevelList.Count <= 0 || completedLevelList.IsNullOrEmpty())
-        {
-            levelButtonDatas[0].LevelButton.interactable = true;
-            levelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor; ;
+            // Enable the first button if no levels are completed
+            if (completedLevelList.Count == 0)
+            {
+                mapConfig.LevelButtonDatas[0].LevelButton.interactable = true;
+                mapConfig.LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
+            }
         }
 
         Hide(); // Initially hide the level selection panel
