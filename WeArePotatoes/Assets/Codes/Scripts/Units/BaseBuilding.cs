@@ -53,6 +53,7 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         else
         {
             EventManager.Publish(Farou.Utility.EventType.OnLevelWin);
+            EventManager.Publish(Farou.Utility.EventType.OnEnemyBaseDestroyed);
         }
 
         isDead = true;

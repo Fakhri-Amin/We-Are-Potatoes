@@ -24,6 +24,9 @@ MonoBehaviour:
       Count: 1
   - WaveHeroDatas:
     - UnitType: 8
+      Count: 2
+  - WaveHeroDatas:
+    - UnitType: 8
       Count: 1
   - WaveHeroDatas:
     - UnitType: 8
@@ -33,22 +36,19 @@ MonoBehaviour:
       Count: 2
   - WaveHeroDatas:
     - UnitType: 8
-      Count: 3
-  - WaveHeroDatas:
-    - UnitType: 8
-      Count: 3
-  - WaveHeroDatas:
-    - UnitType: 8
       Count: 2
   - WaveHeroDatas:
     - UnitType: 8
-      Count: 5
+      Count: 3
   - WaveHeroDatas:
     - UnitType: 8
       Count: 3
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 4
   - WaveHeroDatas:
     - UnitType: 8
       Count: 5
   LevelMapType: 4
-  TotalCoinReward: 1350
+  TotalCoinReward: 1250
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

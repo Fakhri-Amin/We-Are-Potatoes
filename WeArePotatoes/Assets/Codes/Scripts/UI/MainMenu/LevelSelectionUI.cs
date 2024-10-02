@@ -82,19 +82,39 @@ public class LevelSelectionUI : MonoBehaviour
             {
                 Debug.LogWarning($"CompletedLevelList is null for map type: {currentMap}");
 
-                if (currentMap != MapType.Beach) continue;
-
-                // Enable the first button if no levels are completed
-                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.interactable = true;
-                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
-                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
+                if (currentMap == MapType.Beach)
                 {
-                    AudioManager.Instance.PlayClickFeedbacks();
+                    // Enable the first button if no levels are completed
+                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.interactable = true;
+                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
+                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
+                    {
+                        AudioManager.Instance.PlayClickFeedbacks();
 
-                    // Set the selected level for this map
-                    GameDataManager.Instance.SetSelectedLevel(MapType.Beach, 0);
-                    loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
-                });
+                        // Set the selected level for this map
+                        GameDataManager.Instance.SetSelectedLevel(MapType.Beach, 0);
+                        loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
+                    });
+                }
+                else if (currentMap == MapType.Forest)
+                {
+                    // Check if previous map (Beach, which is index 0) has completed all levels
+                    if (GameDataManager.Instance.CompletedLevelMapList[0].HasCompletedAllLevels)
+                    {
+                        // Enable the first button if no levels are completed
+                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.interactable = true;
+                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
+                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
+                        {
+                            AudioManager.Instance.PlayClickFeedbacks();
+
+                            // Set the selected level for this map
+                            GameDataManager.Instance.SetSelectedLevel(MapType.Forest, 0);
+                            loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
+                        });
+                    }
+                }
+
 
                 continue;
             }

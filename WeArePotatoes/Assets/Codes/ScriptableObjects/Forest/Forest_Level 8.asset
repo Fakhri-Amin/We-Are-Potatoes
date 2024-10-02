@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapType: 1
   LevelIndex: 7
-  UnitRewardList: 0500000009000000
+  UnitRewardList: 05000000
   DelayAtStart: 3
   DelayBetweenWaves: 7.3
   BaseHealth: 125

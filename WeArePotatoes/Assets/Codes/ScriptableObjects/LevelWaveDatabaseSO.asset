@@ -18,9 +18,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ae5e5f03e226d33488cd392947e4382f, type: 2}
     - {fileID: 11400000, guid: 8e534b8936d44a940ac2e982c4227d50, type: 2}
     - {fileID: 11400000, guid: d1236032118443e4c90f08e3b5404bae, type: 2}
-    - {fileID: 11400000, guid: 69cbb13f18865ee49a3f2ef53c8fc655, type: 2}
-    - {fileID: 11400000, guid: c5e4b46a54a27d647a9cd68db7ba1166, type: 2}
-    - {fileID: 11400000, guid: 8e534b8936d44a940ac2e982c4227d50, type: 2}
+    - {fileID: 11400000, guid: 0201cacb4c89db2419e21e7cf6b92796, type: 2}
+    - {fileID: 11400000, guid: a134a5f6835f4a04c8f493d329a148aa, type: 2}
   - MapType: 1
     Levels:
     - {fileID: 11400000, guid: 03ade2c67c1201c40ae79166863922d1, type: 2}

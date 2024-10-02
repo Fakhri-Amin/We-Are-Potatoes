@@ -17,46 +17,50 @@ MonoBehaviour:
   UnitRewardList: 
   DelayAtStart: 3
   DelayBetweenWaves: 6
-  BaseHealth: 500
+  BaseHealth: 300
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 7
+    - UnitType: 1
       Count: 3
-  - WaveHeroDatas:
-    - UnitType: 7
-      Count: 6
-  - WaveHeroDatas:
-    - UnitType: 3
-      Count: 6
-  - WaveHeroDatas:
-    - UnitType: 8
-      Count: 8
   - WaveHeroDatas:
     - UnitType: 1
-      Count: 7
-  - WaveHeroDatas:
+      Count: 2
     - UnitType: 2
-      Count: 5
-    - UnitType: 9
-      Count: 5
-  - WaveHeroDatas:
-    - UnitType: 4
-      Count: 5
-    - UnitType: 7
-      Count: 1
-    - UnitType: 5
-      Count: 3
-  - WaveHeroDatas:
+      Count: 2
     - UnitType: 3
-      Count: 8
-  - WaveHeroDatas:
-    - UnitType: 9
-      Count: 4
-    - UnitType: 8
       Count: 2
   - WaveHeroDatas:
+    - UnitType: 4
+      Count: 2
+    - UnitType: 5
+      Count: 2
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 5
+  - WaveHeroDatas:
+    - UnitType: 9
+      Count: 8
+  - WaveHeroDatas:
+    - UnitType: 7
+      Count: 3
+  - WaveHeroDatas:
+    - UnitType: 2
+      Count: 4
+  - WaveHeroDatas:
     - UnitType: 6
-      Count: 6
+      Count: 3
+    - UnitType: 4
+      Count: 3
+  - WaveHeroDatas:
+    - UnitType: 8
+      Count: 5
+  - WaveHeroDatas:
+    - UnitType: 7
+      Count: 5
+    - UnitType: 6
+      Count: 3
+    - UnitType: 5
+      Count: 3
   LevelMapType: 4
-  TotalCoinReward: 1930
+  TotalCoinReward: 1425
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

@@ -71,7 +71,7 @@ public class GameLevelManager : MonoBehaviour
 
     private void HandleEnemyBaseDestroyed()
     {
-        coinManager.AddCoins(levelManager.BaseBuildingSO.BaseDestroyedReward);
+        coinManager.AddCoins(levelManager.CurrentLevelWave.BaseHealth);
     }
 }
 

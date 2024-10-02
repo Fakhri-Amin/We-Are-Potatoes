@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private UnitLevelRewardUI unitLevelRewardUI;
     [SerializeField] private MMFeedbacks loadMainMenuFeedbacks;
     [SerializeField] private SpriteRenderer worldRenderer;
+    [SerializeField] private SpriteRenderer groundRenderer;
 
     [Header("Base Buildings")]
     [SerializeField] private BaseBuilding playerBase;
@@ -42,7 +43,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        worldRenderer.sprite = gameAssetSO.WorldSpriteReferences.Find(i => i.MapType == currentLevelWave.MapType).LevelMapSprites[(int)currentLevelWave.LevelMapType];
+        WorldSpriteReference worldSpriteReference = gameAssetSO.WorldSpriteReferences.Find(i => i.MapType == currentLevelWave.MapType);
+        worldRenderer.sprite = worldSpriteReference.LevelMapSprites[(int)currentLevelWave.LevelMapType];
+        groundRenderer.color = worldSpriteReference.GroundColor;
 
         playerBase.Initialize(baseBuildingSO.BaseHealth);
         enemyBase.Initialize(CurrentLevelWave.BaseHealth);
