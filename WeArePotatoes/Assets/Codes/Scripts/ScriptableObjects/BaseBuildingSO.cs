@@ -14,6 +14,7 @@ public class BaseBuildingSO : ScriptableObject
     public int BaseHealthUpgradeAmount;
     public int[] UpgradeSeedProductionRatePriceList = new int[30];
     public int[] UpgradeBaseHealthPriceList = new int[30];
+    public int BaseDestroyedReward;
 
     private void OnValidate()
     {

@@ -13,27 +13,39 @@ MonoBehaviour:
   m_Name: Beach_Level 4
   m_EditorClassIdentifier: 
   MapType: 0
-  LevelIndex: 3
-  UnitRewardList: 
+  LevelIndex: 2
+  UnitRewardList: 0200000003000000
   DelayAtStart: 3
-  DelayBetweenWaves: 8
+  DelayBetweenWaves: 9
   BaseHealth: 100
   WaveDatas:
   - WaveHeroDatas:
     - UnitType: 1
+      Count: 1
+    - UnitType: 2
+      Count: 1
+  - WaveHeroDatas:
+    - UnitType: 1
       Count: 2
+    - UnitType: 2
+      Count: 1
+  - WaveHeroDatas:
+    - UnitType: 3
+      Count: 1
+    - UnitType: 2
+      Count: 1
   - WaveHeroDatas:
     - UnitType: 1
-      Count: 4
+      Count: 3
+    - UnitType: 3
+      Count: 1
   - WaveHeroDatas:
     - UnitType: 1
-      Count: 6
-  - WaveHeroDatas:
-    - UnitType: 1
-      Count: 8
-  - WaveHeroDatas:
-    - UnitType: 1
-      Count: 12
-  LevelMapType: 0
-  TotalCoinReward: 320
+      Count: 2
+    - UnitType: 2
+      Count: 2
+    - UnitType: 3
+      Count: 2
+  LevelMapType: 2
+  TotalCoinReward: 235
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

@@ -35,6 +35,7 @@ public class GameLevelManager : MonoBehaviour
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+        EventManager.Subscribe(Farou.Utility.EventType.OnEnemyBaseDestroyed, HandleEnemyBaseDestroyed);
 
         AudioManager.Instance.PlayLevelStartFeedbacks();
     }
@@ -44,6 +45,7 @@ public class GameLevelManager : MonoBehaviour
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.UnSubscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnEnemyBaseDestroyed, HandleEnemyBaseDestroyed);
     }
 
     private void OnLevelWin()
@@ -65,6 +67,11 @@ public class GameLevelManager : MonoBehaviour
     private void HandleEnemyCoinDropped(UnitData unitData)
     {
         coinManager.AddCoins(unitData.CoinReward);
+    }
+
+    private void HandleEnemyBaseDestroyed()
+    {
+        coinManager.AddCoins(levelManager.BaseBuildingSO.BaseDestroyedReward);
     }
 }
 

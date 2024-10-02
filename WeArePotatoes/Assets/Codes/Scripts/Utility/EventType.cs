@@ -9,6 +9,7 @@ namespace Farou.Utility
         OnLevelWin,
         OnLevelLose,
         OnEnemyCoinDropped,
+        OnEnemyBaseDestroyed,
         OnUnitSelected
     }
 }

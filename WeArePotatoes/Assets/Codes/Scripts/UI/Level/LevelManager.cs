@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
     private int rewardIndex = 0; // Track the current reward index
 
     public LevelWaveSO CurrentLevelWave => currentLevelWave;
+    public BaseBuildingSO BaseBuildingSO => baseBuildingSO;
 
     private void Awake()
     {
