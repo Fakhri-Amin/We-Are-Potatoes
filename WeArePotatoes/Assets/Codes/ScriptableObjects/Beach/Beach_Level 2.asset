@@ -10,36 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90826034bb00d5b409eecdc158342021, type: 3}
-  m_Name: Level 8
+  m_Name: Beach_Level 2
   m_EditorClassIdentifier: 
-  MapType: 1
-  LevelIndex: 7
-  UnitRewardList: 0500000009000000
+  MapType: 0
+  LevelIndex: 1
+  UnitRewardList: 02000000
   DelayAtStart: 3
-  DelayBetweenWaves: 7.3
-  BaseHealth: 125
+  DelayBetweenWaves: 8.5
+  BaseHealth: 100
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 5
+    - UnitType: 1
       Count: 1
   - WaveHeroDatas:
-    - UnitType: 5
+    - UnitType: 1
       Count: 2
-    - UnitType: 1
-      Count: 1
-  - WaveHeroDatas:
-    - UnitType: 9
-      Count: 5
+    - UnitType: 2
+      Count: 2
   - WaveHeroDatas:
     - UnitType: 1
       Count: 3
-    - UnitType: 9
-      Count: 3
-    - UnitType: 5
-      Count: 3
   - WaveHeroDatas:
-    - UnitType: 5
-      Count: 7
+    - UnitType: 2
+      Count: 2
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 2
+    - UnitType: 2
+      Count: 2
   LevelMapType: 1
-  TotalCoinReward: 445
+  TotalCoinReward: 170
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

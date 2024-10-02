@@ -69,12 +69,33 @@ public class LevelSelectionUI : MonoBehaviour
         {
             MapType currentMap = mapConfig.MapType;
 
+            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+            {
+                // Disable all buttons by default
+                levelButtonData.LevelButton.interactable = false;
+            }
+
             List<int> completedLevelList = GameDataManager.Instance?.CompletedLevelMapList
                 .Find(i => i.MapType == currentMap)?.CompletedLevelList;
 
             if (completedLevelList == null)
             {
                 Debug.LogWarning($"CompletedLevelList is null for map type: {currentMap}");
+
+                if (currentMap != MapType.Beach) continue;
+
+                // Enable the first button if no levels are completed
+                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.interactable = true;
+                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
+                mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
+                {
+                    AudioManager.Instance.PlayClickFeedbacks();
+
+                    // Set the selected level for this map
+                    GameDataManager.Instance.SetSelectedLevel(MapType.Beach, 0);
+                    loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
+                });
+
                 continue;
             }
 
@@ -83,12 +104,6 @@ public class LevelSelectionUI : MonoBehaviour
             {
                 Debug.LogWarning($"No levels found for map type: {currentMap}");
                 continue;
-            }
-
-            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
-            {
-                // Disable all buttons by default
-                levelButtonData.LevelButton.interactable = false;
             }
 
             // Iterate through each level button data for the current map
@@ -118,12 +133,6 @@ public class LevelSelectionUI : MonoBehaviour
                 }
             }
 
-            // Enable the first button if no levels are completed
-            if (completedLevelList.Count == 0)
-            {
-                mapConfig.LevelButtonDatas[0].LevelButton.interactable = true;
-                mapConfig.LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
-            }
         }
 
         Hide(); // Initially hide the level selection panel

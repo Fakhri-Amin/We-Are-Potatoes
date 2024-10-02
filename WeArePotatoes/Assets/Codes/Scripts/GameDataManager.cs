@@ -122,20 +122,35 @@ public class GameDataManager : MonoBehaviour
 
     public void AddNewCompletedLevel(MapType mapType, int levelIndex, bool hasCompletedAllLevels)
     {
-        CompletedLevelMap completedLevelMap = Data.Get<GameData>().CompletedLevelMapList.Find(i => i.MapType == mapType);
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
+
+        // Find the map or create a new one if it doesn't exist
+        CompletedLevelMap completedLevelMap = gameData.CompletedLevelMapList.Find(i => i.MapType == mapType);
         if (completedLevelMap == null)
         {
-            completedLevelMap = new CompletedLevelMap { MapType = mapType, CompletedLevelList = new List<int>(), HasCompletedAllLevels = false };
+            completedLevelMap = new CompletedLevelMap
+            {
+                MapType = mapType,
+                CompletedLevelList = new List<int>(),
+                HasCompletedAllLevels = false
+            };
+
+            // Add the new map to the list
+            gameData.CompletedLevelMapList.Add(completedLevelMap);
         }
 
+        // Check if the level is already completed, if so, return early
         if (completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
 
+        // Add the new completed level
         completedLevelMap.CompletedLevelList.Add(levelIndex);
         completedLevelMap.HasCompletedAllLevels = hasCompletedAllLevels;
 
-        Data.Get<GameData>().CompletedLevelMapList = CompletedLevelMapList;
+        // Save the updated data
         Save();
     }
+
 
     public void UpdateSeedProductionRate()
     {

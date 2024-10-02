@@ -10,40 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90826034bb00d5b409eecdc158342021, type: 3}
-  m_Name: Level 7
+  m_Name: Forest_Level 2
   m_EditorClassIdentifier: 
   MapType: 1
-  LevelIndex: 6
-  UnitRewardList: 05000000
+  LevelIndex: 1
+  UnitRewardList: 02000000
   DelayAtStart: 3
-  DelayBetweenWaves: 7.5
-  BaseHealth: 125
+  DelayBetweenWaves: 8.5
+  BaseHealth: 100
   WaveDatas:
   - WaveHeroDatas:
-    - UnitType: 5
-      Count: 1
-  - WaveHeroDatas:
     - UnitType: 1
-      Count: 3
+      Count: 1
   - WaveHeroDatas:
     - UnitType: 1
       Count: 2
     - UnitType: 2
-      Count: 1
-    - UnitType: 5
       Count: 2
-  - WaveHeroDatas:
-    - UnitType: 2
-      Count: 1
-    - UnitType: 5
-      Count: 3
   - WaveHeroDatas:
     - UnitType: 1
       Count: 3
+  - WaveHeroDatas:
     - UnitType: 2
       Count: 2
-    - UnitType: 5
-      Count: 4
-  LevelMapType: 2
-  TotalCoinReward: 390
+  - WaveHeroDatas:
+    - UnitType: 1
+      Count: 2
+    - UnitType: 2
+      Count: 2
+  LevelMapType: 1
+  TotalCoinReward: 170
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
