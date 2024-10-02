@@ -62,7 +62,8 @@ public class LevelManager : MonoBehaviour
         // Step 1: Show Win UI first, no matter what
         ShowWinUI();
 
-        GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex);
+        bool hasCompletedAllLevels = selectedLevelMap.SelectedLevelIndex == levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
+        GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex, hasCompletedAllLevels);
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 

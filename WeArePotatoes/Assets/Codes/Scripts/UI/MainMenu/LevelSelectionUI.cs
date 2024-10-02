@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using DG.Tweening;
 
 public class LevelSelectionUI : MonoBehaviour
 {
@@ -15,16 +16,21 @@ public class LevelSelectionUI : MonoBehaviour
         public Button[] UnlockedLevelButtons;
     }
 
-    [SerializeField] private Transform panel;
+    [SerializeField] private Transform[] mapTransforms;
+    [SerializeField] private Transform mapButtonTransform;
     [SerializeField] private Color completedColor;
     [SerializeField] private Color unlockedColor;
+    [SerializeField] private Button previousMapButton;
+    [SerializeField] private Button nextMapButton;
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
+    [SerializeField] private CanvasGroup fader;
 
     [Header("Map Level Button Config")]
     // List of maps and their associated button data
     [SerializeField] private List<MapLevelButtonConfig> mapLevelButtonConfigs = new List<MapLevelButtonConfig>();
 
     private LevelWaveDatabaseSO levelWaveDatabaseSO;
+    private int currentMapIndex;
 
     [System.Serializable]
     public class MapLevelButtonConfig
@@ -33,9 +39,24 @@ public class LevelSelectionUI : MonoBehaviour
         public List<LevelButtonData> LevelButtonDatas = new List<LevelButtonData>();
     }
 
+    private void Awake()
+    {
+        previousMapButton.onClick.AddListener(OpenPreviousMap);
+        nextMapButton.onClick.AddListener(OpenNextMap);
+    }
+
     private void Start()
     {
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
+
+        foreach (var item in GameDataManager.Instance.CompletedLevelMapList)
+        {
+            if (!item.HasCompletedAllLevels)
+            {
+                currentMapIndex = (int)item.MapType;
+                break;
+            }
+        }
 
         if (levelWaveDatabaseSO == null)
         {
@@ -110,11 +131,45 @@ public class LevelSelectionUI : MonoBehaviour
 
     public void Show()
     {
-        panel.gameObject.SetActive(true);
+        mapButtonTransform.gameObject.SetActive(true);
+        mapTransforms[currentMapIndex].gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        panel.gameObject.SetActive(false);
+        mapButtonTransform.gameObject.SetActive(false);
+        foreach (var item in mapTransforms)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+    public void OpenNextMap()
+    {
+        if (currentMapIndex + 1 >= mapTransforms.Length) return;
+
+        Hide();
+        currentMapIndex++;
+        fader.DOFade(1, 0.1f).OnComplete(() =>
+        {
+            Show();
+
+            fader.DOFade(0, 0.1f);
+        });
+
+    }
+
+    public void OpenPreviousMap()
+    {
+        if (currentMapIndex - 1 < 0) return;
+
+        Hide();
+        currentMapIndex--;
+        fader.DOFade(1, 0.1f).OnComplete(() =>
+        {
+            Show();
+
+            fader.DOFade(0, 0.1f);
+        });
     }
 }

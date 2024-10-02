@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Farou.Utility;
 using System.Linq;
+using UnityEngine.Assertions.Must;
 
 [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : MonoBehaviour
@@ -119,14 +120,19 @@ public class GameDataManager : MonoBehaviour
         Save();
     }
 
-    public void AddNewCompletedLevel(MapType mapType, int levelIndex)
+    public void AddNewCompletedLevel(MapType mapType, int levelIndex, bool hasCompletedAllLevels)
     {
-        // if (CompletedLevelList.Contains(levelIndex)) return;
-        CompletedLevelMap completedLevelMap = CompletedLevelMapList.Find(i => i.MapType == mapType);
-        if (completedLevelMap != null && completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
+        CompletedLevelMap completedLevelMap = Data.Get<GameData>().CompletedLevelMapList.Find(i => i.MapType == mapType);
+        if (completedLevelMap == null)
+        {
+            completedLevelMap = new CompletedLevelMap { MapType = mapType, CompletedLevelList = new List<int>(), HasCompletedAllLevels = false };
+        }
 
-        // CompletedLevelList.Add(levelIndex);
+        if (completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
+
         completedLevelMap.CompletedLevelList.Add(levelIndex);
+        completedLevelMap.HasCompletedAllLevels = hasCompletedAllLevels;
+
         Data.Get<GameData>().CompletedLevelMapList = CompletedLevelMapList;
         Save();
     }
