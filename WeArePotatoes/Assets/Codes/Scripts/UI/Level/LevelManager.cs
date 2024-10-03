@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class LevelManager : MonoBehaviour
 {
@@ -24,12 +26,15 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float waitTimeBeforeShowingUI = 3f;
 
     [Header("Other Reference")]
+    [SerializeField] private CanvasGroup inGameHUD;
     [SerializeField] private CanvasGroup fader;
+    [SerializeField] private Slider waveProgressionBar;
 
     private SelectedLevelMap selectedLevelMap;
     private LevelWaveSO currentLevelWave;
     private CoinManager coinManager;
     private int rewardIndex = 0; // Track the current reward index
+    private float timePassed;
 
     public LevelWaveSO CurrentLevelWave => currentLevelWave;
     public BaseBuildingSO BaseBuildingSO => baseBuildingSO;
@@ -49,7 +54,17 @@ public class LevelManager : MonoBehaviour
 
         playerBase.Initialize(baseBuildingSO.BaseHealth);
         enemyBase.Initialize(CurrentLevelWave.BaseHealth);
+
+        waveProgressionBar.maxValue = currentLevelWave.DelayBetweenWaves * currentLevelWave.WaveDatas.Count;
+
         HideAllUI();
+    }
+
+    private void Update()
+    {
+        if (waveProgressionBar.value >= waveProgressionBar.maxValue) return;
+        timePassed += Time.deltaTime;
+        waveProgressionBar.value = timePassed;
     }
 
     private void HideAllUI()
@@ -61,6 +76,8 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator HandleLevelWin()
     {
+        HideInGameHUD();
+
         yield return new WaitForSeconds(waitTimeBeforeShowingUI);
 
         // Step 1: Show Win UI first, no matter what
@@ -68,6 +85,16 @@ public class LevelManager : MonoBehaviour
 
         bool hasCompletedAllLevels = selectedLevelMap.SelectedLevelIndex == levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
         GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex, hasCompletedAllLevels);
+        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+    }
+
+    public IEnumerator HandleLevelLose()
+    {
+        HideInGameHUD();
+
+        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
+
+        loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
         GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 
@@ -120,17 +147,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public IEnumerator HandleLevelLose()
-    {
-        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
-
-        loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
-        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
-    }
-
     private void LoadMainMenu()
     {
         // SceneManager.LoadScene("MainMenu");
         loadMainMenuFeedbacks.PlayFeedbacks();
+    }
+
+    private void HideInGameHUD()
+    {
+        inGameHUD.blocksRaycasts = false;
+        inGameHUD.DOFade(0, 0.1f);
     }
 }
