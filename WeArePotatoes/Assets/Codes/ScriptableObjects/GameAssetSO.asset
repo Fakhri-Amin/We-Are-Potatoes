@@ -27,3 +27,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: fc566305936e16a46a60687cd776b4ab, type: 3}
     - {fileID: 21300000, guid: 8c457c8e17f95914d9b45ef0918e3d9b, type: 3}
     - {fileID: 21300000, guid: 4e50d345d876fb6418dedba042654ded, type: 3}
+  - MapType: 2
+    GroundColor: {r: 0.19215687, g: 0.21568628, b: 0.20784314, a: 1}
+    LevelMapSprites:
+    - {fileID: 21300000, guid: ec90d951907bf704196b252f6ad18163, type: 3}
+    - {fileID: 21300000, guid: b888389ce6cac0f4a8ecc86441919c46, type: 3}
+    - {fileID: 21300000, guid: dee3f61e040c50344a2e5c4926b9430d, type: 3}

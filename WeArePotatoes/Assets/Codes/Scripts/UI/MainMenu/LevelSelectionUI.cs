@@ -175,6 +175,8 @@ public class LevelSelectionUI : MonoBehaviour
 
     public void OpenNextMap()
     {
+        AudioManager.Instance.PlayClickFeedbacks();
+
         if (currentMapIndex + 1 >= mapTransforms.Length) return;
 
         Hide();
@@ -190,6 +192,8 @@ public class LevelSelectionUI : MonoBehaviour
 
     public void OpenPreviousMap()
     {
+        AudioManager.Instance.PlayClickFeedbacks();
+
         if (currentMapIndex - 1 < 0) return;
 
         Hide();

@@ -492,8 +492,8 @@ MonoBehaviour:
           ImpulseType: 3
           DissipationRate: 0
           RawSignal: {fileID: 11400000, guid: bcf6524ce6451f34cb7106d0c00da9a5, type: 2}
-          AmplitudeGain: 1
-          FrequencyGain: 1
+          AmplitudeGain: 0.5
+          FrequencyGain: 0.5
           RepeatMode: 0
           Randomize: 1
           TimeEnvelope:
@@ -528,7 +528,7 @@ MonoBehaviour:
               m_PostInfinity: 2
               m_RotationOrder: 4
             AttackTime: 0
-            SustainTime: 0.2
+            SustainTime: 0.5
             DecayTime: 0
             ScaleWithImpact: 1
             HoldForever: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
           DissipationMode: 2
           DissipationDistance: 100
           PropagationSpeed: 343
-        Velocity: {x: 2, y: 2, z: 2}
+        Velocity: {x: 3, y: 3, z: 3}
         ClearImpulseOnStop: 0
 --- !u!1 &1103346599950853657
 GameObject:
