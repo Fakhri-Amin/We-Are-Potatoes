@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using DG.Tweening;
 
 public class LevelSelectionUI : MonoBehaviour
@@ -16,6 +15,14 @@ public class LevelSelectionUI : MonoBehaviour
         public Button[] UnlockedLevelButtons;
     }
 
+    [System.Serializable]
+    public class MapLevelButtonConfig
+    {
+        public MapType MapType;
+        public List<LevelButtonData> LevelButtonDatas = new List<LevelButtonData>();
+    }
+
+    [Header("Map Configuration")]
     [SerializeField] private Transform[] mapTransforms;
     [SerializeField] private Transform mapButtonTransform;
     [SerializeField] private Color completedColor;
@@ -28,18 +35,12 @@ public class LevelSelectionUI : MonoBehaviour
     [SerializeField] private CanvasGroup fader;
 
     [Header("Map Level Button Config")]
-    // List of maps and their associated button data
     [SerializeField] private List<MapLevelButtonConfig> mapLevelButtonConfigs = new List<MapLevelButtonConfig>();
 
     private LevelWaveDatabaseSO levelWaveDatabaseSO;
     private int currentMapIndex;
 
-    [System.Serializable]
-    public class MapLevelButtonConfig
-    {
-        public MapType MapType;
-        public List<LevelButtonData> LevelButtonDatas = new List<LevelButtonData>();
-    }
+    private const float fadeDuration = 0.1f;
 
     private void Awake()
     {
@@ -49,11 +50,23 @@ public class LevelSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        Hide(); // Initially hide the level selection panel
+        Hide();
         HandleButtonActiveStatus();
 
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
 
+        if (levelWaveDatabaseSO == null)
+        {
+            Debug.LogError("LevelWaveDatabaseSO is not set!");
+            return;
+        }
+
+        InitializeCurrentMapIndex();
+        InitializeMapButtons();
+    }
+
+    private void InitializeCurrentMapIndex()
+    {
         foreach (var item in GameDataManager.Instance.CompletedLevelMapList)
         {
             if (!item.HasCompletedAllLevels)
@@ -62,102 +75,98 @@ public class LevelSelectionUI : MonoBehaviour
                 break;
             }
         }
+    }
 
-        if (levelWaveDatabaseSO == null)
-        {
-            Debug.LogError("LevelWaveDatabaseSO is not set!");
-            return;
-        }
-
-        // Loop through each map configuration
+    private void InitializeMapButtons()
+    {
         foreach (var mapConfig in mapLevelButtonConfigs)
         {
-            MapType currentMap = mapConfig.MapType;
+            var currentMap = mapConfig.MapType;
+            DisableAllLevelButtons(mapConfig);
 
-            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+            List<int> completedLevelList = GetCompletedLevelsForMap(currentMap);
+
+            if (completedLevelList == null || completedLevelList.Count == 0)
             {
-                // Disable all buttons by default
-                levelButtonData.LevelButton.interactable = false;
-            }
-
-            List<int> completedLevelList = GameDataManager.Instance?.CompletedLevelMapList
-                .Find(i => i.MapType == currentMap)?.CompletedLevelList;
-
-            if (completedLevelList == null || completedLevelList.Count <= 0)
-            {
-                Debug.LogWarning($"CompletedLevelList is null for map type: {currentMap}");
-
-                if (currentMap == MapType.Beach)
-                {
-                    // Enable the first button if no levels are completed
-                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.interactable = true;
-                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
-                    mapLevelButtonConfigs[0].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
-                    {
-                        AudioManager.Instance.PlayClickFeedbacks();
-
-                        // Set the selected level for this map
-                        GameDataManager.Instance.SetSelectedLevel(MapType.Beach, 0);
-                        loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
-                    });
-                }
-                else if (currentMap == MapType.Forest)
-                {
-                    // Check if previous map (Beach, which is index 0) has completed all levels
-                    if (GameDataManager.Instance.CompletedLevelMapList[0].HasCompletedAllLevels)
-                    {
-                        // Enable the first button if no levels are completed
-                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.interactable = true;
-                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.GetComponent<Image>().color = unlockedColor;
-                        mapLevelButtonConfigs[1].LevelButtonDatas[0].LevelButton.onClick.AddListener(() =>
-                        {
-                            AudioManager.Instance.PlayClickFeedbacks();
-
-                            // Set the selected level for this map
-                            GameDataManager.Instance.SetSelectedLevel(MapType.Forest, 0);
-                            loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
-                        });
-                    }
-                }
-
-
+                HandleNoCompletedLevels(mapConfig, currentMap);
                 continue;
             }
 
-            var levelReference = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == currentMap);
-            if (levelReference == null)
+            SetupCompletedLevels(mapConfig, completedLevelList, currentMap);
+        }
+    }
+
+    private void DisableAllLevelButtons(MapLevelButtonConfig mapConfig)
+    {
+        foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+        {
+            levelButtonData.LevelButton.interactable = false;
+        }
+    }
+
+    private List<int> GetCompletedLevelsForMap(MapType mapType)
+    {
+        return GameDataManager.Instance?.CompletedLevelMapList
+            .Find(i => i.MapType == mapType)?.CompletedLevelList;
+    }
+
+    private void HandleNoCompletedLevels(MapLevelButtonConfig mapConfig, MapType currentMap)
+    {
+        if (currentMap == MapType.Beach)
+        {
+            EnableLevelButton(mapConfig.LevelButtonDatas[0], 0, MapType.Beach);
+        }
+        else if (currentMap == MapType.Forest && IsPreviousMapCompleted(MapType.Beach))
+        {
+            EnableLevelButton(mapConfig.LevelButtonDatas[0], 0, MapType.Forest);
+        }
+    }
+
+    private bool IsPreviousMapCompleted(MapType previousMap)
+    {
+        return GameDataManager.Instance.CompletedLevelMapList
+            .Find(i => i.MapType == previousMap)?.HasCompletedAllLevels ?? false;
+    }
+
+    private void EnableLevelButton(LevelButtonData levelButtonData, int levelIndex, MapType mapType)
+    {
+        levelButtonData.LevelButton.interactable = true;
+        levelButtonData.LevelButton.GetComponent<Image>().color = unlockedColor;
+        levelButtonData.LevelButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            GameDataManager.Instance.SetSelectedLevel(mapType, levelIndex);
+            loadGameSceneFeedbacks?.PlayFeedbacks();
+        });
+    }
+
+    private void SetupCompletedLevels(MapLevelButtonConfig mapConfig, List<int> completedLevelList, MapType currentMap)
+    {
+        foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+        {
+            levelButtonData.LevelButton.onClick.AddListener(() =>
             {
-                Debug.LogWarning($"No levels found for map type: {currentMap}");
-                continue;
-            }
+                AudioManager.Instance.PlayClickFeedbacks();
+                GameDataManager.Instance.SetSelectedLevel(currentMap, levelButtonData.LevelIndex);
+                loadGameSceneFeedbacks?.PlayFeedbacks();
+            });
 
-            // Iterate through each level button data for the current map
-            foreach (var levelButtonData in mapConfig.LevelButtonDatas)
+            if (completedLevelList.Contains(levelButtonData.LevelIndex))
             {
-                // Assign button click listeners for the levels
-                levelButtonData.LevelButton.onClick.AddListener(() =>
-                {
-                    AudioManager.Instance.PlayClickFeedbacks();
-
-                    // Set the selected level for this map
-                    GameDataManager.Instance.SetSelectedLevel(currentMap, levelButtonData.LevelIndex);
-                    loadGameSceneFeedbacks?.PlayFeedbacks(); // Null check before playing feedback
-                });
-
-                // Enable completed levels and unlock their additional buttons
-                if (completedLevelList.Contains(levelButtonData.LevelIndex))
-                {
-                    levelButtonData.LevelButton.interactable = true;
-                    levelButtonData.LevelButton.GetComponent<Image>().color = completedColor;
-
-                    foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
-                    {
-                        unlockedButton.interactable = true;
-                        unlockedButton.GetComponent<Image>().color = unlockedColor;
-                    }
-                }
+                EnableCompletedLevel(levelButtonData);
             }
+        }
+    }
 
+    private void EnableCompletedLevel(LevelButtonData levelButtonData)
+    {
+        levelButtonData.LevelButton.interactable = true;
+        levelButtonData.LevelButton.GetComponent<Image>().color = completedColor;
+
+        foreach (var unlockedButton in levelButtonData.UnlockedLevelButtons)
+        {
+            unlockedButton.interactable = true;
+            unlockedButton.GetComponent<Image>().color = unlockedColor;
         }
     }
 
@@ -178,66 +187,38 @@ public class LevelSelectionUI : MonoBehaviour
 
     public void OpenNextMap()
     {
-        AudioManager.Instance.PlayClickFeedbacks();
-
         if (currentMapIndex + 1 >= mapTransforms.Length) return;
 
-
-        Hide();
-        currentMapIndex++;
-        HandleButtonActiveStatus();
-
-        fader.DOFade(1, 0.1f).OnComplete(() =>
-        {
-            Show();
-
-            fader.DOFade(0, 0.1f);
-        });
-
+        ChangeMap(currentMapIndex + 1);
     }
 
     public void OpenPreviousMap()
     {
-        AudioManager.Instance.PlayClickFeedbacks();
-
         if (currentMapIndex - 1 < 0) return;
 
+        ChangeMap(currentMapIndex - 1);
+    }
 
+    private void ChangeMap(int newMapIndex)
+    {
+        AudioManager.Instance.PlayClickFeedbacks();
         Hide();
-        currentMapIndex--;
+        currentMapIndex = newMapIndex;
         HandleButtonActiveStatus();
 
-        fader.DOFade(1, 0.1f).OnComplete(() =>
+        fader.DOFade(1, fadeDuration).OnComplete(() =>
         {
             Show();
-
-            fader.DOFade(0, 0.1f);
+            fader.DOFade(0, fadeDuration);
         });
     }
 
     private void HandleButtonActiveStatus()
     {
-        if (currentMapIndex + 1 >= mapTransforms.Length)
-        {
-            nextMapButtonIcon.color = new Color(1, 1, 1, .1f);
-            nextMapButton.interactable = false;
-        }
-        else
-        {
-            nextMapButtonIcon.color = new Color(1, 1, 1, 1f);
-            nextMapButton.interactable = true;
-        }
+        nextMapButton.interactable = currentMapIndex + 1 < mapTransforms.Length;
+        nextMapButtonIcon.color = nextMapButton.interactable ? Color.white : new Color(1, 1, 1, 0.1f);
 
-        if (currentMapIndex - 1 < 0)
-        {
-            previousMapButtonIcon.color = new Color(1, 1, 1, .1f);
-            previousMapButton.interactable = false;
-        }
-        else
-        {
-            previousMapButtonIcon.color = new Color(1, 1, 1, 1f);
-            previousMapButton.interactable = true;
-        }
-
+        previousMapButton.interactable = currentMapIndex > 0;
+        previousMapButtonIcon.color = previousMapButton.interactable ? Color.white : new Color(1, 1, 1, 0.1f);
     }
 }
