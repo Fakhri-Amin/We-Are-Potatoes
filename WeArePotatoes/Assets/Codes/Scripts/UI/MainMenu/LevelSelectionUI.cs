@@ -21,7 +21,9 @@ public class LevelSelectionUI : MonoBehaviour
     [SerializeField] private Color completedColor;
     [SerializeField] private Color unlockedColor;
     [SerializeField] private Button previousMapButton;
+    [SerializeField] private Image previousMapButtonIcon;
     [SerializeField] private Button nextMapButton;
+    [SerializeField] private Image nextMapButtonIcon;
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
     [SerializeField] private CanvasGroup fader;
 
@@ -47,6 +49,9 @@ public class LevelSelectionUI : MonoBehaviour
 
     private void Start()
     {
+        Hide(); // Initially hide the level selection panel
+        HandleButtonActiveStatus();
+
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
 
         foreach (var item in GameDataManager.Instance.CompletedLevelMapList)
@@ -78,7 +83,7 @@ public class LevelSelectionUI : MonoBehaviour
             List<int> completedLevelList = GameDataManager.Instance?.CompletedLevelMapList
                 .Find(i => i.MapType == currentMap)?.CompletedLevelList;
 
-            if (completedLevelList == null)
+            if (completedLevelList == null || completedLevelList.Count <= 0)
             {
                 Debug.LogWarning($"CompletedLevelList is null for map type: {currentMap}");
 
@@ -154,8 +159,6 @@ public class LevelSelectionUI : MonoBehaviour
             }
 
         }
-
-        Hide(); // Initially hide the level selection panel
     }
 
     public void Show()
@@ -179,8 +182,11 @@ public class LevelSelectionUI : MonoBehaviour
 
         if (currentMapIndex + 1 >= mapTransforms.Length) return;
 
+
         Hide();
         currentMapIndex++;
+        HandleButtonActiveStatus();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             Show();
@@ -196,13 +202,42 @@ public class LevelSelectionUI : MonoBehaviour
 
         if (currentMapIndex - 1 < 0) return;
 
+
         Hide();
         currentMapIndex--;
+        HandleButtonActiveStatus();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             Show();
 
             fader.DOFade(0, 0.1f);
         });
+    }
+
+    private void HandleButtonActiveStatus()
+    {
+        if (currentMapIndex + 1 >= mapTransforms.Length)
+        {
+            nextMapButtonIcon.color = new Color(1, 1, 1, .1f);
+            nextMapButton.interactable = false;
+        }
+        else
+        {
+            nextMapButtonIcon.color = new Color(1, 1, 1, 1f);
+            nextMapButton.interactable = true;
+        }
+
+        if (currentMapIndex - 1 < 0)
+        {
+            previousMapButtonIcon.color = new Color(1, 1, 1, .1f);
+            previousMapButton.interactable = false;
+        }
+        else
+        {
+            previousMapButtonIcon.color = new Color(1, 1, 1, 1f);
+            previousMapButton.interactable = true;
+        }
+
     }
 }

@@ -47,15 +47,17 @@ public class GameDataManager : MonoBehaviour
 
         UpdateSeedProductionRate();
         UpdateBaseHealth();
+
+        SetInitialDefaultData();
     }
 
-    private void Start()
+    private void SetInitialDefaultData()
     {
-        // Set default data
-        AddUnlockedUnit(UnitHero.Sword);
-
         if (SelectedUnitList.Count <= 1)
         {
+            // Set default data
+            AddUnlockedUnit(UnitHero.Sword);
+
             List<UnitHero> unitHeroes = new List<UnitHero>
             {
                 UnitHero.Sword,
@@ -63,6 +65,8 @@ public class GameDataManager : MonoBehaviour
                 UnitHero.None
             };
             SetSelectedUnit(unitHeroes);
+            AddNewCompletedLevel(MapType.Beach);
+            AddNewCompletedLevel(MapType.Forest);
         }
     }
 
@@ -117,6 +121,30 @@ public class GameDataManager : MonoBehaviour
         SelectedLevelMap = new SelectedLevelMap { MapType = mapType, SelectedLevelIndex = levelIndex };
         Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
         Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelIndex;
+        Save();
+    }
+
+    public void AddNewCompletedLevel(MapType mapType)
+    {
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
+
+        // Find the map or create a new one if it doesn't exist
+        CompletedLevelMap completedLevelMap = gameData.CompletedLevelMapList.Find(i => i.MapType == mapType);
+        if (completedLevelMap == null)
+        {
+            completedLevelMap = new CompletedLevelMap
+            {
+                MapType = mapType,
+                CompletedLevelList = new List<int>(),
+                HasCompletedAllLevels = false
+            };
+
+            // Add the new map to the list
+            gameData.CompletedLevelMapList.Add(completedLevelMap);
+        }
+
+        // Save the updated data
         Save();
     }
 

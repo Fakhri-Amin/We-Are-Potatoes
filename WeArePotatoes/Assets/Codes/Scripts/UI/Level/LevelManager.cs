@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using Microsoft.Unity.VisualStudio.Editor;
 
 public class LevelManager : MonoBehaviour
 {
