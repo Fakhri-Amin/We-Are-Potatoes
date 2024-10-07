@@ -5,11 +5,11 @@ using UnityEngine;
 using Farou.Utility;
 using System.Linq;
 using UnityEngine.Assertions.Must;
+using Unity.VisualScripting;
 
 [DefaultExecutionOrder(-99999999)]
-public class GameDataManager : MonoBehaviour
+public class GameDataManager : PersistentSingleton<GameDataManager>
 {
-    public static GameDataManager Instance { get; private set; }
     public event Action<int> OnCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public event Action<float, float> OnSeedProductionRateChanged;
@@ -23,16 +23,16 @@ public class GameDataManager : MonoBehaviour
     public List<int> CompletedLevelList = new List<int>();
     public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
+    public int CoinCollected;
     public int Coin;
     public float SeedProductionRate;
     public float BaseHealth;
     public float UpgradeSeedProductionRatePrice;
     public float UpgradeBaseHealthPrice;
 
-    private void Awake()
+    public new void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(this);
+        base.Awake();
 
         var gameData = Data.Get<GameData>();
 
@@ -214,5 +214,15 @@ public class GameDataManager : MonoBehaviour
         gameData.BaseHealthLevel++;
 
         UpdateBaseHealth();
+    }
+
+    public void SetCoinCollected(int amount)
+    {
+        CoinCollected = amount;
+    }
+
+    public void ClearCoinCollected()
+    {
+        CoinCollected = 0;
     }
 }

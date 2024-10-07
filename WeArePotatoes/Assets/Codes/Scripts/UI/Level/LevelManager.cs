@@ -84,7 +84,8 @@ public class LevelManager : MonoBehaviour
 
         bool hasCompletedAllLevels = selectedLevelMap.SelectedLevelIndex == levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
         GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex, hasCompletedAllLevels);
-        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+        GameDataManager.Instance.SetCoinCollected(coinManager.CoinCollected);
+        // GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 
     public IEnumerator HandleLevelLose()
@@ -94,7 +95,8 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitTimeBeforeShowingUI);
 
         loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
-        GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+        GameDataManager.Instance.SetCoinCollected(coinManager.CoinCollected);
+        // GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
     }
 
     private void ShowWinUI()

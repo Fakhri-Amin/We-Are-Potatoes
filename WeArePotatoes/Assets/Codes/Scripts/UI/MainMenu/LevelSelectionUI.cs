@@ -137,6 +137,7 @@ public class LevelSelectionUI : MonoBehaviour
         {
             AudioManager.Instance.PlayClickFeedbacks();
             GameDataManager.Instance.SetSelectedLevel(mapType, levelIndex);
+            GameDataManager.Instance.ClearCoinCollected();
             loadGameSceneFeedbacks?.PlayFeedbacks();
         });
     }
@@ -149,6 +150,7 @@ public class LevelSelectionUI : MonoBehaviour
             {
                 AudioManager.Instance.PlayClickFeedbacks();
                 GameDataManager.Instance.SetSelectedLevel(currentMap, levelButtonData.LevelIndex);
+                GameDataManager.Instance.ClearCoinCollected();
                 loadGameSceneFeedbacks?.PlayFeedbacks();
             });
 

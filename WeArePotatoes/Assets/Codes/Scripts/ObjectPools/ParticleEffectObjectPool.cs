@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 public class ParticleEffectObjectPool : Singleton<ParticleEffectObjectPool>
 {
     [System.Serializable]
-    public class VisualEffectData
+    public class VisualEffectReference
     {
         public ParticleEffectType Type;
         public ParticleSystem Effect;
@@ -15,7 +15,7 @@ public class ParticleEffectObjectPool : Singleton<ParticleEffectObjectPool>
         [HideInInspector] public ObjectPool<ParticleSystem> ObjectPool;
     }
 
-    [SerializeField] private List<VisualEffectData> visualEffectDatas = new List<VisualEffectData>();
+    [SerializeField] private List<VisualEffectReference> visualEffectDatas = new List<VisualEffectReference>();
     private void Start()
     {
         foreach (var item in visualEffectDatas)

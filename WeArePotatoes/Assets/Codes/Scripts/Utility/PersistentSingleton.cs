@@ -15,7 +15,7 @@ namespace Farou.Utility
         {
             get
             {
-                if (instance == null)
+                if (instance == null && Application.isPlaying)
                 {
                     instance = FindAnyObjectByType<T>();
                     if (instance == null)
@@ -57,15 +57,6 @@ namespace Farou.Utility
                 {
                     Destroy(gameObject);
                 }
-            }
-        }
-
-        protected virtual void OnDestroy()
-        {
-            // Clean up the instance if the object is being destroyed
-            if (instance == this)
-            {
-                instance = null;
             }
         }
     }
