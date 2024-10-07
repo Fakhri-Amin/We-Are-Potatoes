@@ -14,6 +14,7 @@ public class GameData : BaseData
     public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public int Coin = 0;
     public SelectedLevelMap SelectedLevelMap;
+    public bool IsThereNewPotato;
 }
 
 [System.Serializable]

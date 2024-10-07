@@ -29,6 +29,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public float BaseHealth;
     public float UpgradeSeedProductionRatePrice;
     public float UpgradeBaseHealthPrice;
+    public bool IsThereNewPotato;
 
     public new void Awake()
     {
@@ -96,6 +97,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         if (UnlockedUnitList.Contains(unitHero)) return;
 
         Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
+        SetNewPotatoStatus(true);
+
         Save();
     }
 
@@ -224,5 +227,14 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public void ClearCoinCollected()
     {
         CoinCollected = 0;
+    }
+
+    public void SetNewPotatoStatus(bool isActive)
+    {
+        var gameData = Data.Get<GameData>();
+        gameData.IsThereNewPotato = isActive;
+        IsThereNewPotato = isActive;
+
+        Save();
     }
 }

@@ -36,6 +36,7 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private TMP_Text potatoText;
     [SerializeField] private Image potatoCloseIcon;
     [SerializeField] private TMP_Text potatoCloseText;
+    [SerializeField] private Transform newPotatoLabel;
     public bool isPotatoSelectionMenuOpen;
 
     [Header("Level Selection UI")]
@@ -61,6 +62,13 @@ public class MainHUD : Singleton<MainHUD>
         {
             AudioManager.Instance.PlayClickFeedbacks();
             TogglePotatoSelectionMenu();
+
+            // Disable new potato label
+            if (GameDataManager.Instance.IsThereNewPotato)
+            {
+                newPotatoLabel.transform.gameObject.SetActive(false);
+                GameDataManager.Instance.SetNewPotatoStatus(false);
+            }
         });
         battleButton.onClick.AddListener(() =>
         {
@@ -73,6 +81,15 @@ public class MainHUD : Singleton<MainHUD>
     private void Start()
     {
         HandleCoinUpdate(GameDataManager.Instance.Coin);
+
+        if (GameDataManager.Instance.IsThereNewPotato)
+        {
+            newPotatoLabel.transform.gameObject.SetActive(true);
+        }
+        else
+        {
+            newPotatoLabel.transform.gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
