@@ -51,7 +51,6 @@ public class LevelSelectionUI : MonoBehaviour
     private void Start()
     {
         Hide();
-        HandleButtonActiveStatus();
 
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
 
@@ -63,6 +62,8 @@ public class LevelSelectionUI : MonoBehaviour
 
         InitializeCurrentMapIndex();
         InitializeMapButtons();
+
+        HandleButtonActiveStatus();
     }
 
     private void InitializeCurrentMapIndex()
