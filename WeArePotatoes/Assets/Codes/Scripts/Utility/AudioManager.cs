@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private MMFeedbacks clickFeedbacks;
     [SerializeField] private MMFeedbacks levelStartFeedbacks;
     [SerializeField] private MMFeedbacks coinFeedbacks;
+    [SerializeField] private MMFeedbacks coinSpawnFeedbacks;
+    [SerializeField] private MMFeedbacks coinAddedFeedbacks;
     [SerializeField] private MMFeedbacks unitHitFeedbacks;
     [SerializeField] private MMFeedbacks unitDeadFeedbacks;
 
@@ -33,6 +35,16 @@ public class AudioManager : MonoBehaviour
     public void PlayCoinFeedbacks()
     {
         coinFeedbacks.PlayFeedbacks();
+    }
+
+    public void PlayCoinSpawnFeedbacks()
+    {
+        coinSpawnFeedbacks.PlayFeedbacks();
+    }
+
+    public void PlayCoinAddedFeedbacks()
+    {
+        coinAddedFeedbacks.PlayFeedbacks();
     }
 
     public void PlayUnitDeadFeedbacks()

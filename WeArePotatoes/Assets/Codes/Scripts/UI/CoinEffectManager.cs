@@ -23,13 +23,15 @@ public class CoinEffectManager : MonoBehaviour
         totalCollectedCoins = GameDataManager.Instance.CoinCollected;
 
         if (totalCollectedCoins <= 0) return;
-
-        OnCoinSpawn();
+        StartCoroutine(OnCoinSpawn());
     }
 
-    [Button]
-    public void OnCoinSpawn()
+    private IEnumerator OnCoinSpawn()
     {
+        yield return new WaitForSeconds(0f);
+
+        AudioManager.Instance.PlayCoinSpawnFeedbacks();
+
         coinSpawnDelay = coinSpawnTotalDelay / coinAmount;
 
         // Calculate the integer part of each coin's amount
@@ -44,6 +46,8 @@ public class CoinEffectManager : MonoBehaviour
             float amountToAdd = singleCoinAmount + (i < remainder ? 1 : 0);
             SpawnCoin(amountToAdd, i * coinSpawnDelay);
         }
+
+        GameDataManager.Instance.ClearCoinCollected();
     }
 
 
@@ -62,7 +66,7 @@ public class CoinEffectManager : MonoBehaviour
             {
                 UIEffectObjectPool.Instance.ReturnToPool(CurrencyType.GoldCoin, spawnedCoinImage);
                 GameDataManager.Instance.ModifyMoney(singleCoinAmount);
-                AudioManager.Instance.PlayCoinFeedbacks();
+                AudioManager.Instance.PlayCoinAddedFeedbacks();
             });
         });
     }
