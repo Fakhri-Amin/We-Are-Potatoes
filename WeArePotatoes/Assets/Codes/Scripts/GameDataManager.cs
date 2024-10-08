@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine.Assertions.Must;
 using Unity.VisualScripting;
 
-[DefaultExecutionOrder(-99999999)]
+// [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : PersistentSingleton<GameDataManager>
 {
     public event Action<int> OnCoinUpdated;
