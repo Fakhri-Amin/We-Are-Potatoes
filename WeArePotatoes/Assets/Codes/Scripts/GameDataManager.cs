@@ -37,6 +37,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         var gameData = Data.Get<GameData>();
 
+        SetInitialDefaultData();
+
         Coin = gameData.Coin;
         OnCoinUpdated?.Invoke(Coin);
 
@@ -48,8 +50,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         UpdateSeedProductionRate();
         UpdateBaseHealth();
-
-        SetInitialDefaultData();
     }
 
     private void SetInitialDefaultData()
@@ -57,7 +57,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         if (SelectedUnitList.Count <= 1)
         {
             // Set default data
-            AddUnlockedUnit(UnitHero.Sword);
+            AddDefaultUnlockedUnit(UnitHero.Sword);
 
             List<UnitHero> unitHeroes = new List<UnitHero>
             {
@@ -92,6 +92,15 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
+    public void AddDefaultUnlockedUnit(UnitHero unitHero)
+    {
+        if (UnlockedUnitList.Contains(unitHero)) return;
+
+        Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
+
+        Save();
+    }
+
     public void AddUnlockedUnit(UnitHero unitHero)
     {
         if (UnlockedUnitList.Contains(unitHero)) return;
@@ -122,8 +131,9 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public void SetSelectedLevel(MapType mapType, int levelIndex)
     {
         SelectedLevelMap = new SelectedLevelMap { MapType = mapType, SelectedLevelIndex = levelIndex };
-        Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
-        Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelIndex;
+        // Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
+        // Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelIndex;
+        Data.Get<GameData>().SelectedLevelMap = SelectedLevelMap;
         Save();
     }
 

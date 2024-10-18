@@ -6,6 +6,6 @@ public class FPSLimitModifier : MonoBehaviour
 {
     void Start()
     {
-        Application.targetFrameRate = 5;
+        Application.targetFrameRate = 60;
     }
 }

@@ -55,7 +55,7 @@ public class CoinEffectManager : MonoBehaviour
     {
         var spawnedCoinImage = UIEffectObjectPool.Instance.GetPooledObject(CurrencyType.GoldCoin);
 
-        var offset = new Vector3(Random.Range(-70f, 70f), Random.Range(-70f, 70f), 0);
+        var offset = new Vector3(Random.Range(-80f, 80f), Random.Range(-80f, 80f), 0);
         var startPosition = coinStartPosition.transform.position + offset;
         spawnedCoinImage.transform.position = startPosition;
 
