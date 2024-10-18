@@ -33,12 +33,14 @@ public class LevelSelectionUI : MonoBehaviour
     [SerializeField] private Image nextMapButtonIcon;
     [SerializeField] private MMFeedbacks loadGameSceneFeedbacks;
     [SerializeField] private CanvasGroup fader;
+    [SerializeField] private Transform lockedMapTransform;
 
     [Header("Map Level Button Config")]
     [SerializeField] private List<MapLevelButtonConfig> mapLevelButtonConfigs = new List<MapLevelButtonConfig>();
 
     private LevelWaveDatabaseSO levelWaveDatabaseSO;
     private int currentMapIndex;
+    private int uncompletedMapIndex;
 
     private const float fadeDuration = 0.1f;
 
@@ -73,6 +75,7 @@ public class LevelSelectionUI : MonoBehaviour
             if (!item.HasCompletedAllLevels)
             {
                 currentMapIndex = (int)item.MapType;
+                uncompletedMapIndex = (int)item.MapType;
                 break;
             }
         }
@@ -175,11 +178,13 @@ public class LevelSelectionUI : MonoBehaviour
     {
         mapButtonTransform.gameObject.SetActive(true);
         mapTransforms[currentMapIndex].gameObject.SetActive(true);
+        HandleLockedMapStatus();
     }
 
     public void Hide()
     {
         mapButtonTransform.gameObject.SetActive(false);
+        lockedMapTransform.gameObject.SetActive(false);
         foreach (var item in mapTransforms)
         {
             item.gameObject.SetActive(false);
@@ -206,6 +211,7 @@ public class LevelSelectionUI : MonoBehaviour
         Hide();
         currentMapIndex = newMapIndex;
         HandleButtonActiveStatus();
+        HandleLockedMapStatus();
 
         fader.DOFade(1, fadeDuration).OnComplete(() =>
         {
@@ -221,5 +227,17 @@ public class LevelSelectionUI : MonoBehaviour
 
         previousMapButton.interactable = currentMapIndex > 0;
         previousMapButtonIcon.color = previousMapButton.interactable ? Color.white : new Color(1, 1, 1, 0.1f);
+    }
+
+    private void HandleLockedMapStatus()
+    {
+        if (currentMapIndex <= 0)
+        {
+            lockedMapTransform.gameObject.SetActive(false);
+        }
+        else
+        {
+            lockedMapTransform.gameObject.SetActive(currentMapIndex >= uncompletedMapIndex);
+        }
     }
 }
