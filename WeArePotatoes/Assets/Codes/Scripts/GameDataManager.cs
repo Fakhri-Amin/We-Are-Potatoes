@@ -94,18 +94,26 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public void AddDefaultUnlockedUnit(UnitHero unitHero)
     {
-        if (UnlockedUnitList.Contains(unitHero)) return;
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
 
-        Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
+        if (gameData.UnlockedUnitList.Contains(unitHero)) return;
+
+        gameData.UnlockedUnitList.Add(unitHero);
+        UnlockedUnitList = gameData.UnlockedUnitList;
 
         Save();
     }
 
     public void AddUnlockedUnit(UnitHero unitHero)
     {
-        if (UnlockedUnitList.Contains(unitHero)) return;
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
 
-        Data.Get<GameData>().UnlockedUnitList.Add(unitHero);
+        if (gameData.UnlockedUnitList.Contains(unitHero)) return;
+
+        gameData.UnlockedUnitList.Add(unitHero);
+        UnlockedUnitList = gameData.UnlockedUnitList;
         SetNewPotatoStatus(true);
 
         Save();
