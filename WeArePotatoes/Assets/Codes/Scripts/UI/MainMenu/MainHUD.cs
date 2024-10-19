@@ -14,6 +14,7 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private Button battleButton;
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button cardButton;
     [SerializeField] private Button quitButton;
 
     [Header("Main Menu")]
@@ -47,6 +48,14 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private TMP_Text baseText;
     public bool isLevelSelectionMenuOpen;
 
+    [Header("Card UI")]
+    [SerializeField] private CardUI cardUI;
+    [SerializeField] private Image cardIcon;
+    [SerializeField] private TMP_Text cardText;
+    [SerializeField] private Image cardCloseIcon;
+    [SerializeField] private TMP_Text cardCloseText;
+    public bool isCardMenuOpen;
+
     [SerializeField] private CanvasGroup fader;
 
     public new void Awake()
@@ -69,6 +78,11 @@ public class MainHUD : Singleton<MainHUD>
                 newPotatoLabel.transform.gameObject.SetActive(false);
                 GameDataManager.Instance.SetNewPotatoStatus(false);
             }
+        });
+        cardButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            ToggleCardMenu();
         });
         battleButton.onClick.AddListener(() =>
         {
@@ -141,6 +155,16 @@ public class MainHUD : Singleton<MainHUD>
             CloseLevelSelectionMenu();
     }
 
+    private void ToggleCardMenu()
+    {
+        isCardMenuOpen = !isCardMenuOpen;
+
+        if (isCardMenuOpen)
+            OpenCardMenu();
+        else
+            CloseCardMenu();
+    }
+
     private void OpenUpgradeMenu()
     {
         upgradeUI.Show();
@@ -156,7 +180,7 @@ public class MainHUD : Singleton<MainHUD>
     private void OpenPotatoSelectionMenu()
     {
         unitSelectionUI.Show();
-        unitSelectionUI.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.UnlockedUnitList);
+        unitSelectionUI.Initialize();
         SetPotatoUIState(false);
     }
 
@@ -164,6 +188,19 @@ public class MainHUD : Singleton<MainHUD>
     {
         unitSelectionUI.Hide();
         SetPotatoUIState(true);
+    }
+
+    private void OpenCardMenu()
+    {
+        cardUI.Show();
+        cardUI.Initialize();
+        SetCardUIState(false);
+    }
+
+    private void CloseCardMenu()
+    {
+        cardUI.Hide();
+        SetCardUIState(true);
     }
 
     private void OpenLevelSelectionMenu()
@@ -188,7 +225,7 @@ public class MainHUD : Singleton<MainHUD>
 
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
-            levelSelectionUI.Hide();
+            cardUI.Hide();
             mainMenuUI.Show();
             SetLevelUIState(true);
 
@@ -210,6 +247,14 @@ public class MainHUD : Singleton<MainHUD>
         potatoText.gameObject.SetActive(isSelectionClosed);
         potatoCloseIcon.gameObject.SetActive(!isSelectionClosed);
         potatoCloseText.gameObject.SetActive(!isSelectionClosed);
+    }
+
+    private void SetCardUIState(bool isCardClosed)
+    {
+        cardIcon.gameObject.SetActive(isCardClosed);
+        cardText.gameObject.SetActive(isCardClosed);
+        cardCloseIcon.gameObject.SetActive(!isCardClosed);
+        cardCloseText.gameObject.SetActive(!isCardClosed);
     }
 
     private void SetLevelUIState(bool isSelectionClosed)

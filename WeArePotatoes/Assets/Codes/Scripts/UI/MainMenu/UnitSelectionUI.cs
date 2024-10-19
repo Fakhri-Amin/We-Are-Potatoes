@@ -47,8 +47,12 @@ public class UnitSelectionUI : MonoBehaviour
         panel.gameObject.SetActive(false);
     }
 
-    public void Initialize(List<UnitHero> selectedUnitList, List<UnitHero> unlockedUnitList)
+    public void Initialize()
     {
+        var gameDataManager = GameDataManager.Instance;
+        List<UnitHero> selectedUnitList = gameDataManager.SelectedUnitList;
+        List<UnitHero> unlockedUnitList = gameDataManager.UnlockedUnitList;
+
         unitSlotTemplate.gameObject.SetActive(false);
         HideRemoveArea();
 

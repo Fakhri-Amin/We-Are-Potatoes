@@ -23,6 +23,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public List<int> CompletedLevelList = new List<int>();
     public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
+    public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
     public int CoinCollected;
     public int Coin;
     public float SeedProductionRate;
@@ -47,6 +48,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         UnlockedUnitList = gameData.UnlockedUnitList;
         CompletedLevelMapList = gameData.CompletedLevelMapList;
+
+        ObtainedCardList = gameData.ObtainedCardList;
 
         UpdateSeedProductionRate();
         UpdateBaseHealth();
@@ -252,6 +255,33 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         var gameData = Data.Get<GameData>();
         gameData.IsThereNewPotato = isActive;
         IsThereNewPotato = isActive;
+
+        Save();
+    }
+
+    public void AddNewObtainedCard(CardData cardData)
+    {
+        var gameData = Data.Get<GameData>();
+
+        var cardDataInDatabase = gameData.ObtainedCardList.Find(i => i.CardData.Name == cardData.Name);
+
+        if (cardDataInDatabase == null)
+        {
+            ObtainedCard obtainedCard = new ObtainedCard()
+            {
+                CardData = cardData,
+                Level = 1,
+                CardAmount = 1
+            };
+            gameData.ObtainedCardList.Add(obtainedCard);
+
+            Save();
+
+            return;
+        }
+
+        cardDataInDatabase.CardAmount++;
+        ObtainedCardList = gameData.ObtainedCardList;
 
         Save();
     }

@@ -15,6 +15,7 @@ public class GameData : BaseData
     public int Coin = 0;
     public SelectedLevelMap SelectedLevelMap;
     public bool IsThereNewPotato;
+    public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
 }
 
 [System.Serializable]
@@ -30,4 +31,12 @@ public class SelectedLevelMap
 {
     public MapType MapType;
     public int SelectedLevelIndex;
+}
+
+[System.Serializable]
+public class ObtainedCard
+{
+    public CardData CardData;
+    public int Level;
+    public int CardAmount;
 }

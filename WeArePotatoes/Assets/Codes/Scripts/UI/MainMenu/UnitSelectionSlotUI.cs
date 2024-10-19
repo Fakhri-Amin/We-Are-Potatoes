@@ -39,7 +39,9 @@ public class UnitSelectionSlotUI : MonoBehaviour
         unitNameText.text = unitData.Name;
         seedCostText.text = unitData.SeedCost.ToString();
 
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onButtonClicked());
+
         draggableItemUI.Initialize(unitSelectionUI, unitData);
     }
 
