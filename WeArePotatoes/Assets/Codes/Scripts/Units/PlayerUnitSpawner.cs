@@ -97,9 +97,20 @@ public class PlayerUnitSpawner : MonoBehaviour
             ModifySeedCount(-unitSeedCost);
 
             spawnedUnit.transform.position = unitSpawnPoint.position + offset;
+
+            UnitData newUnitData = unitData;
+
+            float totalAttackDamage = GameDataManager.Instance.GetTotalAttackDamage();
+            newUnitData.DamageAmount = unitData.DamageAmount;
+            newUnitData.DamageAmount += unitData.DamageAmount * totalAttackDamage / 100;
+
+            float totalUnitHealth = GameDataManager.Instance.GetTotalUnitHealth();
+            newUnitData.Health = unitData.Health;
+            newUnitData.Health += unitData.Health * totalUnitHealth / 100;
+
             float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
             float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
-            spawnedUnit.InitializeUnit(UnitType.Player, unitData, baseTransform.position, moveSpeed, attackSpeed);
+            spawnedUnit.InitializeUnit(UnitType.Player, newUnitData, baseTransform.position, moveSpeed, attackSpeed);
             spawnedUnits.Add(spawnedUnit);
         }
     }

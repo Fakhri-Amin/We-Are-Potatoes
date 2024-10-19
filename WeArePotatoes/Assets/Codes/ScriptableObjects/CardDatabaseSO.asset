@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b946598a5508224c9abf8e8e22fd7c9, type: 3}
   m_Name: CardDatabaseSO
   m_EditorClassIdentifier: 
+  CardTypeConfigs:
+  - CardType: 0
+    EffectDescription: All Potato Damage
+  - CardType: 1
+    EffectDescription: All Potato Health
+  - CardType: 2
+    EffectDescription: Base Health
   CardLevelConfigList:
   - Level: 1
     MaxCardAmount: 3
@@ -25,26 +32,23 @@ MonoBehaviour:
     MaxCardAmount: 12
   CardDatas:
   - CardType: 0
-    Sprite: {fileID: 21300000, guid: 5e19d38a7a0e446d3b8caef98a3795d4, type: 3}
+    Sprite: {fileID: 21300000, guid: 6f8ef910779b0e04b9e018bba63f6b36, type: 3}
     Name: Vitamin C
     Description: I came. I Saw. I conquered.
-    EffectDescription: +10% Attack Speed
-    Amount: 10
-  - CardType: 2
-    Sprite: {fileID: 21300000, guid: e1683a1acccb446889b2eb95ce0cbaae, type: 3}
-    Name: Soap
-    Description: I came. I Saw. I conquered.
-    EffectDescription: +10% Movement Speed
-    Amount: 10
-  - CardType: 3
+    EffectDescription: +4% All Potato Damage
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 1
     Sprite: {fileID: 21300000, guid: 3d8e34000614548ee8d762ab21af11f3, type: 3}
     Name: Water
-    Description: +10% Potato Health
-    EffectDescription: I came. I Saw. I conquered.
-    Amount: 10
-  - CardType: 4
+    Description: I came. I Saw. I conquered.
+    EffectDescription: +4% All Potato Health
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 2
     Sprite: {fileID: 21300000, guid: 17cc6aa2e89398a48bb7b45b4602407f, type: 3}
     Name: Dirt
     Description: I came. I Saw. I conquered.
     EffectDescription: +10% Base Health
-    Amount: 10
+    EffectAmount: 10
+    EffectUpgradeAmount: 5

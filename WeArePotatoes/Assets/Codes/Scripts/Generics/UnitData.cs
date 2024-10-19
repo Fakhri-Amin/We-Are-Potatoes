@@ -27,9 +27,9 @@ public class UnitData
     [TabGroup("Stat")]
     public int SeedCost;
     [TabGroup("Stat")]
-    public int Health;
+    public float Health;
     [TabGroup("Stat")]
-    public int DamageAmount;
+    public float DamageAmount;
     [TabGroup("Stat")]
     public UnitMoveSpeedType MoveSpeedType;
     [TabGroup("Stat")]

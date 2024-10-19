@@ -124,6 +124,7 @@ public class MainHUD : Singleton<MainHUD>
     private void ToggleUpgradeMenu()
     {
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
 
         isUpgradeMenuOpen = !isUpgradeMenuOpen;
 
@@ -136,6 +137,7 @@ public class MainHUD : Singleton<MainHUD>
     private void TogglePotatoSelectionMenu()
     {
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
 
         isPotatoSelectionMenuOpen = !isPotatoSelectionMenuOpen;
 
@@ -157,6 +159,9 @@ public class MainHUD : Singleton<MainHUD>
 
     private void ToggleCardMenu()
     {
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+
         isCardMenuOpen = !isCardMenuOpen;
 
         if (isCardMenuOpen)
@@ -207,6 +212,7 @@ public class MainHUD : Singleton<MainHUD>
     {
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
 
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
@@ -222,6 +228,7 @@ public class MainHUD : Singleton<MainHUD>
     {
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
 
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {

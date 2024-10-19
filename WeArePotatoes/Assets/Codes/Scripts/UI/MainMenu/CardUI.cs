@@ -61,9 +61,18 @@ public class CardUI : MonoBehaviour
     }
 
     [Button]
-    public void AddCard()
+    public void AddAttackDamageCard()
     {
         CardData cardData = cardDatabaseSO.CardDatas[0];
+
+        GameDataManager.Instance.AddNewObtainedCard(cardData);
+        Initialize();
+    }
+
+    [Button]
+    public void AddUnitHealthCard()
+    {
+        CardData cardData = cardDatabaseSO.CardDatas[1];
 
         GameDataManager.Instance.AddNewObtainedCard(cardData);
         Initialize();

@@ -6,5 +6,5 @@ public interface IAttackable
 {
     public GameObject GameObject { get; }
     public UnitType UnitType { get; }
-    public void Damage(int damageAmount);
+    public void Damage(float damageAmount);
 }

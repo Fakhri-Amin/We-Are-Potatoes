@@ -110,6 +110,9 @@ public class EnemyUnitSpawner : MonoBehaviour
         Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);
         if (spawnedUnit)
         {
+            unitData.DamageAmount = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitData.UnitHero).DamageAmount;
+            unitData.Health = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitData.UnitHero).Health;
+
             spawnedUnit.transform.position = unitSpawnPoint.position + offset;
             float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
             float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;

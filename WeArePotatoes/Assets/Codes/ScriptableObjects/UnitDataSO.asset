@@ -43,7 +43,7 @@ MonoBehaviour:
     Name: Sword
     SeedCost: 3
     Health: 100
-    DamageAmount: 20
+    DamageAmount: 25
     MoveSpeedType: 2
     AttackSpeedType: 2
     DetectRadius: 4

@@ -304,6 +304,37 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         ObtainedCardList = gameData.ObtainedCardList;
 
         Save();
+    }
 
+    public float GetTotalAttackDamage()
+    {
+        var gameData = Data.Get<GameData>();
+
+        float totalAttackDamage = 0;
+        foreach (var item in gameData.ObtainedCardList)
+        {
+            if (item.CardData.CardType == CardType.AttackDamage)
+            {
+                totalAttackDamage += item.CardData.EffectAmount;
+            }
+        }
+
+        return totalAttackDamage;
+    }
+
+    public float GetTotalUnitHealth()
+    {
+        var gameData = Data.Get<GameData>();
+
+        float totalUnitHealth = 0;
+        foreach (var item in gameData.ObtainedCardList)
+        {
+            if (item.CardData.CardType == CardType.UnitHealth)
+            {
+                totalUnitHealth += item.CardData.EffectAmount;
+            }
+        }
+
+        return totalUnitHealth;
     }
 }

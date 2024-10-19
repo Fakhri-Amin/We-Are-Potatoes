@@ -37,7 +37,17 @@ public class Unit : MonoBehaviour, IAttackable
     private UnitData unitData;
 
     public IAttackable TargetUnit => targetUnit;
-    public UnitData UnitData => unitData;
+    public UnitData UnitData
+    {
+        get
+        {
+            return unitData;
+        }
+        set
+        {
+            unitData = value;
+        }
+    }
     public UnitType UnitType => unitType;
     public UnitHero UnitHero => unitHero;
     public LayerMask TargetMask => targetMask;
@@ -226,7 +236,7 @@ public class Unit : MonoBehaviour, IAttackable
         canMove = true;
     }
 
-    public void Damage(int damageAmount)
+    public void Damage(float damageAmount)
     {
         unitParticle.PlayHitParticle();
         unitAudio.PlayHitSound();

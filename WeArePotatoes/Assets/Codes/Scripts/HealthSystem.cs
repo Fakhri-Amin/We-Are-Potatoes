@@ -10,10 +10,10 @@ public class HealthSystem : MonoBehaviour
     public Action OnHealthChanged;
     public Action OnDead;
 
-    private int healthAmount;
-    private int maxHealth;
+    private float healthAmount;
+    private float maxHealth;
 
-    public void ResetHealth(int maxHealth)
+    public void ResetHealth(float maxHealth)
     {
         this.maxHealth = maxHealth;
         healthAmount = maxHealth;
@@ -21,7 +21,7 @@ public class HealthSystem : MonoBehaviour
         OnHealthChanged?.Invoke();
     }
 
-    public void Damage(int damageAmount)
+    public void Damage(float damageAmount)
     {
         healthAmount -= damageAmount;
 

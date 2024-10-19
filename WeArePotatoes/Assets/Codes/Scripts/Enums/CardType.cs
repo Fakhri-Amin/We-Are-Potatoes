@@ -5,8 +5,6 @@ using UnityEngine;
 public enum CardType
 {
     AttackDamage,
-    AttackSpeed,
-    MovementSpeed,
     UnitHealth,
     BaseHealth
 }

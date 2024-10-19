@@ -89,7 +89,7 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         AudioManager.Instance.PlayUnitDeadFeedbacks();
     }
 
-    public void Damage(int damageAmount)
+    public void Damage(float damageAmount)
     {
         PlayHitParticle();
         PlayHitSound();
