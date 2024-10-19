@@ -10,5 +10,9 @@ public class CardData
     public string Name;
     public string Description;
     public string EffectDescription;
-    public float Amount;
+    public float EffectAmount;
+    public float EffectUpgradeAmount;
+
 }
+
+

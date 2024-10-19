@@ -13,7 +13,11 @@ public class CardSlotUI : MonoBehaviour
     [SerializeField] private TMP_Text cardLevelText;
     [SerializeField] private TMP_Text cardAmountText;
     [SerializeField] private Slider cardAmountSlider;
+    [SerializeField] private Image cardSliderFillImage;
+    [SerializeField] private Color cardSliderFillNormalColor;
+    [SerializeField] private Color cardSliderFillUpgradeColor;
     [SerializeField] private Button button;
+    [SerializeField] private Image upgradeIcon;
 
     public void Initialize(ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig, Action onButtonClicked)
     {
@@ -27,5 +31,16 @@ public class CardSlotUI : MonoBehaviour
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onButtonClicked());
+
+        if (obtainedCard.CardAmount >= cardLevelConfig.MaxCardAmount)
+        {
+            cardSliderFillImage.color = cardSliderFillUpgradeColor;
+            upgradeIcon.gameObject.SetActive(true);
+        }
+        else
+        {
+            cardSliderFillImage.color = cardSliderFillNormalColor;
+            upgradeIcon.gameObject.SetActive(false);
+        }
     }
 }

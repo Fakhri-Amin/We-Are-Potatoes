@@ -19,9 +19,13 @@ public class CardDetailInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private TMP_Text cardEffectDescription;
     [SerializeField] private Slider cardAmountSlider;
+    [SerializeField] private Image cardSliderFillImage;
+    [SerializeField] private Color cardSliderFillNormalColor;
+    [SerializeField] private Color cardSliderFillUpgradeColor;
 
     [Header("Upgrade Button")]
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Image upgradeIcon;
 
     private void Awake()
     {
@@ -33,7 +37,7 @@ public class CardDetailInfoUI : MonoBehaviour
         panel.gameObject.SetActive(false);
     }
 
-    public void Select(ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig)
+    public void Select(CardUI cardUI, ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig)
     {
         Show();
 
@@ -48,13 +52,26 @@ public class CardDetailInfoUI : MonoBehaviour
         cardAmountSlider.maxValue = cardLevelConfig.MaxCardAmount;
         cardAmountSlider.value = obtainedCard.CardAmount;
 
-        if (obtainedCard.CardAmount == cardLevelConfig.MaxCardAmount)
+        upgradeButton.onClick.RemoveAllListeners();
+        upgradeButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            GameDataManager.Instance.UpgradeObtainedCard(obtainedCard);
+            cardUI.Initialize();
+            Hide();
+        });
+
+        if (obtainedCard.CardAmount >= cardLevelConfig.MaxCardAmount)
         {
             upgradeButton.interactable = true;
+            cardSliderFillImage.color = cardSliderFillUpgradeColor;
+            upgradeIcon.gameObject.SetActive(true);
         }
         else
         {
             upgradeButton.interactable = false;
+            cardSliderFillImage.color = cardSliderFillNormalColor;
+            upgradeIcon.gameObject.SetActive(false);
         }
     }
 

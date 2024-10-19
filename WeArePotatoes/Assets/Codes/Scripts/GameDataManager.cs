@@ -18,6 +18,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public UnitDataSO UnitDataSO;
     public LevelWaveDatabaseSO LevelWaveDatabaseSO;
     public BaseBuildingSO BaseBuildingSO;
+    public CardDatabaseSO cardDatabaseSO;
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();
@@ -284,5 +285,25 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         ObtainedCardList = gameData.ObtainedCardList;
 
         Save();
+    }
+
+    public void UpgradeObtainedCard(ObtainedCard obtainedCard)
+    {
+        var gameData = Data.Get<GameData>();
+
+        CardLevelConfig cardLevelConfig = cardDatabaseSO.CardLevelConfigList.Find(i => i.Level == obtainedCard.Level);
+
+        if (obtainedCard.CardAmount >= cardLevelConfig.MaxCardAmount)
+        {
+            obtainedCard.Level++;
+            obtainedCard.CardAmount -= cardLevelConfig.MaxCardAmount;
+            obtainedCard.CardData.EffectAmount += obtainedCard.CardData.EffectUpgradeAmount;
+            obtainedCard.CardData.EffectDescription = $"+{obtainedCard.CardData.EffectAmount}% {cardDatabaseSO.CardTypeConfigs.Find(i => i.CardType == obtainedCard.CardData.CardType).EffectDescription}";
+        }
+
+        ObtainedCardList = gameData.ObtainedCardList;
+
+        Save();
+
     }
 }

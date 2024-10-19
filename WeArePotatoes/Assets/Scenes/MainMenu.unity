@@ -2733,6 +2733,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173186619}
   m_CullTransparentMesh: 1
+--- !u!1 &182316035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182316036}
+  - component: {fileID: 182316038}
+  - component: {fileID: 182316037}
+  m_Layer: 0
+  m_Name: UpgradeIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &182316036
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182316035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 860352174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 27, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &182316037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182316035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6, g: 0.8980392, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 053957e332ecc0440b0a4926cb4eac0a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &182316038
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182316035}
+  m_CullTransparentMesh: 1
 --- !u!1 &192487758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,6 +4048,7 @@ RectTransform:
   - {fileID: 71470688}
   - {fileID: 611528664}
   - {fileID: 1960336613}
+  - {fileID: 1839339919}
   m_Father: {fileID: 751472945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -6186,10 +6262,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1054744260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 121.08035, y: -242.7225}
-  m_SizeDelta: {x: 184.744, y: 44.555008}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 184.744, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395793230
 MonoBehaviour:
@@ -7202,6 +7278,7 @@ MonoBehaviour:
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
   LevelWaveDatabaseSO: {fileID: 11400000, guid: c0ed0a893a124aa4e8719843acbe6af5, type: 2}
   BaseBuildingSO: {fileID: 11400000, guid: 730e94a0295ca194d9f55322b4d3e04d, type: 2}
+  cardDatabaseSO: {fileID: 11400000, guid: 37a4089b946ca4b4ab5eb33bfd234a6b, type: 2}
   SelectedUnitList: 
   UnlockedUnitList: 
   CompletedLevelList: 
@@ -13055,7 +13132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 219.89275, y: -29.571}
+  m_AnchoredPosition: {x: 222.39275, y: -29.571}
   m_SizeDelta: {x: 180, y: 59.142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736930517
@@ -14905,6 +14982,7 @@ RectTransform:
   - {fileID: 1637935479}
   - {fileID: 1935454328}
   - {fileID: 356137476}
+  - {fileID: 182316036}
   m_Father: {fileID: 1884660915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -16057,7 +16135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 30
-    m_Right: 40
+    m_Right: 30
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
@@ -30539,10 +30617,10 @@ RectTransform:
   - {fileID: 129439640}
   m_Father: {fileID: 1054744260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 121.08035, y: -112.7225}
-  m_SizeDelta: {x: 193.17, y: 185.445}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 193.17, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811579805
 MonoBehaviour:
@@ -30898,6 +30976,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2420776100399703829, guid: 994b871be16625145b4656bf70503047, type: 3}
   m_PrefabInstance: {fileID: 5268012933456419883}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1839339916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839339919}
+  - component: {fileID: 1839339918}
+  - component: {fileID: 1839339917}
+  m_Layer: 0
+  m_Name: UpgradeIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1839339917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839339916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6, g: 0.8980392, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 053957e332ecc0440b0a4926cb4eac0a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1839339918
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839339916}
+  m_CullTransparentMesh: 1
+--- !u!224 &1839339919
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839339916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 259739975}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 27, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1849835788
 GameObject:
   m_ObjectHideFlags: 0
@@ -32190,7 +32343,7 @@ GameObject:
   - component: {fileID: 1884660915}
   - component: {fileID: 1884660916}
   m_Layer: 0
-  m_Name: CardItem
+  m_Name: CardSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32233,7 +32386,11 @@ MonoBehaviour:
   cardLevelText: {fileID: 2067098503}
   cardAmountText: {fileID: 356137477}
   cardAmountSlider: {fileID: 860352175}
+  cardSliderFillImage: {fileID: 899927727}
+  cardSliderFillNormalColor: {r: 0.49803922, g: 0.5411765, b: 0.61960787, a: 1}
+  cardSliderFillUpgradeColor: {r: 0.16470589, g: 0.7490196, b: 0.9490196, a: 1}
   button: {fileID: 110156969}
+  upgradeIcon: {fileID: 182316037}
 --- !u!1 &1885554254
 GameObject:
   m_ObjectHideFlags: 0
@@ -32668,7 +32825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.39215687}
-  m_EffectDistance: {x: 0, y: -5}
+  m_EffectDistance: {x: 0, y: -10}
   m_UseGraphicAlpha: 1
 --- !u!1 &1921589059
 GameObject:
@@ -35711,6 +35868,11 @@ MonoBehaviour:
   cardDescription: {fileID: 1065881381}
   cardEffectDescription: {fileID: 305611279}
   cardAmountSlider: {fileID: 259739976}
+  cardSliderFillImage: {fileID: 2076993300}
+  cardSliderFillNormalColor: {r: 0.49803922, g: 0.5411765, b: 0.61960787, a: 1}
+  cardSliderFillUpgradeColor: {r: 0.16470589, g: 0.7490196, b: 0.9490196, a: 1}
+  upgradeButton: {fileID: 1947388857}
+  upgradeIcon: {fileID: 1839339917}
 --- !u!1 &2084489324
 GameObject:
   m_ObjectHideFlags: 0
@@ -36298,7 +36460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.39215687}
-  m_EffectDistance: {x: 0, y: -5}
+  m_EffectDistance: {x: 0, y: -10}
   m_UseGraphicAlpha: 1
 --- !u!114 &2144097332
 MonoBehaviour:
