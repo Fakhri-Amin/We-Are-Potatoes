@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardLevelConfigList:
   - Level: 1
-    MaxCardAmount: 2
+    MaxCardAmount: 3
   - Level: 2
-    MaxCardAmount: 4
+    MaxCardAmount: 5
   - Level: 3
-    MaxCardAmount: 6
+    MaxCardAmount: 7
   - Level: 4
-    MaxCardAmount: 8
+    MaxCardAmount: 9
   - Level: 5
-    MaxCardAmount: 10
+    MaxCardAmount: 12
   CardDatas:
   - CardType: 0
     Sprite: {fileID: 21300000, guid: 5e19d38a7a0e446d3b8caef98a3795d4, type: 3}

@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class CardDetailInfoUI : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private CanvasGroup panel;
     [SerializeField] private Button closeButton;
     [SerializeField] private Image cardIcon;
@@ -17,6 +19,9 @@ public class CardDetailInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private TMP_Text cardEffectDescription;
     [SerializeField] private Slider cardAmountSlider;
+
+    [Header("Upgrade Button")]
+    [SerializeField] private Button upgradeButton;
 
     private void Awake()
     {
@@ -42,6 +47,15 @@ public class CardDetailInfoUI : MonoBehaviour
         cardAmountSlider.minValue = 0;
         cardAmountSlider.maxValue = cardLevelConfig.MaxCardAmount;
         cardAmountSlider.value = obtainedCard.CardAmount;
+
+        if (obtainedCard.CardAmount == cardLevelConfig.MaxCardAmount)
+        {
+            upgradeButton.interactable = true;
+        }
+        else
+        {
+            upgradeButton.interactable = false;
+        }
     }
 
     public void Show()
