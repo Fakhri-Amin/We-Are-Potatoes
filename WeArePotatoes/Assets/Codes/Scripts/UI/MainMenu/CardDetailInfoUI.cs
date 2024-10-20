@@ -37,11 +37,11 @@ public class CardDetailInfoUI : MonoBehaviour
         panel.gameObject.SetActive(false);
     }
 
-    public void Select(CardUI cardUI, ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig)
+    public void Select(CardUI cardUI, ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig, Sprite cardSprite)
     {
         Show();
 
-        cardIcon.sprite = obtainedCard.CardData.Sprite;
+        cardIcon.sprite = cardSprite;
         cardName.text = obtainedCard.CardData.Name;
         cardLevel.text = "Level " + obtainedCard.Level;
         cardAmount.text = obtainedCard.CardAmount + "/" + cardLevelConfig.MaxCardAmount;

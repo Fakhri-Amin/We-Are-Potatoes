@@ -34,11 +34,13 @@ public class CardUI : MonoBehaviour
             CardSlotUI cardSlotUI = Instantiate(cardSlotTemplate, cardParent);
             cardSlotUI.gameObject.SetActive(true);
 
+            Sprite cardSprite = cardDatabaseSO.CardDatas.Find(i => i.Name == item.CardData.Name).Sprite;
+
             CardLevelConfig cardLevelConfig = cardDatabaseSO.CardLevelConfigList.Find(i => i.Level == item.Level);
 
-            cardSlotUI.Initialize(item, cardLevelConfig, () =>
+            cardSlotUI.Initialize(item, cardLevelConfig, cardSprite, () =>
             {
-                cardDetailInfoUI.Select(this, item, cardLevelConfig);
+                cardDetailInfoUI.Select(this, item, cardLevelConfig, cardSprite);
                 AudioManager.Instance.PlayClickFeedbacks();
             });
         }

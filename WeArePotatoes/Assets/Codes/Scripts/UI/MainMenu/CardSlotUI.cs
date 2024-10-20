@@ -19,9 +19,9 @@ public class CardSlotUI : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private Image upgradeIcon;
 
-    public void Initialize(ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig, Action onButtonClicked)
+    public void Initialize(ObtainedCard obtainedCard, CardLevelConfig cardLevelConfig, Sprite cardSprite, Action onButtonClicked)
     {
-        cardIcon.sprite = obtainedCard.CardData.Sprite;
+        cardIcon.sprite = cardSprite;
         cardLevelText.text = "Level " + obtainedCard.Level;
         cardAmountText.text = obtainedCard.CardAmount + "/" + cardLevelConfig.MaxCardAmount;
 
