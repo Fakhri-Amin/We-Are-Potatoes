@@ -12,6 +12,7 @@ using DG.Tweening;
 public class MainHUD : Singleton<MainHUD>
 {
     [SerializeField] private Button battleButton;
+    [SerializeField] private Button baseButton;
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button cardButton;
@@ -87,7 +88,12 @@ public class MainHUD : Singleton<MainHUD>
         battleButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClickFeedbacks();
-            ToggleLevelSelectionMenu();
+            OpenLevelSelectionMenu();
+        });
+        baseButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            CloseLevelSelectionMenu();
         });
         quitButton.onClick.AddListener(QuitGame);
     }
@@ -104,6 +110,8 @@ public class MainHUD : Singleton<MainHUD>
         {
             newPotatoLabel.transform.gameObject.SetActive(false);
         }
+
+        baseButton.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -214,26 +222,42 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OpenLevelSelectionMenu()
     {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             mainMenuUI.Hide();
             levelSelectionUI.Show();
-            SetLevelUIState(false);
+
+            battleButton.gameObject.SetActive(false);
+            baseButton.gameObject.SetActive(true);
+            quitButton.gameObject.SetActive(false);
 
             fader.DOFade(0, 0.1f);
         });
+
     }
 
     private void CloseLevelSelectionMenu()
     {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
+
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             levelSelectionUI.Hide();
             mainMenuUI.Show();
-            SetLevelUIState(true);
+
+            battleButton.gameObject.SetActive(true);
+            baseButton.gameObject.SetActive(false);
+            quitButton.gameObject.SetActive(true);
 
             fader.DOFade(0, 0.1f);
         });
+
     }
 
     private void SetUpgradeUIState(bool isSelectionClosed)
