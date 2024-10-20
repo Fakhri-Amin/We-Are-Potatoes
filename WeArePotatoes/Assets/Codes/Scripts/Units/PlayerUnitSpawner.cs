@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerUnitSpawner : MonoBehaviour
 {
     public static PlayerUnitSpawner Instance { get; private set; }
     public event Action<float> OnSeedCountChanged;
     public float SeedCount = 0;
+
     [SerializeField] private UnitDataSO unitDataSO;
     [SerializeField] private Transform baseTransform;
     [SerializeField] private Transform unitSpawnPoint;
@@ -17,19 +17,26 @@ public class PlayerUnitSpawner : MonoBehaviour
 
     private List<UnitHero> selectedUnitHeroList = new List<UnitHero>();
     private float seedProductionRate;
+    private Coroutine seedProductionCoroutine;
 
     public List<UnitHero> SelectedUnitTypeList => selectedUnitHeroList;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
         ModifySeedCount(0);
-
-        StartCoroutine(ProduceSeedRoutine());
+        seedProductionCoroutine = StartCoroutine(ProduceSeedRoutine());
     }
 
     private void OnEnable()
@@ -46,6 +53,13 @@ public class PlayerUnitSpawner : MonoBehaviour
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
+    private void OnDestroy()
+    {
+        Unit.OnAnyUnitDead -= PlayerUnit_OnAnyPlayerUnitDead;
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
+    }
+
     public void Initialize(List<UnitHero> selectedUnitHerolist, float seedProductionRate)
     {
         this.selectedUnitHeroList = selectedUnitHerolist;
@@ -54,7 +68,11 @@ public class PlayerUnitSpawner : MonoBehaviour
 
     private void HandleLevelEnd()
     {
-        StopAllCoroutines();
+        if (seedProductionCoroutine != null)
+        {
+            StopCoroutine(seedProductionCoroutine);
+            seedProductionCoroutine = null;
+        }
     }
 
     private IEnumerator ProduceSeedRoutine()
@@ -62,9 +80,13 @@ public class PlayerUnitSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1 / seedProductionRate);
-
-            ModifySeedCount(1);
+            ProduceSeeds();
         }
+    }
+
+    private void ProduceSeeds()
+    {
+        ModifySeedCount(1);
     }
 
     private void PlayerUnit_OnAnyPlayerUnitDead(Unit unit)
@@ -72,7 +94,7 @@ public class PlayerUnitSpawner : MonoBehaviour
         if (unit && unit.UnitType == UnitType.Player)
         {
             spawnedUnits.Remove(unit);
-            // Destroy(unit.gameObject); // Consider pooling instead of destroying
+            unit.ResetState(); // Reset unit state before returning it to the pool
             UnitObjectPool.Instance.ReturnToPool(unit.UnitData.UnitHero, unit);
         }
     }
@@ -85,34 +107,51 @@ public class PlayerUnitSpawner : MonoBehaviour
 
     public void OnUnitSpawn(UnitHero unitHero)
     {
-        UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero);
-        var unitSeedCost = unitData.SeedCost;
+        UnitData unitData = unitDataSO?.UnitStatDataList.Find(i => i.UnitHero == unitHero);
+        if (unitData == null)
+        {
+            Debug.LogWarning("Unit data not found for unitHero: " + unitHero);
+            return;
+        }
 
+        var unitSeedCost = unitData.SeedCost;
         if (SeedCount < unitSeedCost) return;
 
+        SpawnUnit(unitData);
+    }
+
+    private void SpawnUnit(UnitData unitData)
+    {
         Vector3 offset = new Vector3(0, UnityEngine.Random.Range(-0.5f, 0.5f), 0);
-        Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);
-        if (spawnedUnit)
+        Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitData.UnitHero);
+        if (spawnedUnit == null)
         {
-            ModifySeedCount(-unitSeedCost);
-
-            spawnedUnit.transform.position = unitSpawnPoint.position + offset;
-
-            UnitData newUnitData = unitData;
-
-            float totalAttackDamage = GameDataManager.Instance.GetTotalAttackDamage();
-            newUnitData.DamageAmount = unitData.DamageAmount;
-            newUnitData.DamageAmount += unitData.DamageAmount * totalAttackDamage / 100;
-
-            float totalUnitHealth = GameDataManager.Instance.GetTotalUnitHealth();
-            newUnitData.Health = unitData.Health;
-            newUnitData.Health += unitData.Health * totalUnitHealth / 100;
-
-            float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
-            float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
-            spawnedUnit.InitializeUnit(UnitType.Player, newUnitData, baseTransform.position, moveSpeed, attackSpeed);
-            spawnedUnits.Add(spawnedUnit);
+            Debug.LogWarning("No available pooled object for unit: " + unitData.UnitHero);
+            return;
         }
+
+        ModifySeedCount(-unitData.SeedCost);
+        spawnedUnit.transform.position = unitSpawnPoint.position + offset;
+
+        InitializeSpawnedUnit(spawnedUnit, unitData);
+        spawnedUnits.Add(spawnedUnit);
+    }
+
+    private void InitializeSpawnedUnit(Unit unit, UnitData unitData)
+    {
+        float totalAttackDamage = GameDataManager.Instance.GetTotalAttackDamagePercentage();
+        float attackDamageBoost = unitData.DamageAmount * totalAttackDamage / 100;
+
+        float totalUnitHealth = GameDataManager.Instance.GetTotalUnitHealthPercentage();
+        float unitHealthBoost = unitData.Health * totalUnitHealth / 100;
+
+        float moveSpeed = unitDataSO.MoveSpeedDataList
+            .Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
+        float attackSpeed = unitDataSO.AttackSpeedDataList
+            .Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
+
+        unit.InitializeUnit(UnitType.Player, unitData, baseTransform.position,
+            attackDamageBoost, unitHealthBoost, moveSpeed, attackSpeed);
     }
 
     private void ModifySeedCount(float amount)

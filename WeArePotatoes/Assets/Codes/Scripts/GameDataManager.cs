@@ -306,35 +306,51 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public float GetTotalAttackDamage()
+    public float GetTotalAttackDamagePercentage()
     {
         var gameData = Data.Get<GameData>();
 
-        float totalAttackDamage = 0;
+        float totalAttackDamagePercentage = 0;
         foreach (var item in gameData.ObtainedCardList)
         {
             if (item.CardData.CardType == CardType.AttackDamage)
             {
-                totalAttackDamage += item.CardData.EffectAmount;
+                totalAttackDamagePercentage += item.CardData.EffectAmount;
             }
         }
 
-        return totalAttackDamage;
+        return totalAttackDamagePercentage;
     }
 
-    public float GetTotalUnitHealth()
+    public float GetTotalUnitHealthPercentage()
     {
         var gameData = Data.Get<GameData>();
 
-        float totalUnitHealth = 0;
+        float totalUnitHealthPercentage = 0;
         foreach (var item in gameData.ObtainedCardList)
         {
             if (item.CardData.CardType == CardType.UnitHealth)
             {
-                totalUnitHealth += item.CardData.EffectAmount;
+                totalUnitHealthPercentage += item.CardData.EffectAmount;
             }
         }
 
-        return totalUnitHealth;
+        return totalUnitHealthPercentage;
+    }
+
+    public float GetTotalBaseHealthPercentage()
+    {
+        var gameData = Data.Get<GameData>();
+
+        float totalBaseHealthPercentage = 0;
+        foreach (var item in gameData.ObtainedCardList)
+        {
+            if (item.CardData.CardType == CardType.BaseHealth)
+            {
+                totalBaseHealthPercentage += item.CardData.EffectAmount;
+            }
+        }
+
+        return totalBaseHealthPercentage;
     }
 }

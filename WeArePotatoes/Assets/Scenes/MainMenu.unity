@@ -233,7 +233,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 235, y: 279}
-  m_Spacing: {x: 25, y: 140}
+  m_Spacing: {x: 35, y: 140}
   m_Constraint: 1
   m_ConstraintCount: 5
 --- !u!1 &55942424
@@ -12840,7 +12840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.9411765}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

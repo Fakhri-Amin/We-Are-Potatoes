@@ -34,7 +34,7 @@ public class BaseBuilding : MonoBehaviour, IAttackable
         healthSystem.OnDead -= OnBaseDestroyed;
     }
 
-    public void Initialize(int baseHealth)
+    public void Initialize(float baseHealth)
     {
         healthSystem.ResetHealth(baseHealth);
     }

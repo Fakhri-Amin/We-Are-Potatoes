@@ -62,7 +62,7 @@ public class UnitAttackSystem : MonoBehaviour
         {
             if (target.TryGetComponent(out IAttackable targetUnit))
             {
-                targetUnit.Damage(unit.UnitData.DamageAmount);
+                targetUnit.Damage(unit.UnitData.DamageAmount + unit.AttackDamageBoost);
             }
         }
 

@@ -2,14 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Farou.Utility;
-using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EnemyUnitSpawner : MonoBehaviour
 {
     public static EnemyUnitSpawner Instance { get; private set; }
-    [SerializeField] private string levelID;
     [SerializeField] private UnitDataSO unitDataSO;
 
     [SerializeField] private Transform baseTransform;
@@ -20,7 +17,14 @@ public class EnemyUnitSpawner : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject); // Avoid duplicate instances
+        }
     }
 
     public void Initialize(LevelWaveSO levelWaveSO)
@@ -43,6 +47,13 @@ public class EnemyUnitSpawner : MonoBehaviour
         EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
     }
 
+    private void OnDestroy()
+    {
+        Unit.OnAnyUnitDead -= EnemyUnit_OnAnyEnemyUnitDead;
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelWin, HandleLevelEnd);
+        EventManager.UnSubscribe(Farou.Utility.EventType.OnLevelLose, HandleLevelEnd);
+    }
+
     private void HandleLevelEnd()
     {
         StopAllCoroutines();
@@ -50,43 +61,41 @@ public class EnemyUnitSpawner : MonoBehaviour
 
     private IEnumerator SpawnUnitWaveRoutine()
     {
-        // Cache levelWaveSO properties to reduce repeated access
-        var delayAtStart = levelWaveSO.DelayAtStart;
-        var delayBetweenWaves = levelWaveSO.DelayBetweenWaves;
-        var waveDatas = levelWaveSO.WaveDatas;
+        float delayAtStart = levelWaveSO.DelayAtStart;
+        float delayBetweenWaves = levelWaveSO.DelayBetweenWaves;
+        List<WaveData> waveDatas = levelWaveSO.WaveDatas;
 
-        // Wait before starting the waves
-        yield return new WaitForSeconds(delayAtStart);
+        yield return new WaitForSeconds(delayAtStart); // Initial delay before waves
 
-        // Iterate through each wave
-        for (int waveIndex = 0; waveIndex < waveDatas.Count; waveIndex++)
+        // Iterate through all waves
+        foreach (WaveData wave in waveDatas)
         {
-            var currentWave = waveDatas[waveIndex];
-            var waveUnitDatas = currentWave.WaveHeroDatas;
-
-            // Iterate through each hero data in the wave
-            for (int heroIndex = 0; heroIndex < waveUnitDatas.Count; heroIndex++)
-            {
-                var waveUnitData = waveUnitDatas[heroIndex];
-                var unitType = waveUnitData.UnitType;
-                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitType);
-
-                // Spawn the required number of units
-                for (int i = 0; i < waveUnitData.Count; i++)
-                {
-                    SpawnUnit(unitType, unitData);
-
-                    // Wait between waves
-                    float delayBetweenUnitSpawn = delayBetweenWaves * 0.01f;
-                    yield return new WaitForSeconds(delayBetweenUnitSpawn);
-                }
-            }
-
-            // Wait between waves
-            yield return new WaitForSeconds(delayBetweenWaves);
+            yield return StartCoroutine(SpawnUnitsForWave(wave));
+            yield return new WaitForSeconds(delayBetweenWaves); // Delay between waves
         }
     }
 
+    private IEnumerator SpawnUnitsForWave(WaveData waveData)
+    {
+        List<WaveHeroData> waveUnitDatas = waveData.WaveHeroDatas;
+        float delayBetweenUnitSpawn = levelWaveSO.DelayBetweenWaves * 0.01f;
+
+        foreach (WaveHeroData unitData in waveUnitDatas)
+        {
+            UnitData unitStatData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitData.UnitType);
+            if (unitStatData == null)
+            {
+                Debug.LogWarning("Unit data not found for hero: " + unitData.UnitType);
+                continue;
+            }
+
+            for (int i = 0; i < unitData.Count; i++)
+            {
+                SpawnUnit(unitData.UnitType, unitStatData);
+                yield return new WaitForSeconds(delayBetweenUnitSpawn);
+            }
+        }
+    }
 
     private void EnemyUnit_OnAnyEnemyUnitDead(Unit unit)
     {
@@ -108,16 +117,25 @@ public class EnemyUnitSpawner : MonoBehaviour
     {
         Vector3 offset = new Vector3(0, UnityEngine.Random.Range(-0.5f, 0.5f), 0);
         Unit spawnedUnit = UnitObjectPool.Instance.GetPooledObject(unitHero);
-        if (spawnedUnit)
-        {
-            unitData.DamageAmount = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitData.UnitHero).DamageAmount;
-            unitData.Health = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitData.UnitHero).Health;
 
-            spawnedUnit.transform.position = unitSpawnPoint.position + offset;
-            float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
-            float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
-            spawnedUnit.InitializeUnit(UnitType.Enemy, unitData, baseTransform.position, moveSpeed, attackSpeed);
-            spawnedUnits.Add(spawnedUnit);
+        if (spawnedUnit == null)
+        {
+            Debug.LogWarning("No available pooled object for unit: " + unitHero);
+            return;
         }
+
+        // Fetch and initialize unit stats
+        unitData.DamageAmount = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero).DamageAmount;
+        unitData.Health = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == unitHero).Health;
+
+        float moveSpeed = unitDataSO.MoveSpeedDataList.Find(i => i.UnitMoveSpeedType == unitData.MoveSpeedType).MoveSpeed;
+        float attackSpeed = unitDataSO.AttackSpeedDataList.Find(i => i.UnitAttackSpeedType == unitData.AttackSpeedType).AttackSpeed;
+
+        // Initialize unit with specific stats and position
+        spawnedUnit.transform.position = unitSpawnPoint.position + offset;
+        spawnedUnit.InitializeUnit(UnitType.Enemy, unitData, baseTransform.position,
+            0 /* attackDamageBoost */, 0 /* unitHealthBoost */, moveSpeed, attackSpeed);
+
+        spawnedUnits.Add(spawnedUnit);
     }
 }

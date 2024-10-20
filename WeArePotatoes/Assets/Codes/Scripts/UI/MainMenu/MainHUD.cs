@@ -149,6 +149,10 @@ public class MainHUD : Singleton<MainHUD>
 
     private void ToggleLevelSelectionMenu()
     {
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
+
         isLevelSelectionMenuOpen = !isLevelSelectionMenuOpen;
 
         if (isLevelSelectionMenuOpen)
@@ -210,10 +214,6 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OpenLevelSelectionMenu()
     {
-        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
-        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
-        if (isCardMenuOpen) ToggleCardMenu();
-
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
             mainMenuUI.Hide();
@@ -226,13 +226,9 @@ public class MainHUD : Singleton<MainHUD>
 
     private void CloseLevelSelectionMenu()
     {
-        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
-        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
-        if (isCardMenuOpen) ToggleCardMenu();
-
         fader.DOFade(1, 0.1f).OnComplete(() =>
         {
-            cardUI.Hide();
+            levelSelectionUI.Hide();
             mainMenuUI.Show();
             SetLevelUIState(true);
 

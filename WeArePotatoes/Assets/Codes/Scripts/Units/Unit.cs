@@ -24,6 +24,7 @@ public class Unit : MonoBehaviour, IAttackable
 
     private bool isIdle;
     private bool canMove = true;
+    private float attackDamageBoost;
     private float moveSpeed;
     private float attackSpeed;
     private float attackCooldown;
@@ -36,6 +37,7 @@ public class Unit : MonoBehaviour, IAttackable
     private Vector3 basePosition;
     private UnitData unitData;
 
+    public float AttackDamageBoost => attackDamageBoost;
     public IAttackable TargetUnit => targetUnit;
     public UnitData UnitData
     {
@@ -119,7 +121,7 @@ public class Unit : MonoBehaviour, IAttackable
     }
 
 
-    public void InitializeUnit(UnitType unitType, UnitData unitData, Vector3 basePosition, float moveSpeed, float attackSpeed)
+    public void InitializeUnit(UnitType unitType, UnitData unitData, Vector3 basePosition, float attackDamageBoost, float unitHealthBoost, float moveSpeed, float attackSpeed)
     {
         // Set the type
         this.unitType = unitType;
@@ -136,13 +138,16 @@ public class Unit : MonoBehaviour, IAttackable
         // Set the attack speed
         this.attackSpeed = attackSpeed;
 
+        // Set the attack damage
+        this.attackDamageBoost = attackDamageBoost;
+
         // Set the layer mask and tag
         gameObject.layer = LayerMask.NameToLayer(unitType.ToString());
         gameObject.tag = unitType.ToString();
         targetMask = LayerMask.GetMask(unitType == UnitType.Player ? "Enemy" : "Player");
 
         // Reset state
-        healthSystem.ResetHealth(this.unitData.Health);
+        healthSystem.ResetHealth(this.unitData.Health + unitHealthBoost);
 
         // Set the move direction
         moveDirection = unitType == UnitType.Player ? Vector3.right : Vector3.left;

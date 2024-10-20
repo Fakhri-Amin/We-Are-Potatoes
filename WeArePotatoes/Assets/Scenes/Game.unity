@@ -8517,7 +8517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6912455d731b9a24898f7899de8373cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelID: 
   unitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}
   baseTransform: {fileID: 8682061408249679707}
   unitSpawnPoint: {fileID: 6905638283452823388}

@@ -51,8 +51,8 @@ public class LevelManager : MonoBehaviour
         worldRenderer.sprite = worldSpriteReference.LevelMapSprites[(int)currentLevelWave.LevelMapType];
         groundRenderer.color = worldSpriteReference.GroundColor;
 
-        playerBase.Initialize(baseBuildingSO.BaseHealth);
-        enemyBase.Initialize(CurrentLevelWave.BaseHealth);
+        playerBase.Initialize(baseBuildingSO.BaseHealth + GameDataManager.Instance.GetTotalBaseHealthPercentage());
+        enemyBase.Initialize(CurrentLevelWave.BaseHealth + 0);
 
         waveProgressionBar.maxValue = currentLevelWave.DelayBetweenWaves * currentLevelWave.WaveDatas.Count;
 
