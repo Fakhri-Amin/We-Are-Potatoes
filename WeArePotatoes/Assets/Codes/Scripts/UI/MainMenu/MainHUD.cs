@@ -57,6 +57,9 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private TMP_Text cardCloseText;
     public bool isCardMenuOpen;
 
+    [Header("Quit UI")]
+    [SerializeField] private QuitConfirmationUI quitConfirmationUI;
+
     [SerializeField] private CanvasGroup fader;
 
     public new void Awake()
@@ -294,6 +297,6 @@ public class MainHUD : Singleton<MainHUD>
 
     private void QuitGame()
     {
-        Application.Quit();
+        quitConfirmationUI.Show();
     }
 }
