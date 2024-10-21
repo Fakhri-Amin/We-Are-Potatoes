@@ -32,23 +32,86 @@ MonoBehaviour:
     MaxCardAmount: 12
   CardDatas:
   - CardType: 0
-    Sprite: {fileID: 21300000, guid: 6f8ef910779b0e04b9e018bba63f6b36, type: 3}
-    Name: Vitamin C
-    Description: I came. I Saw. I conquered.
+    Sprite: {fileID: 21300000, guid: d110fc8492737064b9c86bf98f50f1a3, type: 3}
+    Name: Warrior Sword
+    Description: Forged in battle, sharp as honor.
+    EffectDescription: +4% All Potato Damage
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 0
+    Sprite: {fileID: 21300000, guid: 20aee7787a670aa4b98290ddbc15b6aa, type: 3}
+    Name: Tribe Blowgun
+    Description: Silent but deadly, the jungle's breath.
+    EffectDescription: +4% All Potato Damage
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 0
+    Sprite: {fileID: 21300000, guid: 490e7dff6c605f24a9f45ca1b340439a, type: 3}
+    Name: Dual Assassin Sword
+    Description: Two blades, one deadly precision.
+    EffectDescription: +4% All Potato Damage
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 0
+    Sprite: {fileID: 21300000, guid: cddf5fd8baef4bd489ae8dcf652b1d2d, type: 3}
+    Name: Elf Bow
+    Description: "Swift as the wind, sharp as a leaf\u2019s edge."
     EffectDescription: +4% All Potato Damage
     EffectAmount: 4
     EffectUpgradeAmount: 2
   - CardType: 1
-    Sprite: {fileID: 21300000, guid: 3d8e34000614548ee8d762ab21af11f3, type: 3}
-    Name: Water
-    Description: I came. I Saw. I conquered.
+    Sprite: {fileID: 21300000, guid: 14b90ca08dd232246acb5a440d50a268, type: 3}
+    Name: Wizard Hat
+    Description: The hat holds more magic than the wearer.
+    EffectDescription: +4% All Potato Health
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 1
+    Sprite: {fileID: 21300000, guid: 710cd18871b9f16438252add50b705f0, type: 3}
+    Name: Viking Hat
+    Description: Horns of fury, courage of the north.
+    EffectDescription: +4% All Potato Health
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 1
+    Sprite: {fileID: 21300000, guid: 38de54ebc327cff4685cb3d6fb32b664, type: 3}
+    Name: Sniper Hat
+    Description: One shot, one kill, no second chances.
+    EffectDescription: +4% All Potato Health
+    EffectAmount: 4
+    EffectUpgradeAmount: 2
+  - CardType: 1
+    Sprite: {fileID: 21300000, guid: d79b50a26116d234ab6508228068d0b5, type: 3}
+    Name: Tribe Hat
+    Description: Woven from the roots of the earth, worn by the spirits.
     EffectDescription: +4% All Potato Health
     EffectAmount: 4
     EffectUpgradeAmount: 2
   - CardType: 2
-    Sprite: {fileID: 21300000, guid: 17cc6aa2e89398a48bb7b45b4602407f, type: 3}
-    Name: Dirt
-    Description: I came. I Saw. I conquered.
+    Sprite: {fileID: 21300000, guid: 4101de354bb1d0e4ab9b6c933bb6ee0c, type: 3}
+    Name: Magic Book
+    Description: Every page tells a tale, every spell weaves a destiny.
+    EffectDescription: +10% Base Health
+    EffectAmount: 10
+    EffectUpgradeAmount: 5
+  - CardType: 2
+    Sprite: {fileID: 21300000, guid: 6acf1c79c105b4f41b9f17f14ad193b4, type: 3}
+    Name: Viking Axe
+    Description: Crush, cleave, conquer, repeat.
+    EffectDescription: +10% Base Health
+    EffectAmount: 10
+    EffectUpgradeAmount: 5
+  - CardType: 2
+    Sprite: {fileID: 21300000, guid: 27933bb141ab19e40bdb4a2d458be0a8, type: 3}
+    Name: Wooden Boomerang
+    Description: What goes around, hits harder the second time.
+    EffectDescription: +10% Base Health
+    EffectAmount: 10
+    EffectUpgradeAmount: 5
+  - CardType: 2
+    Sprite: {fileID: 21300000, guid: 92a479581993c654191f9b1dc5fe9c17, type: 3}
+    Name: Warrior Shield
+    Description: A fortress in hand, unyielding in battle.
     EffectDescription: +10% Base Health
     EffectAmount: 10
     EffectUpgradeAmount: 5

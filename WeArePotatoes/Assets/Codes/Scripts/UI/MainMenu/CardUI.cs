@@ -88,4 +88,14 @@ public class CardUI : MonoBehaviour
         GameDataManager.Instance.AddNewObtainedCard(cardData);
         Initialize();
     }
+
+    [Button]
+    public void AddAllCard()
+    {
+        foreach (var item in cardDatabaseSO.CardDatas)
+        {
+            GameDataManager.Instance.AddNewObtainedCard(item);
+            Initialize();
+        }
+    }
 }
