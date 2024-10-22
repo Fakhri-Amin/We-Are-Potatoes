@@ -306,6 +306,22 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
+    public bool TryGetObtainedCard(CardData cardData, out ObtainedCard obtainedCard)
+    {
+        var gameData = Data.Get<GameData>();
+
+        bool isAlreadyObtained = cardDatabaseSO.CardDatas.Contains(cardData);
+
+        if (!isAlreadyObtained)
+        {
+            obtainedCard = null;
+            return false;
+        }
+
+        obtainedCard = gameData.ObtainedCardList.Find(i => i.CardData.Name == cardData.Name);
+        return true;
+    }
+
     public float GetTotalAttackDamagePercentage()
     {
         var gameData = Data.Get<GameData>();

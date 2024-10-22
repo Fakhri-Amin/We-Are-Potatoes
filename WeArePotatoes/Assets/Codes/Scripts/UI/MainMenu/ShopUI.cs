@@ -17,6 +17,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Color nonActiveColor;
 
     [Header("Card UI")]
+    [SerializeField] private CardRevealUI cardRevealUI;
     [SerializeField] private Button cardButton;
     [SerializeField] private Transform cardLayoutTransform;
     [SerializeField] private Button oneCardButton;
@@ -76,11 +77,15 @@ public class ShopUI : MonoBehaviour
     private void BuyOneCard()
     {
         AudioManager.Instance.PlayClickFeedbacks();
+        cardRevealUI.Show();
+        cardRevealUI.InitializeOneCard();
     }
 
     private void BuyTenCard()
     {
         AudioManager.Instance.PlayClickFeedbacks();
+        cardRevealUI.Show();
+        cardRevealUI.InitializeTenCards();
     }
 
     private void PurchaseSmallCurrency()
