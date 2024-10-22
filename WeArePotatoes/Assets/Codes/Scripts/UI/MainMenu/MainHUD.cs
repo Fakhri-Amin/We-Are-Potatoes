@@ -11,6 +11,7 @@ using DG.Tweening;
 
 public class MainHUD : Singleton<MainHUD>
 {
+    [Header("Buttons")]
     [SerializeField] private Button battleButton;
     [SerializeField] private Button baseButton;
     [SerializeField] private Button shopButton;
@@ -22,8 +23,9 @@ public class MainHUD : Singleton<MainHUD>
     [Header("Main Menu")]
     [SerializeField] private MainMenuUI mainMenuUI;
 
-    [Header("Main Menu")]
-    [SerializeField] private TMP_Text coinText;
+    [Header("Currency")]
+    [SerializeField] private TMP_Text goldCoinText;
+    [SerializeField] private TMP_Text azureCoinText;
 
     [Header("Upgrade UI")]
     [SerializeField] private UpgradeUI upgradeUI;
@@ -70,6 +72,7 @@ public class MainHUD : Singleton<MainHUD>
     [Header("Quit UI")]
     [SerializeField] private QuitConfirmationUI quitConfirmationUI;
 
+    [Header("Others")]
     [SerializeField] private CanvasGroup fader;
 
     public new void Awake()
@@ -118,7 +121,8 @@ public class MainHUD : Singleton<MainHUD>
 
     private void Start()
     {
-        HandleCoinUpdate(GameDataManager.Instance.Coin);
+        HandleCoinUpdate(GameDataManager.Instance.GoldCoin);
+        HandleAzureUpdate(GameDataManager.Instance.AzureCoin);
 
         if (GameDataManager.Instance.IsThereNewPotato)
         {
@@ -134,17 +138,24 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OnEnable()
     {
-        GameDataManager.Instance.OnCoinUpdated += HandleCoinUpdate;
+        GameDataManager.Instance.OnGoldCoinUpdated += HandleCoinUpdate;
+        GameDataManager.Instance.OnAzureCoinUpdated += HandleAzureUpdate;
     }
 
     private void OnDisable()
     {
-        GameDataManager.Instance.OnCoinUpdated -= HandleCoinUpdate;
+        GameDataManager.Instance.OnGoldCoinUpdated -= HandleCoinUpdate;
+        GameDataManager.Instance.OnAzureCoinUpdated -= HandleAzureUpdate;
     }
 
     private void HandleCoinUpdate(int coin)
     {
-        coinText.text = coin.ToString();
+        goldCoinText.text = coin.ToString();
+    }
+
+    private void HandleAzureUpdate(int coin)
+    {
+        azureCoinText.text = coin.ToString();
     }
 
     private void ToggleShopMenu()

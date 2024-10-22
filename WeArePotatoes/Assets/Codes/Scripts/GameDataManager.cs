@@ -10,7 +10,8 @@ using Unity.VisualScripting;
 // [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : PersistentSingleton<GameDataManager>
 {
-    public event Action<int> OnCoinUpdated;
+    public event Action<int> OnGoldCoinUpdated;
+    public event Action<int> OnAzureCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public event Action<float, float> OnSeedProductionRateChanged;
     public event Action<float, float> OnBaseHealthChanged;
@@ -26,7 +27,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
     public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
     public int CoinCollected;
-    public int Coin;
+    public int GoldCoin;
+    public int AzureCoin;
     public float SeedProductionRate;
     public float BaseHealth;
     public float UpgradeSeedProductionRatePrice;
@@ -41,8 +43,11 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         SetInitialDefaultData();
 
-        Coin = gameData.Coin;
-        OnCoinUpdated?.Invoke(Coin);
+        GoldCoin = gameData.GoldCoin;
+        OnGoldCoinUpdated?.Invoke(GoldCoin);
+
+        AzureCoin = gameData.AzureCoin;
+        OnAzureCoinUpdated?.Invoke(AzureCoin);
 
         SelectedUnitList = gameData.SelectedUnitList;
         OnSelectedUnitListChanged?.Invoke(SelectedUnitList);
@@ -88,11 +93,19 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void ModifyMoney(float amount)
+    public void ModifyGoldCoin(float amount)
     {
-        Data.Get<GameData>().Coin += (int)amount;
-        Coin = Data.Get<GameData>().Coin;
-        OnCoinUpdated?.Invoke(Coin);
+        Data.Get<GameData>().GoldCoin += (int)amount;
+        GoldCoin = Data.Get<GameData>().GoldCoin;
+        OnGoldCoinUpdated?.Invoke(GoldCoin);
+        Save();
+    }
+
+    public void ModifyAzureCoin(float amount)
+    {
+        Data.Get<GameData>().AzureCoin += (int)amount;
+        AzureCoin = Data.Get<GameData>().AzureCoin;
+        OnAzureCoinUpdated?.Invoke(AzureCoin);
         Save();
     }
 

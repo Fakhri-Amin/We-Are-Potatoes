@@ -47,9 +47,3 @@ public class UIEffectObjectPool : Singleton<UIEffectObjectPool>
         effectObjectPool.Find(i => i.Type == type).ObjectPool.Release(image);
     }
 }
-
-public enum CurrencyType
-{
-    GoldCoin,
-    RareCoin
-}

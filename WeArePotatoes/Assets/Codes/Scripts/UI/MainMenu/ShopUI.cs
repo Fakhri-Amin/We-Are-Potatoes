@@ -23,6 +23,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Color nonActiveColor;
 
     [Header("Card UI")]
+    [SerializeField] private ShopDatabaseSO shopDatabaseSO;
     [Tooltip("Script that manages the card reveal animations.")]
     [SerializeField] private CardRevealUI cardRevealUI;
     [Tooltip("Button to switch to card view.")]
@@ -33,6 +34,8 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Button oneCardButton;
     [Tooltip("Button to buy ten cards.")]
     [SerializeField] private Button tenCardsButton;
+    [SerializeField] private TMP_Text oneCardPriceText;
+    [SerializeField] private TMP_Text tenCardsPriceText;
 
     [Header("Currency UI")]
     [Tooltip("Button to switch to currency view.")]
@@ -68,6 +71,9 @@ public class ShopUI : MonoBehaviour
         // Initialize UI to card view
         SetActiveLayout(cardLayoutTransform, cardButton, currencyLayoutTransform, currencyButton);
         panel.gameObject.SetActive(false); // Hide panel by default
+
+        oneCardPriceText.text = shopDatabaseSO.OneCardPrice.ToString();
+        tenCardsPriceText.text = shopDatabaseSO.TenCardsPrice.ToString();
     }
 
     /// <summary>
@@ -94,8 +100,15 @@ public class ShopUI : MonoBehaviour
     private void BuyOneCard()
     {
         AudioManager.Instance.PlayClickFeedbacks();
-        cardRevealUI.Show();
-        StartCoroutine(cardRevealUI.InitializeOneCard());
+
+        var gameDataManager = GameDataManager.Instance;
+
+        if (gameDataManager.AzureCoin >= shopDatabaseSO.OneCardPrice)
+        {
+            cardRevealUI.Show();
+            StartCoroutine(cardRevealUI.InitializeOneCard());
+            gameDataManager.ModifyAzureCoin(-shopDatabaseSO.OneCardPrice);
+        }
     }
 
     /// <summary>
@@ -104,8 +117,15 @@ public class ShopUI : MonoBehaviour
     private void BuyTenCard()
     {
         AudioManager.Instance.PlayClickFeedbacks();
-        cardRevealUI.Show();
-        StartCoroutine(cardRevealUI.InitializeTenCards());
+
+        var gameDataManager = GameDataManager.Instance;
+
+        if (gameDataManager.AzureCoin >= shopDatabaseSO.TenCardsPrice)
+        {
+            cardRevealUI.Show();
+            StartCoroutine(cardRevealUI.InitializeTenCards());
+            gameDataManager.ModifyAzureCoin(-shopDatabaseSO.TenCardsPrice);
+        }
     }
 
     /// <summary>

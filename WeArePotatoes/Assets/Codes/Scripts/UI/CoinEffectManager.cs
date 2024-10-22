@@ -65,7 +65,7 @@ public class CoinEffectManager : MonoBehaviour
             spawnedCoinImage.transform.DOMove(coinEndPosition.position, moveDuration).SetEase(moveEase).OnComplete(() =>
             {
                 UIEffectObjectPool.Instance.ReturnToPool(CurrencyType.GoldCoin, spawnedCoinImage);
-                GameDataManager.Instance.ModifyMoney(singleCoinAmount);
+                GameDataManager.Instance.ModifyGoldCoin(singleCoinAmount);
                 AudioManager.Instance.PlayCoinAddedFeedbacks();
             });
         });

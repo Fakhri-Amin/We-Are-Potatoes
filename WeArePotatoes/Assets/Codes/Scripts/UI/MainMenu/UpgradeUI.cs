@@ -64,22 +64,22 @@ public class UpgradeUI : MonoBehaviour
 
     private void UpgradeSeedProductionRate()
     {
+        AudioManager.Instance.PlayCoinFeedbacks();
         var gameDataManager = GameDataManager.Instance;
-        if (gameDataManager.Coin >= gameDataManager.UpgradeSeedProductionRatePrice)
+        if (gameDataManager.GoldCoin >= gameDataManager.UpgradeSeedProductionRatePrice)
         {
-            AudioManager.Instance.PlayCoinFeedbacks();
-            gameDataManager.ModifyMoney(-gameDataManager.UpgradeSeedProductionRatePrice);
+            gameDataManager.ModifyGoldCoin(-gameDataManager.UpgradeSeedProductionRatePrice);
             gameDataManager.UpgradeSeedProductionRate();
         }
     }
 
     private void UpgradeBaseHealth()
     {
+        AudioManager.Instance.PlayCoinFeedbacks();
         var gameDataManager = GameDataManager.Instance;
-        if (gameDataManager.Coin >= gameDataManager.UpgradeBaseHealthPrice)
+        if (gameDataManager.GoldCoin >= gameDataManager.UpgradeBaseHealthPrice)
         {
-            AudioManager.Instance.PlayCoinFeedbacks();
-            gameDataManager.ModifyMoney(-gameDataManager.UpgradeBaseHealthPrice);
+            gameDataManager.ModifyGoldCoin(-gameDataManager.UpgradeBaseHealthPrice);
             gameDataManager.UpgradeBaseHealth();
         }
     }
