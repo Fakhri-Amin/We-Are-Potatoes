@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601aa9f6cda3574d96c09241def04f0, type: 3}
   m_Name: ShopDatabaseSO
   m_EditorClassIdentifier: 
-  OneCardPrice: 0
-  TenCardsPrice: 0
+  OneCardPrice: 100
+  TenCardsPrice: 950
