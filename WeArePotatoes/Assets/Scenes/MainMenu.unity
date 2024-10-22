@@ -1449,9 +1449,9 @@ MonoBehaviour:
   currencyButton: {fileID: 1354585205}
   currencyLayoutTransform: {fileID: 1465894045}
   smallCurrencyButton: {fileID: 12457076}
-  mediumCurrencysButton: {fileID: 958960140}
-  bigCurrencysButton: {fileID: 597503204}
-  watchAdsCurrencysButton: {fileID: 1117587165}
+  mediumCurrencyButton: {fileID: 958960140}
+  bigCurrencyButton: {fileID: 597503204}
+  watchAdsCurrencyButton: {fileID: 1117587165}
 --- !u!1 &52509190
 GameObject:
   m_ObjectHideFlags: 0
@@ -12126,6 +12126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc7f7372541fd84d90dc614e439eb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 498513456}
   cardIcon: {fileID: 431105309}
   cardLevelText: {fileID: 464360568}
 --- !u!1 &356137475
@@ -14920,6 +14921,7 @@ MonoBehaviour:
   panel: {fileID: 852609499}
   cardParent: {fileID: 612434674}
   cardRevealSlotTemplate: {fileID: 354734716}
+  continueText: {fileID: 1500519726}
 --- !u!1 &446769914
 GameObject:
   m_ObjectHideFlags: 0
@@ -16332,6 +16334,7 @@ GameObject:
   - component: {fileID: 498513455}
   - component: {fileID: 498513454}
   - component: {fileID: 498513453}
+  - component: {fileID: 498513456}
   m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
@@ -16412,6 +16415,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498513450}
   m_CullTransparentMesh: 1
+--- !u!225 &498513456
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498513450}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &499915771
 GameObject:
   m_ObjectHideFlags: 0
@@ -52266,6 +52281,7 @@ GameObject:
   - component: {fileID: 1500519723}
   - component: {fileID: 1500519725}
   - component: {fileID: 1500519724}
+  - component: {fileID: 1500519726}
   m_Layer: 0
   m_Name: TapToContinue
   m_TagString: Untagged
@@ -52389,6 +52405,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500519722}
   m_CullTransparentMesh: 0
+--- !u!225 &1500519726
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500519722}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1507419542
 GameObject:
   m_ObjectHideFlags: 0

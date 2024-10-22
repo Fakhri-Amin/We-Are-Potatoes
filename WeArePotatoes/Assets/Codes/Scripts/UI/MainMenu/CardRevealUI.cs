@@ -26,6 +26,8 @@ public class CardRevealUI : MonoBehaviour
     [Tooltip("Template for the card reveal slot UI.")]
     [SerializeField] private CardRevealSlotUI cardRevealSlotTemplate;
 
+    [SerializeField] private CanvasGroup continueText;
+
     private List<CardRevealSlotUI> cardRevealSlotUIs = new List<CardRevealSlotUI>();
 
     private void Awake()
@@ -39,6 +41,8 @@ public class CardRevealUI : MonoBehaviour
         // Initialize UI state
         cardRevealSlotTemplate.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
+        continueText.alpha = 0f;
+        panel.GetComponent<Button>().interactable = false;
     }
 
     /// <summary>
@@ -88,6 +92,9 @@ public class CardRevealUI : MonoBehaviour
             slotUI.Show();
             yield return new WaitForSeconds(0.1f);
         }
+
+        continueText.DOFade(1, 0.1f);
+        panel.GetComponent<Button>().interactable = true;
     }
 
     /// <summary>
@@ -111,6 +118,8 @@ public class CardRevealUI : MonoBehaviour
         panel.DOFade(0, 0.1f).OnComplete(() =>
         {
             panel.gameObject.SetActive(false);
+            continueText.alpha = 0f;
+            panel.GetComponent<Button>().interactable = false;
         });
     }
 
