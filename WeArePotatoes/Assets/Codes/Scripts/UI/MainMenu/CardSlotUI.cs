@@ -30,7 +30,11 @@ public class CardSlotUI : MonoBehaviour
         cardAmountSlider.value = obtainedCard.CardAmount;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => onButtonClicked());
+        button.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            onButtonClicked();
+        });
 
         if (obtainedCard.CardAmount >= cardLevelConfig.MaxCardAmount)
         {

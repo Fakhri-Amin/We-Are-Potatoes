@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 12457077}
   - component: {fileID: 12457076}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1398,6 +1398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37318897}
+  - component: {fileID: 37318898}
   m_Layer: 0
   m_Name: ShopUI
   m_TagString: Untagged
@@ -1425,6 +1426,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &37318898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37318896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73303336da508944fbf086b6ec46e393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1474644656}
+  activeColor: {r: 0.1764706, g: 0.19215688, b: 0.227451, a: 1}
+  nonActiveColor: {r: 0.3254902, g: 0.3529412, b: 0.4117647, a: 1}
+  cardButton: {fileID: 252768387}
+  cardLayoutTransform: {fileID: 1792590145}
+  oneCardButton: {fileID: 1659914970}
+  tenCardsButton: {fileID: 160266954}
+  currencyButton: {fileID: 1354585205}
+  currencyLayoutTransform: {fileID: 1465894045}
+  smallCurrencyButton: {fileID: 12457076}
+  mediumCurrencysButton: {fileID: 958960140}
+  bigCurrencysButton: {fileID: 597503204}
+  watchAdsCurrencysButton: {fileID: 1117587165}
 --- !u!1 &52509190
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,7 +5509,7 @@ GameObject:
   - component: {fileID: 160266954}
   - component: {fileID: 160266953}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8468,10 +8494,10 @@ RectTransform:
   - {fileID: 1678092347}
   m_Father: {fileID: 892609501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 128.78448, y: -121.3685}
-  m_SizeDelta: {x: 257.56897, y: 242.737}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &252768387
 MonoBehaviour:
@@ -8495,10 +8521,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -8545,7 +8571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3254902, g: 0.3529412, b: 0.41176474, a: 1}
+  m_Color: {r: 0.3254902, g: 0.3529412, b: 0.4117647, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9684,9 +9710,9 @@ RectTransform:
   - {fileID: 1569398304}
   m_Father: {fileID: 72372963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 230, y: -147.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 460, y: 186.767}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &282427454
@@ -12833,10 +12859,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 834684540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220.05, y: -37.081}
-  m_SizeDelta: {x: 179.9, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377671243
 MonoBehaviour:
@@ -12887,8 +12913,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294098729
-  m_fontColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
+    rgba: 4294962356
+  m_fontColor: {r: 0.7075472, g: 0.92579556, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -19055,7 +19081,7 @@ GameObject:
   - component: {fileID: 597503205}
   - component: {fileID: 597503204}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23385,10 +23411,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 104936875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220.05, y: -37.081}
-  m_SizeDelta: {x: 179.9, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700818861
 MonoBehaviour:
@@ -23439,8 +23465,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294098729
-  m_fontColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
+    rgba: 4294962356
+  m_fontColor: {r: 0.7075472, g: 0.92579556, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -27973,13 +27999,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838515970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.003921569}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -30046,10 +30072,10 @@ RectTransform:
   - {fileID: 1354585204}
   m_Father: {fileID: 2092505401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 168.78448, y: -50}
-  m_SizeDelta: {x: 257.56897, y: 520.474}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &892609502
 MonoBehaviour:
@@ -32467,7 +32493,7 @@ GameObject:
   - component: {fileID: 958960141}
   - component: {fileID: 958960140}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37448,7 +37474,7 @@ GameObject:
   - component: {fileID: 1117587165}
   - component: {fileID: 1117587164}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38736,6 +38762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleButton: {fileID: 350156981}
   baseButton: {fileID: 1797982424}
+  shopButton: {fileID: 1542081264}
   potatoSelectionButton: {fileID: 1747221827}
   upgradeButton: {fileID: 908856814}
   cardButton: {fileID: 401216229}
@@ -38767,6 +38794,12 @@ MonoBehaviour:
   cardCloseIcon: {fileID: 1957219833}
   cardCloseText: {fileID: 1393519972}
   isCardMenuOpen: 0
+  shopUI: {fileID: 37318898}
+  shopIcon: {fileID: 696778920}
+  shopText: {fileID: 1627345596}
+  shopCloseIcon: {fileID: 498260891}
+  shopCloseText: {fileID: 502132648}
+  isShopMenuOpen: 0
   quitConfirmationUI: {fileID: 1493417487}
   fader: {fileID: 958510347}
 --- !u!114 &1138094305
@@ -43767,10 +43800,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 834684540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 82.55, y: -37.081}
-  m_SizeDelta: {x: 145.1, y: 58.591}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 58.591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283794213
 MonoBehaviour:
@@ -44152,10 +44185,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 21291727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -37.081}
-  m_SizeDelta: {x: 300, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289795374
 MonoBehaviour:
@@ -46870,10 +46903,10 @@ RectTransform:
   - {fileID: 242617332}
   m_Father: {fileID: 892609501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 128.78448, y: -399.1055}
-  m_SizeDelta: {x: 257.56897, y: 242.737}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354585205
 MonoBehaviour:
@@ -46897,10 +46930,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -46947,7 +46980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1764706, g: 0.19215688, b: 0.227451, a: 1}
+  m_Color: {r: 0.3254902, g: 0.3529412, b: 0.4117647, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -50054,10 +50087,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 499915772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 82.55, y: -37.081}
-  m_SizeDelta: {x: 145.1, y: 58.591}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 58.591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467795404
 MonoBehaviour:
@@ -52012,10 +52045,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 499915772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220.05, y: -37.081}
-  m_SizeDelta: {x: 179.9, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1518137240
 MonoBehaviour:
@@ -52066,8 +52099,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294098729
-  m_fontColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
+    rgba: 4294962356
+  m_fontColor: {r: 0.7075472, g: 0.92579556, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -53249,10 +53282,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1493512059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.66501, y: -37.081}
-  m_SizeDelta: {x: 164.67, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1549956861
 MonoBehaviour:
@@ -53303,8 +53336,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294098729
-  m_fontColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
+    rgba: 4294962356
+  m_fontColor: {r: 0.7075472, g: 0.92579556, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -56892,10 +56925,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 277666469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -37.081}
-  m_SizeDelta: {x: 300, y: 67.411}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 67.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1645180703
 MonoBehaviour:
@@ -57313,7 +57346,7 @@ GameObject:
   - component: {fileID: 1659914970}
   - component: {fileID: 1659914969}
   m_Layer: 0
-  m_Name: Button_Price_Gem
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65432,10 +65465,10 @@ RectTransform:
   - {fileID: 860352174}
   m_Father: {fileID: 22044887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 708.4845, y: -204.5}
-  m_SizeDelta: {x: 235, y: 279}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1884660916
 MonoBehaviour:
@@ -67381,10 +67414,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1493512059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.165, y: -37.081}
-  m_SizeDelta: {x: 180.33, y: 58.591}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 58.591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938054152
 MonoBehaviour:
@@ -68845,10 +68878,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 104936875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 82.55, y: -37.081}
-  m_SizeDelta: {x: 145.1, y: 58.591}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 58.591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1982636699
 MonoBehaviour:
@@ -72562,7 +72595,7 @@ GameObject:
   - component: {fileID: 2092505401}
   - component: {fileID: 2092505402}
   m_Layer: 0
-  m_Name: Panel_Left
+  m_Name: LeftButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73423,8 +73456,8 @@ RectTransform:
   - {fileID: 134729992}
   - {fileID: 1991975227}
   - {fileID: 1334266293}
-  - {fileID: 1465894045}
   - {fileID: 1792590145}
+  - {fileID: 1465894045}
   - {fileID: 2092505401}
   - {fileID: 1327827712}
   m_Father: {fileID: 1890450630}

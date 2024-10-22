@@ -13,6 +13,7 @@ public class MainHUD : Singleton<MainHUD>
 {
     [SerializeField] private Button battleButton;
     [SerializeField] private Button baseButton;
+    [SerializeField] private Button shopButton;
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button cardButton;
@@ -57,6 +58,15 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private TMP_Text cardCloseText;
     public bool isCardMenuOpen;
 
+    [Header("Shop UI")]
+    [SerializeField] private ShopUI shopUI;
+    [SerializeField] private Image shopIcon;
+    [SerializeField] private TMP_Text shopText;
+    [SerializeField] private Image shopCloseIcon;
+    [SerializeField] private TMP_Text shopCloseText;
+    public bool isShopMenuOpen;
+
+
     [Header("Quit UI")]
     [SerializeField] private QuitConfirmationUI quitConfirmationUI;
 
@@ -66,6 +76,11 @@ public class MainHUD : Singleton<MainHUD>
     {
         base.Awake();
 
+        shopButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            ToggleShopMenu();
+        });
         upgradeButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClickFeedbacks();
@@ -132,8 +147,23 @@ public class MainHUD : Singleton<MainHUD>
         coinText.text = coin.ToString();
     }
 
+    private void ToggleShopMenu()
+    {
+        if (isUpgradeMenuOpen) ToggleUpgradeMenu();
+        if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
+        if (isCardMenuOpen) ToggleCardMenu();
+
+        isShopMenuOpen = !isShopMenuOpen;
+
+        if (isShopMenuOpen)
+            OpenShopMenu();
+        else
+            CloseShopMenu();
+    }
+
     private void ToggleUpgradeMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isCardMenuOpen) ToggleCardMenu();
 
@@ -147,6 +177,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void TogglePotatoSelectionMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
         if (isCardMenuOpen) ToggleCardMenu();
 
@@ -160,6 +191,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void ToggleLevelSelectionMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
         if (isCardMenuOpen) ToggleCardMenu();
@@ -174,6 +206,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void ToggleCardMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
 
@@ -183,6 +216,18 @@ public class MainHUD : Singleton<MainHUD>
             OpenCardMenu();
         else
             CloseCardMenu();
+    }
+
+    private void OpenShopMenu()
+    {
+        shopUI.Show();
+        SetShopUIState(false);
+    }
+
+    private void CloseShopMenu()
+    {
+        shopUI.Hide();
+        SetShopUIState(true);
     }
 
     private void OpenUpgradeMenu()
@@ -225,6 +270,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OpenLevelSelectionMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
         if (isCardMenuOpen) ToggleCardMenu();
@@ -245,6 +291,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void CloseLevelSelectionMenu()
     {
+        if (isShopMenuOpen) ToggleShopMenu();
         if (isPotatoSelectionMenuOpen) TogglePotatoSelectionMenu();
         if (isUpgradeMenuOpen) ToggleUpgradeMenu();
         if (isCardMenuOpen) ToggleCardMenu();
@@ -261,6 +308,14 @@ public class MainHUD : Singleton<MainHUD>
             fader.DOFade(0, 0.1f);
         });
 
+    }
+
+    private void SetShopUIState(bool isShopMenuClosed)
+    {
+        shopIcon.gameObject.SetActive(isShopMenuClosed);
+        shopText.gameObject.SetActive(isShopMenuClosed);
+        shopCloseIcon.gameObject.SetActive(!isShopMenuClosed);
+        shopCloseText.gameObject.SetActive(!isShopMenuClosed);
     }
 
     private void SetUpgradeUIState(bool isSelectionClosed)
