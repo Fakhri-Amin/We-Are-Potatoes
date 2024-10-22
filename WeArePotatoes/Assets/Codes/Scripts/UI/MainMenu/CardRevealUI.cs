@@ -55,7 +55,7 @@ public class CardRevealUI : MonoBehaviour
             CardLevelConfig cardLevelConfig = cardDatabaseSO.CardLevelConfigList.Find(i => i.Level == obtainedCard.Level);
 
             cardRevealSlotUI.gameObject.SetActive(true);
-            cardRevealSlotUI.Initialize(obtainedCard, cardLevelConfig, cardData.Sprite);
+            cardRevealSlotUI.Initialize(obtainedCard, cardData.Sprite);
         }
     }
 
@@ -83,7 +83,7 @@ public class CardRevealUI : MonoBehaviour
             CardLevelConfig cardLevelConfig = cardDatabaseSO.CardLevelConfigList.Find(i => i.Level == obtainedCard.Level);
 
             cardRevealSlotUI.gameObject.SetActive(true);
-            cardRevealSlotUI.Initialize(obtainedCard, cardLevelConfig, cardData.Sprite);
+            cardRevealSlotUI.Initialize(obtainedCard, cardData.Sprite);
         }
     }
 
