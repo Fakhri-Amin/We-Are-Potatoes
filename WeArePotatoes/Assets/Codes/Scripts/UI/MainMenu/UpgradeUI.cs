@@ -68,7 +68,7 @@ public class UpgradeUI : MonoBehaviour
         var gameDataManager = GameDataManager.Instance;
         if (gameDataManager.GoldCoin >= gameDataManager.UpgradeSeedProductionRatePrice)
         {
-            gameDataManager.ModifyGoldCoin(-gameDataManager.UpgradeSeedProductionRatePrice);
+            gameDataManager.ModifyCoin(CurrencyType.GoldCoin, -gameDataManager.UpgradeSeedProductionRatePrice);
             gameDataManager.UpgradeSeedProductionRate();
         }
     }
@@ -79,7 +79,7 @@ public class UpgradeUI : MonoBehaviour
         var gameDataManager = GameDataManager.Instance;
         if (gameDataManager.GoldCoin >= gameDataManager.UpgradeBaseHealthPrice)
         {
-            gameDataManager.ModifyGoldCoin(-gameDataManager.UpgradeBaseHealthPrice);
+            gameDataManager.ModifyCoin(CurrencyType.GoldCoin, -gameDataManager.UpgradeBaseHealthPrice);
             gameDataManager.UpgradeBaseHealth();
         }
     }

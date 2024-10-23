@@ -34,7 +34,8 @@ public class DataEditor : EditorWindow
         toggleStyle.hover.textColor = toggleStyle.normal.textColor;
         toggleStyle.active.textColor = toggleStyle.normal.textColor;
 
-        dataFoldouts = data.Datas.Select(x => false).ToList();
+        // Set the x to false if you want to the foldout to be closed on open
+        dataFoldouts = data.Datas.Select(x => true).ToList();
 
         if (serializedObject != null)
         {

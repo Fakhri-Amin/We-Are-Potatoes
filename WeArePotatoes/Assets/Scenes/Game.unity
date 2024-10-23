@@ -1211,9 +1211,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64cce07ef5318c446b744e11bee60a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCollectedText: {fileID: 1737099406}
-  continueButton: {fileID: 1506878507}
+  gameAssetSO: {fileID: 11400000, guid: ee2a09a653d67a749a01afc9e16f230b, type: 2}
   popup: {fileID: 1506878508}
+  coinCollectedText: {fileID: 1737099406}
+  coinImage: {fileID: 1985727868}
+  coinOutline: {fileID: 1913178877}
+  continueButton: {fileID: 1506878507}
+  goldCoinOutlineColor: {r: 0.827451, g: 0.5647059, b: 0.24313726, a: 1}
+  azureCoinOutlineColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
 --- !u!1 &211844587
 GameObject:
   m_ObjectHideFlags: 0

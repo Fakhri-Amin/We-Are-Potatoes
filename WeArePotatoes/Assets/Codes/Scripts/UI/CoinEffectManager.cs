@@ -8,7 +8,8 @@ using Sirenix.OdinInspector;
 public class CoinEffectManager : MonoBehaviour
 {
     [SerializeField] private Transform coinStartPosition;
-    [SerializeField] private Transform coinEndPosition;
+    [SerializeField] private Transform goldCoinEndPosition;
+    [SerializeField] private Transform azureCoinEndPosition;
     [SerializeField] private float moveDuration;
     [SerializeField] private Ease scaleEase = Ease.InSine;
     [SerializeField] private Ease moveEase = Ease.InBack;
@@ -16,58 +17,77 @@ public class CoinEffectManager : MonoBehaviour
     [SerializeField] private float coinSpawnTotalDelay;
 
     private float coinSpawnDelay;
-    private int totalCollectedCoins;
+    private int totalGoldCoinCollected;
+    private int totalAzureCoinCollected;
 
     private void Start()
     {
-        totalCollectedCoins = GameDataManager.Instance.CoinCollected;
+        totalGoldCoinCollected = GameDataManager.Instance.GoldCoinCollected;
+        totalAzureCoinCollected = GameDataManager.Instance.AzureCoinCollected;
 
-        if (totalCollectedCoins <= 0) return;
-        StartCoroutine(OnCoinSpawn());
+        if (totalGoldCoinCollected > 0)
+        {
+            StartCoroutine(SpawnCoins(CurrencyType.GoldCoin, totalGoldCoinCollected));
+        }
+
+        if (totalAzureCoinCollected > 0)
+        {
+            StartCoroutine(SpawnCoins(CurrencyType.AzureCoin, totalAzureCoinCollected));
+        }
     }
 
-    private IEnumerator OnCoinSpawn()
+    private IEnumerator SpawnCoins(CurrencyType currencyType, int totalCoins)
     {
-        yield return new WaitForSeconds(0f);
-
         AudioManager.Instance.PlayCoinSpawnFeedbacks();
 
         coinSpawnDelay = coinSpawnTotalDelay / coinAmount;
 
         // Calculate the integer part of each coin's amount
-        float singleCoinAmount = totalCollectedCoins / coinAmount;
+        float singleCoinAmount = totalCoins / (float)coinAmount;
 
         // Calculate the remainder that needs to be distributed
-        float remainder = totalCollectedCoins % coinAmount;
+        float remainder = totalCoins % coinAmount;
 
         for (int i = 0; i < coinAmount; i++)
         {
             // Add 1 to some coins to account for the remainder
             float amountToAdd = singleCoinAmount + (i < remainder ? 1 : 0);
-            SpawnCoin(amountToAdd, i * coinSpawnDelay);
+            SpawnCoin(currencyType, amountToAdd, i * coinSpawnDelay);
         }
+
+        yield return new WaitForSeconds(coinAmount * coinSpawnDelay);
 
         GameDataManager.Instance.ClearCoinCollected();
     }
 
-
-    private void SpawnCoin(float singleCoinAmount, float delay)
+    private void SpawnCoin(CurrencyType currencyType, float coinAmount, float delay)
     {
-        var spawnedCoinImage = UIEffectObjectPool.Instance.GetPooledObject(CurrencyType.GoldCoin);
+        Image spawnedCoinImage = UIEffectObjectPool.Instance.GetPooledObject(currencyType);
 
-        var offset = new Vector3(Random.Range(-80f, 80f), Random.Range(-80f, 80f), 0);
+        // Generate a random offset to scatter the coins
+        var offset = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f), 0);
         var startPosition = coinStartPosition.transform.position + offset;
         spawnedCoinImage.transform.position = startPosition;
 
-        spawnedCoinImage.transform.localScale = new Vector3(0, 0, 0);
-        spawnedCoinImage.transform.DOScale(Vector3.one, delay).SetDelay(0.5f).SetEase(scaleEase).OnComplete(() =>
-        {
-            spawnedCoinImage.transform.DOMove(coinEndPosition.position, moveDuration).SetEase(moveEase).OnComplete(() =>
+        Transform endPosition = currencyType == CurrencyType.GoldCoin ? goldCoinEndPosition : azureCoinEndPosition;
+
+        // Set initial scale to 0 (shrunk) and then animate to full size
+        spawnedCoinImage.transform.localScale = Vector3.zero;
+        spawnedCoinImage.transform.DOScale(Vector3.one, delay)
+            .SetDelay(0.5f)
+            .SetEase(scaleEase)
+            .OnComplete(() =>
             {
-                UIEffectObjectPool.Instance.ReturnToPool(CurrencyType.GoldCoin, spawnedCoinImage);
-                GameDataManager.Instance.ModifyGoldCoin(singleCoinAmount);
-                AudioManager.Instance.PlayCoinAddedFeedbacks();
+                // Animate the coin to move towards the end position
+                spawnedCoinImage.transform.DOMove(endPosition.position, moveDuration)
+                    .SetEase(moveEase)
+                    .OnComplete(() =>
+                    {
+                        // Return the coin image to the pool and add the coin amount
+                        UIEffectObjectPool.Instance.ReturnToPool(currencyType, spawnedCoinImage);
+                        GameDataManager.Instance.ModifyCoin(currencyType, coinAmount);
+                        AudioManager.Instance.PlayCoinAddedFeedbacks();
+                    });
             });
-        });
     }
 }

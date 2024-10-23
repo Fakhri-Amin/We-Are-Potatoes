@@ -84,12 +84,12 @@ public class CardDetailInfoUI : MonoBehaviour
 
     public void Hide()
     {
+        AudioManager.Instance.PlayClickFeedbacks();
+
         panel.alpha = 1;
         panel.DOFade(0, 0.1f).OnComplete(() =>
         {
             panel.gameObject.SetActive(false);
         });
-
-        AudioManager.Instance.PlayClickFeedbacks();
     }
 }

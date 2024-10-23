@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53cacb3c3b794247a65da46ed0aa372, type: 3}
   m_Name: GameAssetSO
   m_EditorClassIdentifier: 
+  GoldCoinSprite: {fileID: 21300000, guid: 5684db2a4e7d52f489a4e92b8310c3c3, type: 3}
+  AzureCoinSprite: {fileID: 21300000, guid: 534e2fea02a200744a476a995f2b62db, type: 3}
   WorldSpriteReferences:
   - MapType: 0
     GroundColor: {r: 1, g: 0.7411765, b: 0.44705883, a: 1}

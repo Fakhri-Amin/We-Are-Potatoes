@@ -18,6 +18,8 @@ public class UnitSelectionUI : MonoBehaviour
 
     [SerializeField] private CanvasGroup panel;
     [SerializeField] private UnitDataSO unitDataSO;
+    [SerializeField] private UnitDetailInfoUI unitDetailInfoUI;
+
 
     [Header("Unit Selected UI")]
     [SerializeField] private List<UnitSelectedSlotUI> selectedSlotUIs = new List<UnitSelectedSlotUI>();
@@ -29,12 +31,9 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private UnitSelectionGuideUI unitSelectionGuideUI;
     [SerializeField] private Button unitSelectionGuideButton;
 
-    private UnitDetailInfoUI unitDetailInfoUI;
 
     private void Awake()
     {
-        unitDetailInfoUI = GetComponent<UnitDetailInfoUI>();
-
         unitSelectionGuideButton.onClick.AddListener(() =>
         {
             unitSelectionGuideUI.Show();

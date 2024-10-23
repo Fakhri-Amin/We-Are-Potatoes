@@ -26,7 +26,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
     public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
-    public int CoinCollected;
+    public int GoldCoinCollected;
+    public int AzureCoinCollected;
     public int GoldCoin;
     public int AzureCoin;
     public float SeedProductionRate;
@@ -41,8 +42,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         var gameData = Data.Get<GameData>();
 
-        SetInitialDefaultData();
-
         GoldCoin = gameData.GoldCoin;
         OnGoldCoinUpdated?.Invoke(GoldCoin);
 
@@ -56,6 +55,8 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         CompletedLevelMapList = gameData.CompletedLevelMapList;
 
         ObtainedCardList = gameData.ObtainedCardList;
+
+        SetInitialDefaultData();
 
         UpdateSeedProductionRate();
         UpdateBaseHealth();
@@ -93,7 +94,19 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void ModifyGoldCoin(float amount)
+    public void ModifyCoin(CurrencyType currencyType, float amount)
+    {
+        if (currencyType == CurrencyType.GoldCoin)
+        {
+            ModifyGoldCoin(amount);
+        }
+        else if (currencyType == CurrencyType.AzureCoin)
+        {
+            ModifyAzureCoin(amount);
+        }
+    }
+
+    private void ModifyGoldCoin(float amount)
     {
         Data.Get<GameData>().GoldCoin += (int)amount;
         GoldCoin = Data.Get<GameData>().GoldCoin;
@@ -101,7 +114,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void ModifyAzureCoin(float amount)
+    private void ModifyAzureCoin(float amount)
     {
         Data.Get<GameData>().AzureCoin += (int)amount;
         AzureCoin = Data.Get<GameData>().AzureCoin;
@@ -217,6 +230,15 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
+    public List<int> GetCompletedLevelsForMap(MapType mapType)
+    {
+        return CompletedLevelMapList.Find(i => i.MapType == mapType)?.CompletedLevelList;
+    }
+
+    public bool IsPreviousMapCompleted(MapType previousMap)
+    {
+        return CompletedLevelMapList.Find(i => i.MapType == previousMap)?.HasCompletedAllLevels ?? false;
+    }
 
     public void UpdateSeedProductionRate()
     {
@@ -254,14 +276,22 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         UpdateBaseHealth();
     }
 
-    public void SetCoinCollected(int amount)
+    public void SetCoinCollected(CurrencyType currencyType, int amount)
     {
-        CoinCollected = amount;
+        if (currencyType == CurrencyType.GoldCoin)
+        {
+            GoldCoinCollected = amount;
+        }
+        else if (currencyType == CurrencyType.AzureCoin)
+        {
+            AzureCoinCollected = amount;
+        }
     }
 
     public void ClearCoinCollected()
     {
-        CoinCollected = 0;
+        GoldCoinCollected = 0;
+        AzureCoinCollected = 0;
     }
 
     public void SetNewPotatoStatus(bool isActive)

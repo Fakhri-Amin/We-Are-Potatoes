@@ -107,7 +107,7 @@ public class ShopUI : MonoBehaviour
         {
             cardRevealUI.Show();
             StartCoroutine(cardRevealUI.InitializeOneCard());
-            gameDataManager.ModifyAzureCoin(-shopDatabaseSO.OneCardPrice);
+            gameDataManager.ModifyCoin(CurrencyType.AzureCoin, -shopDatabaseSO.OneCardPrice);
         }
     }
 
@@ -124,7 +124,7 @@ public class ShopUI : MonoBehaviour
         {
             cardRevealUI.Show();
             StartCoroutine(cardRevealUI.InitializeTenCards());
-            gameDataManager.ModifyAzureCoin(-shopDatabaseSO.TenCardsPrice);
+            gameDataManager.ModifyCoin(CurrencyType.AzureCoin, -shopDatabaseSO.TenCardsPrice);
         }
     }
 

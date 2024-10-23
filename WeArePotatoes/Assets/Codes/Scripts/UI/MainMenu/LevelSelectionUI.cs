@@ -76,6 +76,9 @@ public class LevelSelectionUI : MonoBehaviour
             {
                 currentMapIndex = (int)item.MapType;
                 uncompletedMapIndex = (int)item.MapType;
+
+                Debug.Log(currentMapIndex);
+                Debug.Log(uncompletedMapIndex);
                 break;
             }
         }
@@ -110,8 +113,7 @@ public class LevelSelectionUI : MonoBehaviour
 
     private List<int> GetCompletedLevelsForMap(MapType mapType)
     {
-        return GameDataManager.Instance?.CompletedLevelMapList
-            .Find(i => i.MapType == mapType)?.CompletedLevelList;
+        return GameDataManager.Instance?.GetCompletedLevelsForMap(mapType);
     }
 
     private void HandleNoCompletedLevels(MapLevelButtonConfig mapConfig, MapType currentMap)
@@ -128,8 +130,7 @@ public class LevelSelectionUI : MonoBehaviour
 
     private bool IsPreviousMapCompleted(MapType previousMap)
     {
-        return GameDataManager.Instance.CompletedLevelMapList
-            .Find(i => i.MapType == previousMap)?.HasCompletedAllLevels ?? false;
+        return GameDataManager.Instance.IsPreviousMapCompleted(previousMap);
     }
 
     private void EnableLevelButton(LevelButtonData levelButtonData, int levelIndex, MapType mapType)
@@ -237,7 +238,8 @@ public class LevelSelectionUI : MonoBehaviour
         }
         else
         {
-            lockedMapTransform.gameObject.SetActive(currentMapIndex >= uncompletedMapIndex);
+            bool isMapUnlocked = GameDataManager.Instance.IsPreviousMapCompleted(mapLevelButtonConfigs[currentMapIndex - 1].MapType);
+            lockedMapTransform.gameObject.SetActive(!isMapUnlocked);
         }
     }
 }

@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
     private SelectedLevelMap selectedLevelMap;
     private LevelWaveSO currentLevelWave;
     private CoinManager coinManager;
-    private int rewardIndex = 0; // Track the current reward index
+    private int rewardIndex = 0;
     private float timePassed;
 
     public LevelWaveSO CurrentLevelWave => currentLevelWave;
@@ -42,71 +42,82 @@ public class LevelManager : MonoBehaviour
     {
         coinManager = GetComponent<CoinManager>();
         selectedLevelMap = GameDataManager.Instance.SelectedLevelMap;
-        currentLevelWave = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels[selectedLevelMap.SelectedLevelIndex];
+        currentLevelWave = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType)
+                                                        .Levels[selectedLevelMap.SelectedLevelIndex];
     }
 
     private void Start()
     {
-        WorldSpriteReference worldSpriteReference = gameAssetSO.WorldSpriteReferences.Find(i => i.MapType == currentLevelWave.MapType);
-        worldRenderer.sprite = worldSpriteReference.LevelMapSprites[(int)currentLevelWave.LevelMapType];
-        groundRenderer.color = worldSpriteReference.GroundColor;
-
-        playerBase.Initialize(baseBuildingSO.BaseHealth + GameDataManager.Instance.GetTotalBaseHealthPercentage());
-        enemyBase.Initialize(CurrentLevelWave.BaseHealth + 0);
-
+        InitializeLevelGraphics();
+        InitializeBases();
         waveProgressionBar.maxValue = currentLevelWave.DelayBetweenWaves * currentLevelWave.WaveDatas.Count;
 
-        HideAllUI();
-    }
-
-    private void Update()
-    {
-        if (waveProgressionBar.value >= waveProgressionBar.maxValue) return;
-        timePassed += Time.deltaTime;
-        waveProgressionBar.value = timePassed;
-    }
-
-    private void HideAllUI()
-    {
+        // Hide UI initially
         winUI.Hide();
         loseUI.Hide();
         unitLevelRewardUI.Hide();
     }
 
+    private void InitializeLevelGraphics()
+    {
+        WorldSpriteReference worldSpriteReference = gameAssetSO.WorldSpriteReferences
+            .Find(i => i.MapType == currentLevelWave.MapType);
+        worldRenderer.sprite = worldSpriteReference.LevelMapSprites[(int)currentLevelWave.LevelMapType];
+        groundRenderer.color = worldSpriteReference.GroundColor;
+    }
+
+    private void InitializeBases()
+    {
+        playerBase.Initialize(baseBuildingSO.BaseHealth + GameDataManager.Instance.GetTotalBaseHealthPercentage());
+        enemyBase.Initialize(CurrentLevelWave.BaseHealth);
+    }
+
+    private void Update()
+    {
+        if (waveProgressionBar.value < waveProgressionBar.maxValue)
+        {
+            timePassed += Time.deltaTime;
+            waveProgressionBar.value = timePassed;
+        }
+    }
+
     public IEnumerator HandleLevelWin()
     {
-        HideInGameHUD();
+        yield return HideInGameHUDAndWait();
 
-        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
-
-        // Step 1: Show Win UI first, no matter what
         ShowWinUI();
 
-        bool hasCompletedAllLevels = selectedLevelMap.SelectedLevelIndex == levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
+        bool hasCompletedAllLevels = selectedLevelMap.SelectedLevelIndex == levelWaveDatabaseSO.MapLevelReferences
+            .Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
+
         GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex, hasCompletedAllLevels);
-        GameDataManager.Instance.SetCoinCollected(coinManager.CoinCollected);
-        // GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+
+        CollectCurrencyRewards();
     }
 
     public IEnumerator HandleLevelLose()
     {
-        HideInGameHUD();
-
-        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
+        yield return HideInGameHUDAndWait();
 
         loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
-        GameDataManager.Instance.SetCoinCollected(coinManager.CoinCollected);
-        // GameDataManager.Instance.ModifyMoney(coinManager.CoinCollected);
+
+        CollectCurrencyRewards();
+    }
+
+    private void CollectCurrencyRewards()
+    {
+        CurrencyType currencyType = currentLevelWave.MapType == MapType.Dungeon ? CurrencyType.AzureCoin : CurrencyType.GoldCoin;
+        GameDataManager.Instance.SetCoinCollected(currencyType, coinManager.CoinCollected);
     }
 
     private void ShowWinUI()
     {
-        winUI.Show(coinManager.CoinCollected, OnWinUIContinue);
+        CurrencyType currencyType = currentLevelWave.MapType == MapType.Dungeon ? CurrencyType.AzureCoin : CurrencyType.GoldCoin;
+        winUI.Show(currencyType, coinManager.CoinCollected, OnWinUIContinue);
     }
 
     private void OnWinUIContinue()
     {
-        // After clicking continue in the Win UI, start processing rewards
         rewardIndex = 0;
         ShowNextUnitReward();
     }
@@ -115,7 +126,6 @@ public class LevelManager : MonoBehaviour
     {
         if (rewardIndex >= currentLevelWave.UnitRewardList.Count)
         {
-            // If we've shown all rewards, proceed to the Main Menu
             LoadMainMenu();
             return;
         }
@@ -124,39 +134,46 @@ public class LevelManager : MonoBehaviour
 
         if (GameDataManager.Instance.IsUnitAlreadyUnlocked(currentReward))
         {
-            // Skip if already unlocked and check the next reward
             rewardIndex++;
             ShowNextUnitReward();
         }
         else
         {
-            // If the reward is not unlocked, show the reward UI
-            GameDataManager.Instance.AddUnlockedUnit(currentReward);  // Unlock it
-
-            fader.DOFade(1, 0.1f).OnComplete(() =>
-            {
-                winUI.Hide();
-                UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentReward);
-                unitLevelRewardUI.Show(unitData, () =>
-                {
-                    // After showing the reward, move to the next
-                    rewardIndex++;
-                    ShowNextUnitReward();
-                });
-                fader.DOFade(0, 0.1f);
-            });
+            UnlockAndShowReward(currentReward);
         }
     }
 
-    private void LoadMainMenu()
+    private void UnlockAndShowReward(UnitHero currentReward)
     {
-        // SceneManager.LoadScene("MainMenu");
-        loadMainMenuFeedbacks.PlayFeedbacks();
+        GameDataManager.Instance.AddUnlockedUnit(currentReward); // Unlock the unit
+
+        fader.DOFade(1, 0.1f).OnComplete(() =>
+        {
+            winUI.Hide();
+            UnitData unitData = unitDataSO.UnitStatDataList.Find(i => i.UnitHero == currentReward);
+            unitLevelRewardUI.Show(unitData, () =>
+            {
+                rewardIndex++;
+                ShowNextUnitReward();
+            });
+            fader.DOFade(0, 0.1f);
+        });
+    }
+
+    private IEnumerator HideInGameHUDAndWait()
+    {
+        HideInGameHUD();
+        yield return new WaitForSeconds(waitTimeBeforeShowingUI);
     }
 
     private void HideInGameHUD()
     {
         inGameHUD.blocksRaycasts = false;
         inGameHUD.DOFade(0, 0.1f);
+    }
+
+    private void LoadMainMenu()
+    {
+        loadMainMenuFeedbacks.PlayFeedbacks();
     }
 }

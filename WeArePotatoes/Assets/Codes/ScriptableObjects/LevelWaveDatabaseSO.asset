@@ -20,6 +20,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d1236032118443e4c90f08e3b5404bae, type: 2}
     - {fileID: 11400000, guid: 0201cacb4c89db2419e21e7cf6b92796, type: 2}
     - {fileID: 11400000, guid: a134a5f6835f4a04c8f493d329a148aa, type: 2}
+    - {fileID: 11400000, guid: 1c2294c5994bf7b44bb979304458164c, type: 2}
   - MapType: 1
     Levels:
     - {fileID: 11400000, guid: 03ade2c67c1201c40ae79166863922d1, type: 2}
