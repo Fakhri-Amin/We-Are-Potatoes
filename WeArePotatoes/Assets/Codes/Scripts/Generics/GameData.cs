@@ -17,6 +17,7 @@ public class GameData : BaseData
     public SelectedLevelMap SelectedLevelMap;
     public bool IsThereNewPotato;
     public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
+    public bool isSFXMute;
 }
 
 [System.Serializable]

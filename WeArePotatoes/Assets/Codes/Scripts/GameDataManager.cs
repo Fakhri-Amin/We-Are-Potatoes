@@ -430,4 +430,22 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         return totalBaseHealthPercentage;
     }
+
+    public bool GetSFXSettingState()
+    {
+        return Data.Get<GameData>().isSFXMute;
+    }
+
+    public void MuteSFX()
+    {
+        Data.Get<GameData>().isSFXMute = true;
+        Save();
+    }
+
+    public void UnMuteSFX()
+    {
+        Data.Get<GameData>().isSFXMute = false;
+        Save();
+    }
+
 }

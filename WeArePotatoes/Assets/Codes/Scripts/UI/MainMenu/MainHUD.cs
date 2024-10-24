@@ -18,6 +18,7 @@ public class MainHUD : Singleton<MainHUD>
     [SerializeField] private Button potatoSelectionButton;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button cardButton;
+    [SerializeField] private Button settingButton;
     [SerializeField] private Button quitButton;
 
     [Header("Main Menu")]
@@ -69,6 +70,9 @@ public class MainHUD : Singleton<MainHUD>
     public bool isShopMenuOpen;
 
 
+    [Header("Setting UI")]
+    [SerializeField] private SettingUI settingUI;
+
     [Header("Quit UI")]
     [SerializeField] private QuitConfirmationUI quitConfirmationUI;
 
@@ -117,6 +121,11 @@ public class MainHUD : Singleton<MainHUD>
             CloseLevelSelectionMenu();
         });
         quitButton.onClick.AddListener(QuitGame);
+        settingButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            OpenSettingMenu();
+        });
     }
 
     private void Start()
@@ -279,6 +288,11 @@ public class MainHUD : Singleton<MainHUD>
         SetCardUIState(true);
     }
 
+    private void OpenSettingMenu()
+    {
+        settingUI.Show();
+    }
+
     private void OpenLevelSelectionMenu()
     {
         if (isShopMenuOpen) ToggleShopMenu();
@@ -293,6 +307,7 @@ public class MainHUD : Singleton<MainHUD>
 
             battleButton.gameObject.SetActive(false);
             baseButton.gameObject.SetActive(true);
+            settingButton.gameObject.SetActive(false);
             quitButton.gameObject.SetActive(false);
 
             fader.DOFade(0, 0.1f);
@@ -314,6 +329,7 @@ public class MainHUD : Singleton<MainHUD>
 
             battleButton.gameObject.SetActive(true);
             baseButton.gameObject.SetActive(false);
+            settingButton.gameObject.SetActive(true);
             quitButton.gameObject.SetActive(true);
 
             fader.DOFade(0, 0.1f);
