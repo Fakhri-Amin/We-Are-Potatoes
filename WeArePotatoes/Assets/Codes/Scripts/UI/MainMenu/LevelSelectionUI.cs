@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Feedbacks;
 using DG.Tweening;
+using System.Linq;
 
 public class LevelSelectionUI : MonoBehaviour
 {
@@ -53,7 +54,6 @@ public class LevelSelectionUI : MonoBehaviour
     private void Start()
     {
         Hide();
-
         levelWaveDatabaseSO = GameDataManager.Instance?.LevelWaveDatabaseSO;
 
         if (levelWaveDatabaseSO == null)
@@ -64,21 +64,20 @@ public class LevelSelectionUI : MonoBehaviour
 
         InitializeCurrentMapIndex();
         InitializeMapButtons();
-
-        HandleButtonActiveStatus();
+        UpdateButtonActiveStatus();
     }
 
     private void InitializeCurrentMapIndex()
     {
-        foreach (var item in GameDataManager.Instance.CompletedLevelMapList)
+        foreach (var completedMap in GameDataManager.Instance.CompletedLevelMapList)
         {
-            if (!item.HasCompletedAllLevels)
-            {
-                currentMapIndex = (int)item.MapType;
-                uncompletedMapIndex = (int)item.MapType;
+            if (completedMap.CompletedLevelList == null || completedMap.CompletedLevelList.Count == 0)
+                continue;
 
-                Debug.Log(currentMapIndex);
-                Debug.Log(uncompletedMapIndex);
+            if (!GameDataManager.Instance.IsPreviousMapCompleted(completedMap.MapType))
+            {
+                currentMapIndex = (int)completedMap.MapType;
+                uncompletedMapIndex = (int)completedMap.MapType;
                 break;
             }
         }
@@ -120,11 +119,11 @@ public class LevelSelectionUI : MonoBehaviour
     {
         if (currentMap == MapType.Beach)
         {
-            EnableLevelButton(mapConfig.LevelButtonDatas[0], 0, MapType.Beach);
+            EnableLevelButton(mapConfig.LevelButtonDatas[0], currentMap);
         }
-        else if (currentMap == MapType.Forest && IsPreviousMapCompleted(MapType.Beach))
+        else if (currentMap == MapType.Forest && IsPreviousMapCompleted(mapLevelButtonConfigs[currentMapIndex].MapType))
         {
-            EnableLevelButton(mapConfig.LevelButtonDatas[0], 0, MapType.Forest);
+            EnableLevelButton(mapConfig.LevelButtonDatas[0], currentMap);
         }
     }
 
@@ -133,14 +132,14 @@ public class LevelSelectionUI : MonoBehaviour
         return GameDataManager.Instance.IsPreviousMapCompleted(previousMap);
     }
 
-    private void EnableLevelButton(LevelButtonData levelButtonData, int levelIndex, MapType mapType)
+    private void EnableLevelButton(LevelButtonData levelButtonData, MapType mapType)
     {
         levelButtonData.LevelButton.interactable = true;
         levelButtonData.LevelButton.GetComponent<Image>().color = unlockedColor;
         levelButtonData.LevelButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClickFeedbacks();
-            GameDataManager.Instance.SetSelectedLevel(mapType, levelIndex);
+            GameDataManager.Instance.SetSelectedLevel(mapType, levelButtonData.LevelIndex);
             loadGameSceneFeedbacks?.PlayFeedbacks();
         });
     }
@@ -179,13 +178,14 @@ public class LevelSelectionUI : MonoBehaviour
     {
         mapButtonTransform.gameObject.SetActive(true);
         mapTransforms[currentMapIndex].gameObject.SetActive(true);
-        HandleLockedMapStatus();
+        UpdateLockedMapStatus();
     }
 
     public void Hide()
     {
         mapButtonTransform.gameObject.SetActive(false);
         lockedMapTransform.gameObject.SetActive(false);
+
         foreach (var item in mapTransforms)
         {
             item.gameObject.SetActive(false);
@@ -195,14 +195,12 @@ public class LevelSelectionUI : MonoBehaviour
     public void OpenNextMap()
     {
         if (currentMapIndex + 1 >= mapTransforms.Length) return;
-
         ChangeMap(currentMapIndex + 1);
     }
 
     public void OpenPreviousMap()
     {
         if (currentMapIndex - 1 < 0) return;
-
         ChangeMap(currentMapIndex - 1);
     }
 
@@ -211,8 +209,8 @@ public class LevelSelectionUI : MonoBehaviour
         AudioManager.Instance.PlayClickFeedbacks();
         Hide();
         currentMapIndex = newMapIndex;
-        HandleButtonActiveStatus();
-        HandleLockedMapStatus();
+        UpdateButtonActiveStatus();
+        UpdateLockedMapStatus();
 
         fader.DOFade(1, fadeDuration).OnComplete(() =>
         {
@@ -221,7 +219,7 @@ public class LevelSelectionUI : MonoBehaviour
         });
     }
 
-    private void HandleButtonActiveStatus()
+    private void UpdateButtonActiveStatus()
     {
         nextMapButton.interactable = currentMapIndex + 1 < mapTransforms.Length;
         nextMapButtonIcon.color = nextMapButton.interactable ? Color.white : new Color(1, 1, 1, 0.1f);
@@ -230,7 +228,7 @@ public class LevelSelectionUI : MonoBehaviour
         previousMapButtonIcon.color = previousMapButton.interactable ? Color.white : new Color(1, 1, 1, 0.1f);
     }
 
-    private void HandleLockedMapStatus()
+    private void UpdateLockedMapStatus()
     {
         if (currentMapIndex <= 0)
         {
@@ -238,7 +236,7 @@ public class LevelSelectionUI : MonoBehaviour
         }
         else
         {
-            bool isMapUnlocked = GameDataManager.Instance.IsPreviousMapCompleted(mapLevelButtonConfigs[currentMapIndex - 1].MapType);
+            bool isMapUnlocked = IsPreviousMapCompleted(mapLevelButtonConfigs[currentMapIndex - 1].MapType);
             lockedMapTransform.gameObject.SetActive(!isMapUnlocked);
         }
     }

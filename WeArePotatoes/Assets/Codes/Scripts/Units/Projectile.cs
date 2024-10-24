@@ -33,6 +33,11 @@ public class Projectile : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (targetUnit == null)
@@ -143,7 +148,6 @@ public class Projectile : MonoBehaviour
         else if (sourceUnit.UnitData.UnitAttackType == UnitAttackType.Area)
         {
             ApplyAreaOfEffectDamage();
-            StopAllCoroutines();
         }
 
         ReturnToPool();

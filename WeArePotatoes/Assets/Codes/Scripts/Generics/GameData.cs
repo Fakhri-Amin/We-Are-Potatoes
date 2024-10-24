@@ -24,7 +24,6 @@ public class CompletedLevelMap
 {
     public MapType MapType;
     public List<int> CompletedLevelList = new List<int>();
-    public bool HasCompletedAllLevels;
 }
 
 [System.Serializable]

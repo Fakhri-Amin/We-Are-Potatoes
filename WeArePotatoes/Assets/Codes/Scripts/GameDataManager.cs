@@ -169,8 +169,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public void SetSelectedLevel(MapType mapType, int levelIndex)
     {
         SelectedLevelMap = new SelectedLevelMap { MapType = mapType, SelectedLevelIndex = levelIndex };
-        // Data.Get<GameData>().SelectedLevelMap.MapType = mapType;
-        // Data.Get<GameData>().SelectedLevelMap.SelectedLevelIndex = levelIndex;
         Data.Get<GameData>().SelectedLevelMap = SelectedLevelMap;
         Save();
     }
@@ -188,7 +186,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
             {
                 MapType = mapType,
                 CompletedLevelList = new List<int>(),
-                HasCompletedAllLevels = false
             };
 
             // Add the new map to the list
@@ -212,7 +209,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
             {
                 MapType = mapType,
                 CompletedLevelList = new List<int>(),
-                HasCompletedAllLevels = false
             };
 
             // Add the new map to the list
@@ -224,7 +220,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         // Add the new completed level
         completedLevelMap.CompletedLevelList.Add(levelIndex);
-        completedLevelMap.HasCompletedAllLevels = hasCompletedAllLevels;
 
         // Save the updated data
         Save();
@@ -237,8 +232,31 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public bool IsPreviousMapCompleted(MapType previousMap)
     {
-        return CompletedLevelMapList.Find(i => i.MapType == previousMap)?.HasCompletedAllLevels ?? false;
+        // Find the completed levels for the previous map
+        var completedMap = CompletedLevelMapList.Find(i => i.MapType == previousMap);
+        if (completedMap == null || completedMap.CompletedLevelList.Count == 0)
+        {
+            // If the map is not found or has no completed levels, it's not completed
+            return false;
+        }
+
+        // Find the total number of levels in the previous map
+        var mapReference = LevelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == previousMap);
+        if (mapReference == null || mapReference.Levels == null || mapReference.Levels.Count == 0)
+        {
+            // If map reference or levels are invalid, return false
+            return false;
+        }
+
+        // Get the max completed level and check if it's equal to the total number of levels minus 1
+        int maxCompletedLevel = completedMap.CompletedLevelList.Max();
+        bool hasCompletedAllLevels = maxCompletedLevel == mapReference.Levels.Count - 1;
+
+        Debug.Log(hasCompletedAllLevels);
+
+        return hasCompletedAllLevels;
     }
+
 
     public void UpdateSeedProductionRate()
     {

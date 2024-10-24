@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beach_Level 6
   m_EditorClassIdentifier: 
   MapType: 0
-  LevelIndex: 4
+  LevelIndex: 5
   UnitRewardList: 03000000
   DelayAtStart: 3
   DelayBetweenWaves: 9.2
