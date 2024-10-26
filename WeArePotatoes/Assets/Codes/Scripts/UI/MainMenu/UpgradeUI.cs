@@ -71,6 +71,11 @@ public class UpgradeUI : MonoBehaviour
             gameDataManager.ModifyCoin(CurrencyType.GoldCoin, -gameDataManager.UpgradeSeedProductionRatePrice);
             gameDataManager.UpgradeSeedProductionRate();
         }
+        else
+        {
+
+            FloatingTextObjectPool.Instance.DisplayInsufficientGoldCoin();
+        }
     }
 
     private void UpgradeBaseHealth()
@@ -81,6 +86,11 @@ public class UpgradeUI : MonoBehaviour
         {
             gameDataManager.ModifyCoin(CurrencyType.GoldCoin, -gameDataManager.UpgradeBaseHealthPrice);
             gameDataManager.UpgradeBaseHealth();
+        }
+        else
+        {
+
+            FloatingTextObjectPool.Instance.DisplayInsufficientGoldCoin();
         }
     }
 

@@ -109,6 +109,11 @@ public class ShopUI : MonoBehaviour
             StartCoroutine(cardRevealUI.InitializeOneCard());
             gameDataManager.ModifyCoin(CurrencyType.AzureCoin, -shopDatabaseSO.OneCardPrice);
         }
+        else
+        {
+
+            FloatingTextObjectPool.Instance.DisplayInsufficientAzureCoin();
+        }
     }
 
     /// <summary>
@@ -125,6 +130,11 @@ public class ShopUI : MonoBehaviour
             cardRevealUI.Show();
             StartCoroutine(cardRevealUI.InitializeTenCards());
             gameDataManager.ModifyCoin(CurrencyType.AzureCoin, -shopDatabaseSO.TenCardsPrice);
+        }
+        else
+        {
+
+            FloatingTextObjectPool.Instance.DisplayInsufficientAzureCoin();
         }
     }
 
