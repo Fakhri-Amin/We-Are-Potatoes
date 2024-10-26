@@ -159,12 +159,50 @@ public class MainHUD : Singleton<MainHUD>
 
     private void HandleCoinUpdate(int coin)
     {
-        goldCoinText.text = coin.ToString();
+        if (coin >= 1000000)
+        {
+            // Format for values over a million (e.g., 1.2M for 1,200,000)
+            goldCoinText.text = (coin / 1000000f).ToString("0.#") + "M";
+        }
+        else if (coin >= 100000)
+        {
+            // Format for values over 100,000 without decimals (e.g., 123K for 123,456)
+            goldCoinText.text = (coin / 1000f).ToString("0") + "K";
+        }
+        else if (coin >= 1000)
+        {
+            // Format for values below 100,000 with one decimal (e.g., 12.3K for 12,300)
+            goldCoinText.text = (coin / 1000f).ToString("0.#") + "K";
+        }
+        else
+        {
+            // Display the value normally if below 1000
+            goldCoinText.text = coin.ToString();
+        }
     }
 
     private void HandleAzureUpdate(int coin)
     {
-        azureCoinText.text = coin.ToString();
+        if (coin >= 1000000)
+        {
+            // Format for values over a million (e.g., 1.2M for 1,200,000)
+            azureCoinText.text = (coin / 1000000f).ToString("0.#") + "M";
+        }
+        else if (coin >= 100000)
+        {
+            // Format for values over 100,000 without decimals (e.g., 123K for 123,456)
+            azureCoinText.text = (coin / 1000f).ToString("0") + "K";
+        }
+        else if (coin >= 1000)
+        {
+            // Format for values below 100,000 with one decimal (e.g., 12.3K for 12,300)
+            azureCoinText.text = (coin / 1000f).ToString("0.#") + "K";
+        }
+        else
+        {
+            // Display the value normally if below 1000
+            azureCoinText.text = coin.ToString();
+        }
     }
 
     private void ToggleShopMenu()
