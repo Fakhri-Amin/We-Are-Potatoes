@@ -24,6 +24,7 @@ public class LevelSelectionUI : MonoBehaviour
     }
 
     [Header("Map Configuration")]
+    [SerializeField] private DungeonLevelUI dungeonLevelUI;
     [SerializeField] private Transform[] mapTransforms;
     [SerializeField] private Transform mapButtonTransform;
     [SerializeField] private Color completedColor;
@@ -65,6 +66,8 @@ public class LevelSelectionUI : MonoBehaviour
         InitializeCurrentMapIndex();
         InitializeMapButtons();
         UpdateButtonActiveStatus();
+
+        dungeonLevelUI.HandleDungeonLevelState();
     }
 
     private void InitializeCurrentMapIndex()

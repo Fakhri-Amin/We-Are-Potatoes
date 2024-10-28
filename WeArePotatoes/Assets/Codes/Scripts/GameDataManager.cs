@@ -20,6 +20,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public LevelWaveDatabaseSO LevelWaveDatabaseSO;
     public BaseBuildingSO BaseBuildingSO;
     public CardDatabaseSO cardDatabaseSO;
+    public DungeonLevelSO dungeonLevelSO;
     public List<UnitHero> SelectedUnitList = new List<UnitHero>(3);
     public List<UnitHero> UnlockedUnitList = new List<UnitHero>();
     public List<int> CompletedLevelList = new List<int>();
@@ -196,7 +197,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    public void AddNewCompletedLevel(MapType mapType, int levelIndex, bool hasCompletedAllLevels)
+    public void AddNewCompletedLevel(MapType mapType, int levelIndex)
     {
         // Retrieve the GameData instance
         var gameData = Data.Get<GameData>();
@@ -213,13 +214,57 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
             // Add the new map to the list
             gameData.CompletedLevelMapList.Add(completedLevelMap);
+
         }
+
+        AddClearedDungeonLevel(levelIndex, gameData);
 
         // Check if the level is already completed, if so, return early
         if (completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
 
         // Add the new completed level
         completedLevelMap.CompletedLevelList.Add(levelIndex);
+
+
+        // Save the updated data
+        Save();
+    }
+
+    private void AddClearedDungeonLevel(int levelIndex, GameData gameData)
+    {
+        DungeonLevelData dungeonLevelData = gameData.ClearedDailyDungeonLevels.Find(i => i.LevelIndex == levelIndex);
+
+        if (dungeonLevelData == null)
+        {
+            dungeonLevelData = new DungeonLevelData
+            {
+                LevelIndex = levelIndex,
+                EntryCount = 0
+            };
+
+            gameData.ClearedDailyDungeonLevels.Add(dungeonLevelData);
+        }
+
+        if (dungeonLevelData.EntryCount < dungeonLevelSO.DungeonLevelReferences.Find(i => i.LevelWaveSO.LevelIndex == levelIndex).EntryLimit)
+        {
+            dungeonLevelData.EntryCount++;
+        }
+
+        // Save the updated data
+        Save();
+    }
+
+    public DungeonLevelData GetDungeonLevelData(int levelIndex)
+    {
+        return Data.Get<GameData>().ClearedDailyDungeonLevels.Find(i => i.LevelIndex == levelIndex);
+    }
+
+    public void ClearClearedDailyDungeonLevel()
+    {
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
+
+        gameData.ClearedDailyDungeonLevels.Clear();
 
         // Save the updated data
         Save();
@@ -251,8 +296,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         // Get the max completed level and check if it's equal to the total number of levels minus 1
         int maxCompletedLevel = completedMap.CompletedLevelList.Max();
         bool hasCompletedAllLevels = maxCompletedLevel == mapReference.Levels.Count - 1;
-
-        Debug.Log(hasCompletedAllLevels);
 
         return hasCompletedAllLevels;
     }
@@ -433,18 +476,18 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     public bool GetSFXSettingState()
     {
-        return Data.Get<GameData>().isSFXMute;
+        return Data.Get<GameData>().IsSFXMute;
     }
 
     public void MuteSFX()
     {
-        Data.Get<GameData>().isSFXMute = true;
+        Data.Get<GameData>().IsSFXMute = true;
         Save();
     }
 
     public void UnMuteSFX()
     {
-        Data.Get<GameData>().isSFXMute = false;
+        Data.Get<GameData>().IsSFXMute = false;
         Save();
     }
 

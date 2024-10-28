@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9399eb4b54055429666af6e2c7943e, type: 3}
+  m_Name: DungeonLevelSO
+  m_EditorClassIdentifier: 
+  DungeonLevelReferences:
+  - LevelWaveSO: {fileID: 11400000, guid: 1c2294c5994bf7b44bb979304458164c, type: 2}
+    EntryLimit: 2
+  - LevelWaveSO: {fileID: 11400000, guid: 9c1a5106337762a4ba7c75fcbc5fed26, type: 2}
+    EntryLimit: 2
+  - LevelWaveSO: {fileID: 11400000, guid: cd6a9340bf7cdfb4bba7abd186d9f3d2, type: 2}
+    EntryLimit: 1
+  - LevelWaveSO: {fileID: 11400000, guid: a2804dd5b5e09784eb8387ce8c09686e, type: 2}
+    EntryLimit: 1

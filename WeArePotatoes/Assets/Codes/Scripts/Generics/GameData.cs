@@ -17,7 +17,9 @@ public class GameData : BaseData
     public SelectedLevelMap SelectedLevelMap;
     public bool IsThereNewPotato;
     public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
-    public bool isSFXMute;
+    public bool IsSFXMute;
+    public string LastOpenedDate;
+    public List<DungeonLevelData> ClearedDailyDungeonLevels = new List<DungeonLevelData>();
 }
 
 [System.Serializable]
@@ -40,4 +42,11 @@ public class ObtainedCard
     public CardData CardData;
     public int Level;
     public int CardAmount;
+}
+
+[System.Serializable]
+public class DungeonLevelData
+{
+    public int LevelIndex;
+    public int EntryCount;
 }

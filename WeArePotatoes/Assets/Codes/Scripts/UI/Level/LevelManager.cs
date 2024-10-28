@@ -88,11 +88,7 @@ public class LevelManager : MonoBehaviour
 
         ShowWinUI();
 
-        int highestLevelNumber = GameDataManager.Instance.GetCompletedLevelsForMap(selectedLevelMap.MapType).Max();
-        bool hasCompletedAllLevels = highestLevelNumber == levelWaveDatabaseSO.MapLevelReferences
-            .Find(i => i.MapType == selectedLevelMap.MapType).Levels.Count - 1;
-
-        GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex, hasCompletedAllLevels);
+        GameDataManager.Instance.AddNewCompletedLevel(selectedLevelMap.MapType, selectedLevelMap.SelectedLevelIndex);
 
         CollectCurrencyRewards();
     }
