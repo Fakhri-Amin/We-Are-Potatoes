@@ -30,12 +30,13 @@ public class GameLevelManager : MonoBehaviour
         enemyUnitSpawner.Initialize(levelManager.CurrentLevelWave);
         playerUnitSpawner.Initialize(GameDataManager.Instance.SelectedUnitList, GameDataManager.Instance.SeedProductionRate);
 
-        coinManager.UpdateCoinUI();
-
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelWin, OnLevelWin);
         EventManager.Subscribe(Farou.Utility.EventType.OnLevelLose, OnLevelLose);
         EventManager<UnitData>.Subscribe(Farou.Utility.EventType.OnEnemyCoinDropped, HandleEnemyCoinDropped);
         EventManager.Subscribe(Farou.Utility.EventType.OnEnemyBaseDestroyed, HandleEnemyBaseDestroyed);
+
+        coinManager.SetMapCurrency(levelManager.CurrentLevelWave.MapType);
+        coinManager.UpdateCoinUI();
 
         AudioManager.Instance.PlayLevelStartFeedbacks();
     }

@@ -232,6 +232,9 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
     private void AddClearedDungeonLevel(int levelIndex, GameData gameData)
     {
+        var dungeonLevel = dungeonLevelSO.DungeonLevelReferences.Find(i => i.LevelWaveSO.LevelIndex == levelIndex);
+        if (dungeonLevel == null) return;
+
         DungeonLevelData dungeonLevelData = gameData.ClearedDailyDungeonLevels.Find(i => i.LevelIndex == levelIndex);
 
         if (dungeonLevelData == null)
@@ -245,7 +248,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
             gameData.ClearedDailyDungeonLevels.Add(dungeonLevelData);
         }
 
-        if (dungeonLevelData.EntryCount < dungeonLevelSO.DungeonLevelReferences.Find(i => i.LevelWaveSO.LevelIndex == levelIndex).EntryLimit)
+        if (dungeonLevelData.EntryCount < dungeonLevel.EntryLimit)
         {
             dungeonLevelData.EntryCount++;
         }

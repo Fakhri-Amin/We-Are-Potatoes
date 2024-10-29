@@ -4426,6 +4426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3848f03ad5638c2499803c651adb872c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameAssetSO: {fileID: 11400000, guid: ee2a09a653d67a749a01afc9e16f230b, type: 2}
   coinCollectedUI: {fileID: 872461350}
 --- !u!114 &523798996
 MonoBehaviour:
@@ -7154,6 +7155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a113d794a36f79f4eaa328753be89a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinImage: {fileID: 1958591067}
   coinCollectedText: {fileID: 211844588}
 --- !u!224 &872461351
 RectTransform:
