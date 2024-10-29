@@ -12,6 +12,7 @@ public class DungeonLevelUI : MonoBehaviour
     public class DungeonLevelUIReference
     {
         public int LevelIndex;
+        public Transform EntryTagTransform;
         public Button Button;
         public TMP_Text EntryText;
     }
@@ -22,64 +23,24 @@ public class DungeonLevelUI : MonoBehaviour
 
     public void HandleDungeonLevelState()
     {
-        StartCoroutine(HandleDateChecking());
+        HandleDateChecking();
     }
 
-    private IEnumerator HandleDateChecking()
+    private void HandleDateChecking()
     {
-        bool isOffline = false;
+        // Check for date
+        gameData = Data.Get<GameData>();
+        DateTime lastDate = String.IsNullOrEmpty(gameData.LastOpenedDate) ? DateTime.Now.AddDays(-1) : DateTime.Parse(gameData.LastOpenedDate);
 
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        if (DateTime.Now.Day > lastDate.Day)
         {
-            foreach (var item in dungeonLevelUIReferences)
-            {
-                item.Button.interactable = false;
-            }
+            gameData.LastOpenedDate = DateTime.Now.ToString();
+            gameData.Save();
 
-            isOffline = true;
+            GameDataManager.Instance.ClearClearedDailyDungeonLevel();
         }
 
-        if (!isOffline)
-        {
-            // Check for date
-            gameData = Data.Get<GameData>();
-            DateTime lastDate = String.IsNullOrEmpty(gameData.LastOpenedDate) ? DateTime.Now.AddDays(-1) : DateTime.Parse(gameData.LastOpenedDate);
-
-            UnityWebRequest webRequest = UnityWebRequest.Get("https://worldtimeapi.org/api/ip");
-
-            yield return webRequest.SendWebRequest();
-
-            bool apiLoaded = false;
-
-            if (webRequest.error != null)
-            {
-                Debug.Log("Cannot retrieve world time API : " + webRequest.error);
-
-                foreach (var item in dungeonLevelUIReferences)
-                {
-                    item.Button.interactable = false;
-                }
-            }
-            else
-            {
-                apiLoaded = true;
-
-                var realtimeDate = ParseDateTime(webRequest.downloadHandler.text);
-
-                gameData.LastOpenedDate = realtimeDate.ToString();
-                gameData.Save();
-            }
-
-            if (!apiLoaded && DateTime.Now.Day > lastDate.Day)
-            {
-                gameData.LastOpenedDate = DateTime.Now.ToString();
-                gameData.Save();
-
-                GameDataManager.Instance.ClearClearedDailyDungeonLevel();
-            }
-
-            UpdateAllDungeonLevelsUI();
-        }
+        UpdateAllDungeonLevelsUI();
     }
 
     private void UpdateAllDungeonLevelsUI()
@@ -94,10 +55,9 @@ public class DungeonLevelUI : MonoBehaviour
 
             if (dungeonLevelData == null)
             {
-                item.EntryText.text = $"{entryLimit}/{entryLimit}";
+                // item.EntryText.text = $"{entryLimit}/{entryLimit}";
                 continue;
             };
-
 
             if (dungeonLevelData.EntryCount < entryLimit)
             {
