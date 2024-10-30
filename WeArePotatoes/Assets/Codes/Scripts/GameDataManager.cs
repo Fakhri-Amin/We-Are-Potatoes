@@ -375,6 +375,18 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         }
     }
 
+    public void SetCoinCollectedDouble(CurrencyType currencyType)
+    {
+        if (currencyType == CurrencyType.GoldCoin)
+        {
+            GoldCoinCollected *= 2;
+        }
+        else if (currencyType == CurrencyType.AzureCoin)
+        {
+            AzureCoinCollected *= 2;
+        }
+    }
+
     public void ClearCoinCollected()
     {
         GoldCoinCollected = 0;

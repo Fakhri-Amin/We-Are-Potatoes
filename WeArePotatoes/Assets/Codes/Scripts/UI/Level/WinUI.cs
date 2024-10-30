@@ -36,6 +36,19 @@ public class WinUI : MonoBehaviour
 
         coinCollectedText.text = "+" + coinCollectedAmount;
 
+        collectDoubleButton.onClick.AddListener(() =>
+        {
+            Debug.Log("Clicked");
+
+            AudioManager.Instance.PlayClickFeedbacks();
+
+            MonetizationManager.Instance.ShowRewardedVideo(() =>
+            {
+                GameDataManager.Instance.SetCoinCollectedDouble(currencyType);
+                onContinueButtonClicked?.Invoke();
+            });
+        });
+
         if (currencyType == CurrencyType.GoldCoin)
         {
             coinImage.sprite = gameAssetSO.GoldCoinSprite;
