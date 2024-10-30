@@ -10044,9 +10044,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcea3baf9237104ab140b90887b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameAssetSO: {fileID: 11400000, guid: ee2a09a653d67a749a01afc9e16f230b, type: 2}
   coinCollectedText: {fileID: 675228590}
   continueButton: {fileID: 406071596}
   popup: {fileID: 406071597}
+  coinImage: {fileID: 475292484}
+  coinOutline: {fileID: 1790823090}
+  goldCoinOutlineColor: {r: 0.827451, g: 0.5647059, b: 0.24313726, a: 1}
+  azureCoinOutlineColor: {r: 0.16078432, g: 0.7490196, b: 0.9490197, a: 1}
 --- !u!224 &1297302556
 RectTransform:
   m_ObjectHideFlags: 0

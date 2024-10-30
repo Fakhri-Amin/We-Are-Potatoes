@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     public static event Action<Projectile> OnProjectileAreaHit;
 
     [SerializeField] private AnimationCurve animationCurve;
-    [SerializeField] private float heightY = 2f;
+    [SerializeField] private float heightY = 1.8f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private MMFeedbacks cameraShakeFeedbacks;
     private Unit sourceUnit;

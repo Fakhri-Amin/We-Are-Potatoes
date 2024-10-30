@@ -47,6 +47,7 @@ public class ObtainedCard
 [System.Serializable]
 public class DungeonLevelData
 {
+    public MapType MapType;
     public int LevelIndex;
     public int EntryCount;
 }

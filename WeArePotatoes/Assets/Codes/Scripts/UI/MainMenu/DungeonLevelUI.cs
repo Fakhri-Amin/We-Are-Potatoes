@@ -11,6 +11,7 @@ public class DungeonLevelUI : MonoBehaviour
     [System.Serializable]
     public class DungeonLevelUIReference
     {
+        public MapType MapType;
         public int LevelIndex;
         public Transform EntryTagTransform;
         public Button Button;
@@ -55,9 +56,20 @@ public class DungeonLevelUI : MonoBehaviour
 
             if (dungeonLevelData == null)
             {
-                // item.EntryText.text = $"{entryLimit}/{entryLimit}";
-                continue;
+                if (!gameDataManager.IsLevelAlreadyCompleted(item.MapType, item.LevelIndex))
+                {
+                    item.EntryTagTransform.gameObject.SetActive(false);
+                    continue;
+                }
+                else
+                {
+                    item.EntryTagTransform.gameObject.SetActive(true);
+                    item.EntryText.text = $"{entryLimit}/{entryLimit}";
+                    continue;
+                }
             };
+
+            item.EntryTagTransform.gameObject.SetActive(true);
 
             if (dungeonLevelData.EntryCount < entryLimit)
             {

@@ -217,7 +217,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         }
 
-        AddClearedDungeonLevel(levelIndex, gameData);
+        AddClearedDungeonLevel(mapType, levelIndex, gameData);
 
         // Check if the level is already completed, if so, return early
         if (completedLevelMap.CompletedLevelList.Contains(levelIndex)) return;
@@ -230,7 +230,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Save();
     }
 
-    private void AddClearedDungeonLevel(int levelIndex, GameData gameData)
+    private void AddClearedDungeonLevel(MapType mapType, int levelIndex, GameData gameData)
     {
         var dungeonLevel = dungeonLevelSO.DungeonLevelReferences.Find(i => i.LevelWaveSO.LevelIndex == levelIndex);
         if (dungeonLevel == null) return;
@@ -241,6 +241,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         {
             dungeonLevelData = new DungeonLevelData
             {
+                MapType = mapType,
                 LevelIndex = levelIndex,
                 EntryCount = 0
             };
@@ -255,6 +256,28 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
 
         // Save the updated data
         Save();
+    }
+
+    public bool IsLevelAlreadyCompleted(MapType mapType, int levelIndex)
+    {
+        // Retrieve the GameData instance
+        var gameData = Data.Get<GameData>();
+
+        // Find the map or create a new one if it doesn't exist
+        CompletedLevelMap completedLevelMap = gameData.CompletedLevelMapList.Find(i => i.MapType == mapType);
+        if (completedLevelMap == null)
+        {
+            return false;
+        }
+        else
+        {
+            if (completedLevelMap.CompletedLevelList.Contains(levelIndex))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public DungeonLevelData GetDungeonLevelData(int levelIndex)

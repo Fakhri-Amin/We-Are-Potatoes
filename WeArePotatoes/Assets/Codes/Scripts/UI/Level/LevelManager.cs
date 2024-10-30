@@ -97,7 +97,8 @@ public class LevelManager : MonoBehaviour
     {
         yield return HideInGameHUDAndWait();
 
-        loseUI.Show(coinManager.CoinCollected, LoadMainMenu);
+        CurrencyType currencyType = currentLevelWave.MapType == MapType.Dungeon ? CurrencyType.AzureCoin : CurrencyType.GoldCoin;
+        loseUI.Show(currencyType, coinManager.CoinCollected, LoadMainMenu);
 
         CollectCurrencyRewards();
     }
