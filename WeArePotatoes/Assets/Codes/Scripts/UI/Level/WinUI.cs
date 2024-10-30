@@ -15,12 +15,15 @@ public class WinUI : MonoBehaviour
     [SerializeField] private Image coinImage;
     [SerializeField] private Image coinOutline;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button collectDoubleButton;
 
     [Header("Gold Coin")]
     [SerializeField] private Color goldCoinOutlineColor;
+    [SerializeField] private Color goldCoinButtonColor;
 
     [Header("Azure Coin")]
     [SerializeField] private Color azureCoinOutlineColor;
+    [SerializeField] private Color azureCoinButtonColor;
 
 
     public void Show(CurrencyType currencyType, int coinCollectedAmount, Action onContinueButtonClicked)
@@ -37,11 +40,15 @@ public class WinUI : MonoBehaviour
         {
             coinImage.sprite = gameAssetSO.GoldCoinSprite;
             coinOutline.color = goldCoinOutlineColor;
+
+            collectDoubleButton.GetComponent<Image>().color = azureCoinButtonColor;
         }
         else
         {
             coinImage.sprite = gameAssetSO.AzureCoinSprite;
             coinOutline.color = azureCoinOutlineColor;
+
+            collectDoubleButton.GetComponent<Image>().color = goldCoinButtonColor;
         }
 
         continueButton.onClick.RemoveAllListeners();
