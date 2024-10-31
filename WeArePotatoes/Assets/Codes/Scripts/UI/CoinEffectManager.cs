@@ -17,8 +17,8 @@ public class CoinEffectManager : MonoBehaviour
     [SerializeField] private float coinSpawnTotalDelay;
 
     private float coinSpawnDelay;
-    private int totalGoldCoinCollected;
-    private int totalAzureCoinCollected;
+    private float totalGoldCoinCollected;
+    private float totalAzureCoinCollected;
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class CoinEffectManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnCoins(CurrencyType currencyType, int totalCoins)
+    private IEnumerator SpawnCoins(CurrencyType currencyType, float totalCoins)
     {
         AudioManager.Instance.PlayCoinSpawnFeedbacks();
 

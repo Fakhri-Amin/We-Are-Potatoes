@@ -157,7 +157,7 @@ public class MainHUD : Singleton<MainHUD>
         GameDataManager.Instance.OnAzureCoinUpdated -= HandleAzureUpdate;
     }
 
-    private void HandleCoinUpdate(int coin)
+    private void HandleCoinUpdate(float coin)
     {
         if (coin >= 1000000)
         {
@@ -181,7 +181,7 @@ public class MainHUD : Singleton<MainHUD>
         }
     }
 
-    private void HandleAzureUpdate(int coin)
+    private void HandleAzureUpdate(float coin)
     {
         if (coin >= 1000000)
         {

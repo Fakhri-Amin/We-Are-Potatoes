@@ -21,7 +21,7 @@ public class LevelWaveSO : ScriptableObject
     {
 #if UNITY_EDITOR
 
-        int totalCoinReward = 0;
+        float totalCoinReward = 0;
 
         // Iterate through each wave
         for (int waveIndex = 0; waveIndex < WaveDatas.Count; waveIndex++)
@@ -41,8 +41,8 @@ public class LevelWaveSO : ScriptableObject
                 if (unitData != null)
                 {
                     // Assuming there is a CoinReward field or property in UnitData
-                    int coinRewardPerUnit = unitData.CoinReward;
-                    int totalRewardForCurrentHero = coinRewardPerUnit * waveUnitData.Count;
+                    float coinRewardPerUnit = unitData.CoinReward;
+                    float totalRewardForCurrentHero = coinRewardPerUnit * waveUnitData.Count;
 
                     // Add this to the total coin reward
                     totalCoinReward += totalRewardForCurrentHero;

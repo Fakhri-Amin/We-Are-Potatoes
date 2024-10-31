@@ -172,6 +172,11 @@ public class ShopUI : MonoBehaviour
     {
         AudioManager.Instance.PlayClickFeedbacks();
         // Handle the logic for watching ads and giving rewards here
+
+        MonetizationManager.Instance.ShowRewardedVideo(() =>
+        {
+
+        });
     }
 
     /// <summary>

@@ -10,8 +10,8 @@ using Unity.VisualScripting;
 // [DefaultExecutionOrder(-99999999)]
 public class GameDataManager : PersistentSingleton<GameDataManager>
 {
-    public event Action<int> OnGoldCoinUpdated;
-    public event Action<int> OnAzureCoinUpdated;
+    public event Action<float> OnGoldCoinUpdated;
+    public event Action<float> OnAzureCoinUpdated;
     public event Action<List<UnitHero>> OnSelectedUnitListChanged;
     public event Action<float, float> OnSeedProductionRateChanged;
     public event Action<float, float> OnBaseHealthChanged;
@@ -27,10 +27,10 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     public List<CompletedLevelMap> CompletedLevelMapList = new List<CompletedLevelMap>();
     public SelectedLevelMap SelectedLevelMap = new SelectedLevelMap();
     public List<ObtainedCard> ObtainedCardList = new List<ObtainedCard>();
-    public int GoldCoinCollected;
-    public int AzureCoinCollected;
-    public int GoldCoin;
-    public int AzureCoin;
+    public float GoldCoinCollected;
+    public float AzureCoinCollected;
+    public float GoldCoin;
+    public float AzureCoin;
     public float SeedProductionRate;
     public float BaseHealth;
     public float UpgradeSeedProductionRatePrice;
@@ -363,7 +363,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         UpdateBaseHealth();
     }
 
-    public void SetCoinCollected(CurrencyType currencyType, int amount)
+    public void SetCoinCollected(CurrencyType currencyType, float amount)
     {
         if (currencyType == CurrencyType.GoldCoin)
         {

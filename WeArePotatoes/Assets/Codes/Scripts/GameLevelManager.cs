@@ -67,7 +67,14 @@ public class GameLevelManager : MonoBehaviour
 
     private void HandleEnemyCoinDropped(UnitData unitData)
     {
-        coinManager.AddCoins(unitData.CoinReward);
+        if (levelManager.CurrentLevelWave.MapType == MapType.Dungeon)
+        {
+            coinManager.AddCoins(Mathf.RoundToInt(unitData.CoinReward * 0.1f));
+        }
+        else
+        {
+            coinManager.AddCoins(unitData.CoinReward);
+        }
     }
 
     private void HandleEnemyBaseDestroyed()

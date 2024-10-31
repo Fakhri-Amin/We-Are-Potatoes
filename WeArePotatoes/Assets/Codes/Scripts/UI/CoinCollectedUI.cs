@@ -15,7 +15,7 @@ public class CoinCollectedUI : MonoBehaviour
         coinImage.sprite = sprite;
     }
 
-    public void UpdateCoinCollectedUI(int coinCollected)
+    public void UpdateCoinCollectedUI(float coinCollected)
     {
         coinCollectedText.text = coinCollected.ToString();
     }

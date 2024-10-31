@@ -26,7 +26,7 @@ public class WinUI : MonoBehaviour
     [SerializeField] private Color azureCoinButtonColor;
 
 
-    public void Show(CurrencyType currencyType, int coinCollectedAmount, Action onContinueButtonClicked)
+    public void Show(CurrencyType currencyType, float coinCollectedAmount, Action onContinueButtonClicked)
     {
         AudioManager.Instance.PlayCoinFeedbacks();
 

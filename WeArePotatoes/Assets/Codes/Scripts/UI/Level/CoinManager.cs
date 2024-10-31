@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    public int CoinCollected { get; private set; }
+    public float CoinCollected { get; private set; }
     [SerializeField] private GameAssetSO gameAssetSO;
     [SerializeField] private CoinCollectedUI coinCollectedUI;
 
@@ -24,7 +24,7 @@ public class CoinManager : MonoBehaviour
         coinCollectedUI.InitializeCoinImage(sprite);
     }
 
-    public void AddCoins(int amount)
+    public void AddCoins(float amount)
     {
         CoinCollected += amount;
         UpdateCoinUI();

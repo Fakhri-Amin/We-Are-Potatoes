@@ -25,7 +25,7 @@ public class LoseUI : MonoBehaviour
     [SerializeField] private Color azureCoinOutlineColor;
     [SerializeField] private Color azureCoinButtonColor;
 
-    public void Show(CurrencyType currencyType, int coinCollectedAmount, Action onContinueButtonClicked)
+    public void Show(CurrencyType currencyType, float coinCollectedAmount, Action onContinueButtonClicked)
     {
         AudioManager.Instance.PlayCoinFeedbacks();
 
@@ -33,6 +33,19 @@ public class LoseUI : MonoBehaviour
         popup.DOFade(1, 0.1f);
 
         coinCollectedText.text = "+" + coinCollectedAmount;
+
+        collectDoubleButton.onClick.AddListener(() =>
+        {
+            Debug.Log("Clicked");
+
+            AudioManager.Instance.PlayClickFeedbacks();
+
+            MonetizationManager.Instance.ShowRewardedVideo(() =>
+            {
+                GameDataManager.Instance.SetCoinCollectedDouble(currencyType);
+                onContinueButtonClicked?.Invoke();
+            });
+        });
 
         if (currencyType == CurrencyType.GoldCoin)
         {

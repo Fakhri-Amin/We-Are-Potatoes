@@ -43,5 +43,5 @@ public class UnitData
     [TabGroup("Stat")]
     [ShowIf("UnitAttackType", UnitAttackType.Area)] public float AreaOfEffectRadius;
     [TabGroup("Stat")]
-    public int CoinReward;
+    public float CoinReward;
 }
