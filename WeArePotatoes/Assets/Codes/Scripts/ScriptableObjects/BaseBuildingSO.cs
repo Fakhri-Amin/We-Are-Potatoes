@@ -41,7 +41,8 @@ public class BaseBuildingSO : ScriptableObject
 
             // priceList[i] = Mathf.CeilToInt(priceList[i - 1] * 1.8f); // Adjust 1.15f to tweak progression rate
 
-            priceList[i] = Mathf.CeilToInt(basePrice * Mathf.Pow(i + 1, 1.5f)); // This will give quadratic growth
+            // priceList[i] = Mathf.CeilToInt(basePrice * Mathf.Pow(i + 1, 1.5f)); // This will give quadratic growth
+            priceList[i] = Mathf.CeilToInt(basePrice * Mathf.Pow(i + 1, 4f)); // This will give quadratic growth
 
             // priceList[i] = Mathf.CeilToInt(basePrice + (i * 50) + Mathf.Pow(i, 4f)); // Adjust 1.5f for higher or lower exponential growth
 

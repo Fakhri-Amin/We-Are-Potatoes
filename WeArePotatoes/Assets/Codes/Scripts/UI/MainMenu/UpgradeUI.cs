@@ -53,13 +53,53 @@ public class UpgradeUI : MonoBehaviour
     public void HandleUpdateSeedUI(float rate, float price)
     {
         currentSeedRateText.text = rate + "/s";
-        upgradeSeedRatePriceText.text = price.ToString();
+
+        if (price >= 1000000)
+        {
+            // Format for values over a million (e.g., 1.2M for 1,200,000)
+            upgradeSeedRatePriceText.text = (price / 1000000f).ToString("0.#") + "M";
+        }
+        else if (price >= 100000)
+        {
+            // Format for values over 100,000 without decimals (e.g., 123K for 123,456)
+            upgradeSeedRatePriceText.text = (price / 1000f).ToString("0") + "K";
+        }
+        else if (price >= 1000)
+        {
+            // Format for values below 100,000 with one decimal (e.g., 1.23K for 1,230)
+            upgradeSeedRatePriceText.text = (price / 1000f).ToString("0.##") + "K";
+        }
+        else
+        {
+            // Display the value normally if below 1000
+            upgradeSeedRatePriceText.text = price.ToString();
+        }
     }
 
     public void HandleUpdateBaseHealth(float health, float price)
     {
         currentBaseHealthText.text = health.ToString();
-        upgradeBaseHealthPriceText.text = price.ToString();
+
+        if (price >= 1000000)
+        {
+            // Format for values over a million (e.g., 1.2M for 1,200,000)
+            upgradeBaseHealthPriceText.text = (price / 1000000f).ToString("0.#") + "M";
+        }
+        else if (price >= 100000)
+        {
+            // Format for values over 100,000 without decimals (e.g., 123K for 123,456)
+            upgradeBaseHealthPriceText.text = (price / 1000f).ToString("0") + "K";
+        }
+        else if (price >= 1000)
+        {
+            // Format for values below 100,000 with one decimal (e.g., 1.23K for 1,230)
+            upgradeBaseHealthPriceText.text = (price / 1000f).ToString("0.##") + "K";
+        }
+        else
+        {
+            // Display the value normally if below 1000
+            upgradeBaseHealthPriceText.text = price.ToString();
+        }
     }
 
     private void UpgradeSeedProductionRate()

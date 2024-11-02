@@ -50,7 +50,7 @@ MonoBehaviour:
     AttackRadius: 1.3
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinReward: 10
+    CoinReward: 100
   - UnitHero: 2
     UnitRangeType: 1
     UnitAttackType: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
     AttackRadius: 5
     ProjectileSpeed: 15
     AreaOfEffectRadius: 0
-    CoinReward: 15
+    CoinReward: 150
   - UnitHero: 3
     UnitRangeType: 2
     UnitAttackType: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
     AttackRadius: 8.5
     ProjectileSpeed: 2
     AreaOfEffectRadius: 0.7
-    CoinReward: 20
+    CoinReward: 200
   - UnitHero: 4
     UnitRangeType: 0
     UnitAttackType: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     AttackRadius: 0.6
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinReward: 20
+    CoinReward: 200
   - UnitHero: 5
     UnitRangeType: 1
     UnitAttackType: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
     AttackRadius: 3
     ProjectileSpeed: 12
     AreaOfEffectRadius: 0
-    CoinReward: 25
+    CoinReward: 250
   - UnitHero: 6
     UnitRangeType: 1
     UnitAttackType: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
     AttackRadius: 11
     ProjectileSpeed: 25
     AreaOfEffectRadius: 0
-    CoinReward: 40
+    CoinReward: 400
   - UnitHero: 7
     UnitRangeType: 0
     UnitAttackType: 1
@@ -146,7 +146,7 @@ MonoBehaviour:
     AttackRadius: 1
     ProjectileSpeed: 0
     AreaOfEffectRadius: 1.2
-    CoinReward: 50
+    CoinReward: 500
   - UnitHero: 8
     UnitRangeType: 0
     UnitAttackType: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
     AttackRadius: 2
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinReward: 50
+    CoinReward: 500
   - UnitHero: 9
     UnitRangeType: 0
     UnitAttackType: 0
@@ -178,4 +178,4 @@ MonoBehaviour:
     AttackRadius: 1
     ProjectileSpeed: 0
     AreaOfEffectRadius: 0
-    CoinReward: 10
+    CoinReward: 100

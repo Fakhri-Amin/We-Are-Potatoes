@@ -41,5 +41,5 @@ MonoBehaviour:
     - UnitType: 3
       Count: 3
   LevelMapType: 0
-  TotalCoinReward: 405
+  TotalCoinReward: 4050
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

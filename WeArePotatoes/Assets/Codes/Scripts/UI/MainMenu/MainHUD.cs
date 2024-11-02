@@ -171,8 +171,8 @@ public class MainHUD : Singleton<MainHUD>
         }
         else if (coin >= 1000)
         {
-            // Format for values below 100,000 with one decimal (e.g., 12.3K for 12,300)
-            goldCoinText.text = (coin / 1000f).ToString("0.#") + "K";
+            // Format for values below 100,000 with one decimal (e.g., 1.23K for 1,230)
+            goldCoinText.text = (coin / 1000f).ToString("0.##") + "K";
         }
         else
         {
@@ -195,8 +195,8 @@ public class MainHUD : Singleton<MainHUD>
         }
         else if (coin >= 1000)
         {
-            // Format for values below 100,000 with one decimal (e.g., 12.3K for 12,300)
-            azureCoinText.text = (coin / 1000f).ToString("0.#") + "K";
+            // Format for values below 100,000 with one decimal (e.g., 1.23K for 1,230)
+            azureCoinText.text = (coin / 1000f).ToString("0.##") + "K";
         }
         else
         {
