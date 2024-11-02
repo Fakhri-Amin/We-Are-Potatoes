@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using Farou.Utility;
 
-public class CoinEffectManager : MonoBehaviour
+public class CoinEffectManager : Singleton<CoinEffectManager>
 {
     [SerializeField] private Transform coinStartPosition;
     [SerializeField] private Transform goldCoinEndPosition;
@@ -27,12 +28,24 @@ public class CoinEffectManager : MonoBehaviour
 
         if (totalGoldCoinCollected > 0)
         {
-            StartCoroutine(SpawnCoins(CurrencyType.GoldCoin, totalGoldCoinCollected));
+            StartSpawnCoins(CurrencyType.GoldCoin, totalGoldCoinCollected);
         }
 
         if (totalAzureCoinCollected > 0)
         {
-            StartCoroutine(SpawnCoins(CurrencyType.AzureCoin, totalAzureCoinCollected));
+            StartSpawnCoins(CurrencyType.AzureCoin, totalAzureCoinCollected);
+        }
+    }
+
+    public void StartSpawnCoins(CurrencyType currencyType, float amount)
+    {
+        if (currencyType == CurrencyType.GoldCoin)
+        {
+            StartCoroutine(SpawnCoins(CurrencyType.GoldCoin, amount));
+        }
+        else
+        {
+            StartCoroutine(SpawnCoins(CurrencyType.AzureCoin, amount));
         }
     }
 

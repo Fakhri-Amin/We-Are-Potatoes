@@ -130,7 +130,7 @@ public class MainHUD : Singleton<MainHUD>
 
     private void Start()
     {
-        HandleCoinUpdate(GameDataManager.Instance.GoldCoin);
+        HandleGoldCoinUpdate(GameDataManager.Instance.GoldCoin);
         HandleAzureUpdate(GameDataManager.Instance.AzureCoin);
 
         if (GameDataManager.Instance.IsThereNewPotato)
@@ -147,17 +147,17 @@ public class MainHUD : Singleton<MainHUD>
 
     private void OnEnable()
     {
-        GameDataManager.Instance.OnGoldCoinUpdated += HandleCoinUpdate;
+        GameDataManager.Instance.OnGoldCoinUpdated += HandleGoldCoinUpdate;
         GameDataManager.Instance.OnAzureCoinUpdated += HandleAzureUpdate;
     }
 
     private void OnDisable()
     {
-        GameDataManager.Instance.OnGoldCoinUpdated -= HandleCoinUpdate;
+        GameDataManager.Instance.OnGoldCoinUpdated -= HandleGoldCoinUpdate;
         GameDataManager.Instance.OnAzureCoinUpdated -= HandleAzureUpdate;
     }
 
-    private void HandleCoinUpdate(float coin)
+    private void HandleGoldCoinUpdate(float coin)
     {
         if (coin >= 1000000)
         {

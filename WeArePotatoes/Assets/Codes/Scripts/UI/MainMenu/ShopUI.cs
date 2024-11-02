@@ -8,6 +8,7 @@ using Sirenix.OdinInspector;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using DG.Tweening;
+using Gley.EasyIAP;
 
 /// <summary>
 /// Handles the Shop UI interactions such as card purchases and currency transactions.
@@ -44,12 +45,16 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Transform currencyLayoutTransform;
     [Tooltip("Button to purchase a small amount of currency.")]
     [SerializeField] private Button smallCurrencyButton;
+    [SerializeField] private TMP_Text smallCurrencyText;
     [Tooltip("Button to purchase a medium amount of currency.")]
     [SerializeField] private Button mediumCurrencyButton;
+    [SerializeField] private TMP_Text mediumCurrencyText;
     [Tooltip("Button to purchase a large amount of currency.")]
     [SerializeField] private Button bigCurrencyButton;
+    [SerializeField] private TMP_Text bigCurrencyText;
     [Tooltip("Button to watch ads and receive currency.")]
     [SerializeField] private Button watchAdsCurrencyButton;
+    [SerializeField] private TMP_Text watchAdsCurrencyText;
 
     private void Awake()
     {
@@ -74,6 +79,14 @@ public class ShopUI : MonoBehaviour
 
         oneCardPriceText.text = shopDatabaseSO.OneCardPrice.ToString();
         tenCardsPriceText.text = shopDatabaseSO.TenCardsPrice.ToString();
+    }
+
+    public void RefreshUI()
+    {
+        smallCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.SmallAzure);
+        mediumCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.MediumAzure);
+        bigCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.BigAzure);
+        watchAdsCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.AdsAzure);
     }
 
     /// <summary>
@@ -145,6 +158,7 @@ public class ShopUI : MonoBehaviour
     {
         AudioManager.Instance.PlayClickFeedbacks();
         // Handle the purchase logic for small currency here
+        MonetizationManager.Instance.BuySmallAzure();
     }
 
     /// <summary>
@@ -154,6 +168,7 @@ public class ShopUI : MonoBehaviour
     {
         AudioManager.Instance.PlayClickFeedbacks();
         // Handle the purchase logic for medium currency here
+        MonetizationManager.Instance.BuyMediumAzure();
     }
 
     /// <summary>
@@ -163,6 +178,7 @@ public class ShopUI : MonoBehaviour
     {
         AudioManager.Instance.PlayClickFeedbacks();
         // Handle the purchase logic for big currency here
+        MonetizationManager.Instance.BuyBigAzure();
     }
 
     /// <summary>
@@ -173,10 +189,7 @@ public class ShopUI : MonoBehaviour
         AudioManager.Instance.PlayClickFeedbacks();
         // Handle the logic for watching ads and giving rewards here
 
-        MonetizationManager.Instance.ShowRewardedVideo(() =>
-        {
-
-        });
+        MonetizationManager.Instance.WatchAdsAzure();
     }
 
     /// <summary>
