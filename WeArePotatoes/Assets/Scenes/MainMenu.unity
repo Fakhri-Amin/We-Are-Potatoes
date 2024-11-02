@@ -922,9 +922,13 @@ MonoBehaviour:
   currencyButton: {fileID: 1354585205}
   currencyLayoutTransform: {fileID: 1465894045}
   smallCurrencyButton: {fileID: 12457076}
+  smallCurrencyText: {fileID: 1167279296}
   mediumCurrencyButton: {fileID: 958960140}
+  mediumCurrencyText: {fileID: 284771472}
   bigCurrencyButton: {fileID: 597503204}
+  bigCurrencyText: {fileID: 1337476799}
   watchAdsCurrencyButton: {fileID: 1117587165}
+  watchAdsCurrencyText: {fileID: 1500402376}
 --- !u!1 &47038981
 GameObject:
   m_ObjectHideFlags: 0
@@ -8788,7 +8792,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -37149,7 +37153,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -42796,7 +42800,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -45969,6 +45973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881ea1a61a450bd4e8ca9057c62ac8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopUI: {fileID: 37318898}
 --- !u!4 &1456675761
 Transform:
   m_ObjectHideFlags: 0
@@ -47544,7 +47549,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
