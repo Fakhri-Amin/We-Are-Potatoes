@@ -23,11 +23,18 @@ public class MonetizationManager : Singleton<MonetizationManager>
         }
     }
 
-    public void ShowRewardedVideo(Action action)
+    public void ShowRewardedVideo(Action onCompleted, Action onSkipped)
     {
         Gley.MobileAds.API.ShowRewardedVideo((bool completed) =>
         {
-            action?.Invoke();
+            if (completed)
+            {
+                onCompleted?.Invoke();
+            }
+            else
+            {
+                onSkipped?.Invoke();
+            }
         });
     }
 
@@ -36,6 +43,10 @@ public class MonetizationManager : Singleton<MonetizationManager>
         ShowRewardedVideo(() =>
         {
             CoinEffectManager.Instance.StartSpawnCoins(CurrencyType.AzureCoin, API.GetValue(ShopProductNames.AdsAzure));
+        },
+        () =>
+        {
+            FloatingTextObjectPool.Instance.DisplayAzureSkippedAds();
         });
     }
 

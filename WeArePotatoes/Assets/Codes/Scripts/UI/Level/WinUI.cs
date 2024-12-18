@@ -25,7 +25,6 @@ public class WinUI : MonoBehaviour
     [SerializeField] private Color azureCoinOutlineColor;
     [SerializeField] private Color azureCoinButtonColor;
 
-
     public void Show(CurrencyType currencyType, float coinCollectedAmount, Action onContinueButtonClicked)
     {
         AudioManager.Instance.PlayCoinFeedbacks();
@@ -38,14 +37,16 @@ public class WinUI : MonoBehaviour
 
         collectDoubleButton.onClick.AddListener(() =>
         {
-            Debug.Log("Clicked");
-
             AudioManager.Instance.PlayClickFeedbacks();
 
             MonetizationManager.Instance.ShowRewardedVideo(() =>
             {
                 GameDataManager.Instance.SetCoinCollectedDouble(currencyType);
                 onContinueButtonClicked?.Invoke();
+            },
+            () =>
+            {
+                FloatingTextObjectPool.Instance.DisplayDoubleRewardSkippedAds();
             });
         });
 

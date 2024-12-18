@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Linq;
+using Farou.Utility;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private GameAssetSO gameAssetSO;
     [SerializeField] private LevelWaveDatabaseSO levelWaveDatabaseSO;
@@ -39,8 +40,10 @@ public class LevelManager : MonoBehaviour
     public LevelWaveSO CurrentLevelWave => currentLevelWave;
     public BaseBuildingSO BaseBuildingSO => baseBuildingSO;
 
-    private void Awake()
+    public new void Awake()
     {
+        base.Awake();
+
         coinManager = GetComponent<CoinManager>();
         selectedLevelMap = GameDataManager.Instance.SelectedLevelMap;
         currentLevelWave = levelWaveDatabaseSO.MapLevelReferences.Find(i => i.MapType == selectedLevelMap.MapType)
@@ -115,7 +118,7 @@ public class LevelManager : MonoBehaviour
         winUI.Show(currencyType, coinManager.CoinCollected, OnWinUIContinue);
     }
 
-    private void OnWinUIContinue()
+    public void OnWinUIContinue()
     {
         rewardIndex = 0;
         ShowNextUnitReward();
@@ -171,7 +174,7 @@ public class LevelManager : MonoBehaviour
         inGameHUD.DOFade(0, 0.1f);
     }
 
-    private void LoadMainMenu()
+    public void LoadMainMenu()
     {
         loadMainMenuFeedbacks.PlayFeedbacks();
     }

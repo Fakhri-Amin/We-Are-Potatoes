@@ -55,6 +55,18 @@ public class FloatingTextObjectPool : Singleton<FloatingTextObjectPool>
         DisplayFloatingText(infoText);
     }
 
+    public void DisplayDoubleRewardSkippedAds()
+    {
+        string infoText = "Double reward skipped! Regular reward earned";
+        DisplayFloatingText(infoText);
+    }
+
+    public void DisplayAzureSkippedAds()
+    {
+        string infoText = "Ad skipped! No azure earned";
+        DisplayFloatingText(infoText);
+    }
+
     public void DisplayFloatingText(string text)
     {
         TMP_Text infoText = GetPooledObject();

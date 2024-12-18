@@ -36,14 +36,16 @@ public class LoseUI : MonoBehaviour
 
         collectDoubleButton.onClick.AddListener(() =>
         {
-            Debug.Log("Clicked");
-
             AudioManager.Instance.PlayClickFeedbacks();
 
             MonetizationManager.Instance.ShowRewardedVideo(() =>
             {
                 GameDataManager.Instance.SetCoinCollectedDouble(currencyType);
                 onContinueButtonClicked?.Invoke();
+            },
+            () =>
+            {
+                FloatingTextObjectPool.Instance.DisplayDoubleRewardSkippedAds();
             });
         });
 
