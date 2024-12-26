@@ -19,7 +19,7 @@ public class MonetizationManager : Singleton<MonetizationManager>
     {
         if (status == IAPOperationStatus.Success)
         {
-            shopUI?.RefreshUI();
+            shopUI?.RefreshPriceUI();
         }
     }
 

@@ -41,7 +41,6 @@ public class CardUI : MonoBehaviour
             cardSlotUI.Initialize(item, cardLevelConfig, cardSprite, () =>
             {
                 cardDetailInfoUI.Select(this, item, cardLevelConfig, cardSprite);
-                AudioManager.Instance.PlayClickFeedbacks();
             });
         }
     }

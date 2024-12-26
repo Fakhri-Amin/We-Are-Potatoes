@@ -79,14 +79,15 @@ public class ShopUI : MonoBehaviour
 
         oneCardPriceText.text = shopDatabaseSO.OneCardPrice.ToString();
         tenCardsPriceText.text = shopDatabaseSO.TenCardsPrice.ToString();
+
+        RefreshPriceUI();
     }
 
-    public void RefreshUI()
+    public void RefreshPriceUI()
     {
         smallCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.SmallAzure);
         mediumCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.MediumAzure);
         bigCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.BigAzure);
-        watchAdsCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.AdsAzure);
     }
 
     /// <summary>
