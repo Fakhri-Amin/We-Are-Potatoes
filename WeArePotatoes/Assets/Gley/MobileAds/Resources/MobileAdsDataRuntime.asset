@@ -20,7 +20,7 @@ MonoBehaviour:
       platform: 0
       enabled: 1
       appId:
-        id: 5722280
+        id: 5776898
         displayName: Game ID
         required: 1
       idBanner:

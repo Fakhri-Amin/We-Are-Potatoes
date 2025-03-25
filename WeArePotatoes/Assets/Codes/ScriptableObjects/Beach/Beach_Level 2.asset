@@ -32,12 +32,12 @@ MonoBehaviour:
       Count: 1
   - WaveHeroDatas:
     - UnitType: 2
-      Count: 2
+      Count: 1
   - WaveHeroDatas:
     - UnitType: 1
       Count: 2
     - UnitType: 2
-      Count: 2
+      Count: 1
   LevelMapType: 1
-  TotalCoinReward: 1400
+  TotalCoinReward: 1100
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

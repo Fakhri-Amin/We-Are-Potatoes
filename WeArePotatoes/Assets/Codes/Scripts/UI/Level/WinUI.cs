@@ -33,7 +33,7 @@ public class WinUI : MonoBehaviour
         popup.gameObject.SetActive(true);
         popup.DOFade(1, 0.1f);
 
-        coinCollectedText.text = "+" + coinCollectedAmount;
+        coinCollectedText.text = coinCollectedAmount.ToString();
 
         collectDoubleButton.onClick.AddListener(() =>
         {
@@ -47,6 +47,12 @@ public class WinUI : MonoBehaviour
             () =>
             {
                 FloatingTextObjectPool.Instance.DisplayDoubleRewardSkippedAds();
+                onContinueButtonClicked?.Invoke();
+            },
+            () =>
+            {
+                FloatingTextObjectPool.Instance.DisplayDoubleRewardSkippedAds();
+                onContinueButtonClicked?.Invoke();
             });
         });
 

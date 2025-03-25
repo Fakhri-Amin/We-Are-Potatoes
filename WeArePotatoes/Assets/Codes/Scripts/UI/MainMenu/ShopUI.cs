@@ -80,14 +80,23 @@ public class ShopUI : MonoBehaviour
         oneCardPriceText.text = shopDatabaseSO.OneCardPrice.ToString();
         tenCardsPriceText.text = shopDatabaseSO.TenCardsPrice.ToString();
 
+        if (!MonetizationManager.Instance.IsIAPInitialized()) return;
+
         RefreshPriceUI();
     }
 
     public void RefreshPriceUI()
     {
-        smallCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.SmallAzure);
-        mediumCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.MediumAzure);
-        bigCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.BigAzure);
+        if (MonetizationManager.Instance.IsIAPInitialized()) // Check if IAP is initialized
+        {
+            smallCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.SmallAzure);
+            mediumCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.MediumAzure);
+            bigCurrencyText.text = Gley.EasyIAP.API.GetLocalizedPriceString(ShopProductNames.BigAzure);
+        }
+        else
+        {
+            Debug.LogWarning("IAP is not initialized yet.");
+        }
     }
 
     /// <summary>

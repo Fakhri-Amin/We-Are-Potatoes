@@ -120,7 +120,11 @@ public class MainHUD : Singleton<MainHUD>
             AudioManager.Instance.PlayClickFeedbacks();
             CloseLevelSelectionMenu();
         });
-        quitButton.onClick.AddListener(QuitGame);
+        quitButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClickFeedbacks();
+            QuitGame();
+        });
         settingButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClickFeedbacks();

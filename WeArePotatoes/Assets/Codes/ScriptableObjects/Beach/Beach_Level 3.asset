@@ -35,7 +35,7 @@ MonoBehaviour:
       Count: 2
   - WaveHeroDatas:
     - UnitType: 2
-      Count: 4
+      Count: 3
   LevelMapType: 2
-  TotalCoinReward: 1500
+  TotalCoinReward: 1350
   UnitDataSO: {fileID: 11400000, guid: 2b7253e49d1220f469c62f8fe9eba376, type: 2}

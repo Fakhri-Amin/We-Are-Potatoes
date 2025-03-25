@@ -9,34 +9,56 @@ public class MonetizationManager : Singleton<MonetizationManager>
 {
     [SerializeField] private ShopUI shopUI;
 
-    private void Start()
+    private bool isIAPInitialized = false; // Flag to check initialization
+
+    public new void Awake()
     {
+        base.Awake();
+
         Gley.MobileAds.API.Initialize();
-        Gley.EasyIAP.API.Initialize(InitializeComplete);
+        API.Initialize(InitializeComplete);
     }
 
     private void InitializeComplete(IAPOperationStatus status, string message, List<StoreProduct> shopProducts)
     {
         if (status == IAPOperationStatus.Success)
         {
-            shopUI?.RefreshPriceUI();
+            isIAPInitialized = true;
+            shopUI.RefreshPriceUI();
+        }
+        else
+        {
+            Debug.LogError("IAP Initialization failed: " + message);
         }
     }
 
-    public void ShowRewardedVideo(Action onCompleted, Action onSkipped)
+    public void ShowRewardedVideo(Action onCompleted, Action onSkipped, Action onFailed = null)
     {
-        Gley.MobileAds.API.ShowRewardedVideo((bool completed) =>
+        if (Gley.MobileAds.API.IsRewardedVideoAvailable()) // Check if ad is ready
         {
-            if (completed)
+            Gley.MobileAds.API.ShowRewardedVideo((bool completed) =>
             {
-                onCompleted?.Invoke();
-            }
-            else
-            {
-                onSkipped?.Invoke();
-            }
-        });
+                if (completed)
+                {
+                    onCompleted?.Invoke();
+                }
+                else
+                {
+                    onSkipped?.Invoke();
+                }
+            });
+        }
+        else
+        {
+            onFailed?.Invoke(); // Handle failure case
+        }
     }
+
+    public bool IsIAPInitialized()
+    {
+        return isIAPInitialized;
+    }
+
 
     public void WatchAdsAzure()
     {
